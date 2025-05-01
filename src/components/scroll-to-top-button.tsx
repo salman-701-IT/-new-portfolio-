@@ -1,27 +1,34 @@
+
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Button } from '@/components/ui/button';
 import { ArrowUp } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 export default function ScrollToTopButton() {
   const [isVisible, setIsVisible] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
 
-  const toggleVisibility = () => {
-    // Avoid accessing window during SSR
-    if (typeof window !== 'undefined') {
+  // Set mounted state after component mounts
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  const toggleVisibility = useCallback(() => {
+    // Only access window if mounted (client-side)
+    if (isMounted && typeof window !== 'undefined') {
       if (window.pageYOffset > 300) {
         setIsVisible(true);
       } else {
         setIsVisible(false);
       }
     }
-  };
+  }, [isMounted]); // Depend on isMounted
 
   const scrollToTop = () => {
-     // Avoid accessing window during SSR
-     if (typeof window !== 'undefined') {
+     // Only access window if mounted (client-side)
+     if (isMounted && typeof window !== 'undefined') {
         window.scrollTo({
             top: 0,
             behavior: 'smooth',
@@ -30,14 +37,21 @@ export default function ScrollToTopButton() {
   };
 
   useEffect(() => {
-     // Avoid accessing window during SSR
-     if (typeof window !== 'undefined') {
+     // Ensure event listener is added only on the client-side after mount
+     if (isMounted && typeof window !== 'undefined') {
         window.addEventListener('scroll', toggleVisibility);
+        // Initial check in case the page is already scrolled down
+        toggleVisibility();
         return () => {
             window.removeEventListener('scroll', toggleVisibility);
         };
      }
-  }, []);
+  }, [isMounted, toggleVisibility]); // Depend on isMounted and toggleVisibility
+
+  // Don't render the button until mounted to avoid hydration issues with visibility state
+  if (!isMounted) {
+      return null;
+  }
 
   return (
     <Button

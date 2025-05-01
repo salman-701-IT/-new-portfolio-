@@ -1,8 +1,9 @@
+
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import { Instagram, Linkedin, Github } from 'lucide-react';
+import { Instagram, Linkedin, Github, Mail } from 'lucide-react'; // Import Mail from lucide-react
 import SectionContainer from '../section-container';
 
 const socialLinks = [
@@ -15,7 +16,13 @@ const mailtoLink = 'mailto:salmankhan701.it@email.com';
 
 
 export function Footer() {
-   const currentYear = new Date().getFullYear();
+   const [currentYear, setCurrentYear] = useState<number | null>(null);
+
+   useEffect(() => {
+     // Get year only on client-side after mount to avoid hydration mismatch
+     setCurrentYear(new Date().getFullYear());
+   }, []);
+
   return (
     <SectionContainer as="footer" className="py-8 border-t border-border/10 mt-12">
       <div className="container mx-auto flex flex-col md:flex-row justify-between items-center text-center md:text-left">
@@ -35,29 +42,10 @@ export function Footer() {
             </Button>
         </div>
         <p className="text-sm text-muted-foreground">
-          © {currentYear} Salman Khan. All rights reserved.
+          {/* Render year only when available */}
+          {currentYear && `© ${currentYear} Salman Khan. All rights reserved.`}
         </p>
       </div>
     </SectionContainer>
   );
 }
-
-// Helper Mail icon component if not imported from lucide
-const Mail = (props: React.SVGProps<SVGSVGElement>) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    {...props}
-  >
-    <rect width="20" height="16" x="2" y="4" rx="2" />
-    <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
-  </svg>
-);
-

@@ -1,3 +1,4 @@
+
 'use client';
 
 import React, { useRef, useMemo, useEffect, useState } from 'react';
@@ -8,21 +9,25 @@ function Particles({ count = 5000 }) {
   const mesh = useRef<THREE.Points>(null!);
   const light = useRef<THREE.PointLight>(null!);
 
-  // Prevent hydration mismatch for Math.random
+  // State to hold particle positions, initialized client-side to avoid hydration mismatch
   const [positions, setPositions] = useState<Float32Array | null>(null);
+
   useEffect(() => {
+    // Generate particle positions only on the client-side after mount
     const particlesPosition = new Float32Array(count * 3);
     const distance = 20;
     for (let i = 0; i < count; i++) {
       const theta = THREE.MathUtils.randFloatSpread(360);
       const phi = THREE.MathUtils.randFloatSpread(360);
-      particlesPosition[i * 3] = distance * Math.sin(theta) * Math.cos(phi);
-      particlesPosition[i * 3 + 1] = distance * Math.sin(theta) * Math.sin(phi);
-      particlesPosition[i * 3 + 2] = distance * Math.cos(theta);
+      const x = distance * Math.sin(theta) * Math.cos(phi);
+      const y = distance * Math.sin(theta) * Math.sin(phi);
+      const z = distance * Math.cos(theta);
+      particlesPosition[i * 3] = x;
+      particlesPosition[i * 3 + 1] = y;
+      particlesPosition[i * 3 + 2] = z;
     }
     setPositions(particlesPosition);
-  }, [count]);
-
+  }, [count]); // Dependency array ensures this runs once on mount or when count changes
 
   useFrame((state) => {
     const { clock } = state;
@@ -36,7 +41,8 @@ function Particles({ count = 5000 }) {
     }
   });
 
-  if (!positions) return null; // Don't render until positions are generated client-side
+  // Don't render the points until the positions are generated on the client
+  if (!positions) return null;
 
   return (
     <>
@@ -55,7 +61,7 @@ function Particles({ count = 5000 }) {
           size={0.02}
           color={'hsl(var(--primary))'}
           sizeAttenuation
-          transparent={false} // Keep particles opaque for better performance maybe?
+          transparent={false} // Keep particles opaque for potential performance boost
           alphaTest={0.5}
           opacity={0.8}
           depthWrite={false} // Disable depth writing for blending effect
