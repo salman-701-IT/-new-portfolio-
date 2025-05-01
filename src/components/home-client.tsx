@@ -8,15 +8,16 @@ import { ContactSection } from '@/components/sections/contact-section';
 import { Footer } from '@/components/sections/footer';
 import ScrollToTopButton from '@/components/scroll-to-top-button';
 import { Skeleton } from '@/components/ui/skeleton'; // Import Skeleton for loading state
+import { HeroSection } from '@/components/sections/hero-section';
 
 // Dynamically import HeroSection with ssr: false now inside a Client Component
-const HeroSection = dynamic(
+/*const HeroSection = dynamic(
   () => import('@/components/sections/hero-section').then((mod) => mod.HeroSection),
   {
     ssr: false,
     loading: () => <Skeleton className="h-screen w-full" />, // Optional: Add a loading state
   }
-);
+);*/
 
 export default function HomeClient() {
   return (
