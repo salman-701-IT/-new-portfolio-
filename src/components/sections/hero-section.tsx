@@ -19,6 +19,13 @@ const ParticleBackground = dynamic(
   }
 );
 
+
+import { Canvas } from '@react-three/fiber';
+import { Text3D, Center, OrbitControls } from '@react-three/drei';
+import { useSpring, animated } from '@react-spring/three';
+import * as THREE from 'three';
+
+
 const AnimatedText3D = animated(Text3D);
 
 function RotatingText() {
@@ -58,11 +65,6 @@ function RotatingText() {
     </AnimatedText3D>
   );
 }
-
-import { Canvas } from '@react-three/fiber';
-import { Text3D, Center, OrbitControls } from '@react-three/drei';
-import { useSpring, animated } from '@react-spring/three';
-import * as THREE from 'three';
 
 
 function ThreeDText() {
