@@ -9,11 +9,6 @@ import SectionContainer from '../section-container';
 import { useInView } from 'react-intersection-observer';
 import { Skeleton } from '@/components/ui/skeleton'; // Import Skeleton for loading state
 
-import { Canvas } from '@react-three/fiber';
-import { Text3D, Center, OrbitControls } from '@react-three/drei';
-import { useSpring, animated } from '@react-spring/three';
-import * as THREE from 'three';
-
 
 // Dynamically import ParticleBackground with ssr: false
 const ParticleBackground = dynamic(
@@ -64,6 +59,12 @@ function RotatingText() {
   );
 }
 
+import { Canvas } from '@react-three/fiber';
+import { Text3D, Center, OrbitControls } from '@react-three/drei';
+import { useSpring, animated } from '@react-spring/three';
+import * as THREE from 'three';
+
+
 function ThreeDText() {
   return (
     <div className="h-64 w-full mb-8">
@@ -83,7 +84,7 @@ function ThreeDText() {
   );
 }
 
-export function HeroSection() {
+function HeroSectionComponent() {
   const { ref, inView } = useInView({
     triggerOnce: true,
     threshold: 0.1,
@@ -133,4 +134,5 @@ export function HeroSection() {
 }
 
 // Add default export if this is the only export and dynamic import expects it
-export default HeroSection;
+export default HeroSectionComponent;
+export const HeroSection = HeroSectionComponent;
