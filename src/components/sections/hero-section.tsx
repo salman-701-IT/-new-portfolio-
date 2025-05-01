@@ -1,10 +1,10 @@
+
 'use client';
 
 import React, { useState, useEffect, Suspense } from 'react';
 import dynamic from 'next/dynamic';
 import { Button } from '@/components/ui/button';
 import { TypeAnimation } from 'react-type-animation';
-// import ParticleBackground from '../particle-background'; // Import dynamically instead
 import SectionContainer from '../section-container';
 import { useInView } from 'react-intersection-observer';
 import { Skeleton } from '@/components/ui/skeleton'; // Import Skeleton for loading state
@@ -20,6 +20,7 @@ const ParticleBackground = dynamic(
 
 // Create a separate client component for the 3D text
 function ThreeDTextClient() {
+  // Move imports requiring client-side environment inside the component
   const { Canvas } = require('@react-three/fiber');
   const { Text3D, Center, OrbitControls } = require('@react-three/drei');
   const { useSpring, animated } = require('@react-spring/three');
@@ -67,18 +68,22 @@ function ThreeDTextClient() {
 
   return (
     <div className="h-64 w-full mb-8">
-      <Canvas camera={{ position: [0, 0, 8], fov: 50 }}>
-        <ambientLight intensity={0.5} />
-        <pointLight position={[10, 10, 10]} intensity={1} />
-        {/* Suspense is needed for components inside Canvas that might suspend */}
-        <Suspense fallback={<Skeleton className="w-32 h-16 mx-auto" />}>
-          <Center>
-            <RotatingText />
-          </Center>
-        </Suspense>
-        {/* Add OrbitControls if you want users to interact with the 3D text */}
-        {/* <OrbitControls enableZoom={false} enablePan={false} autoRotate autoRotateSpeed={0.5} /> */}
-      </Canvas>
+      {/* Only render Canvas on client after mount */}
+      {typeof window !== 'undefined' && (
+        <Canvas camera={{ position: [0, 0, 8], fov: 50 }}>
+          <ambientLight intensity={0.5} />
+          <pointLight position={[10, 10, 10]} intensity={1} />
+          {/* Suspense is needed for components inside Canvas that might suspend */}
+          <Suspense fallback={<Skeleton className="w-32 h-16 mx-auto" />}>
+            <Center>
+              <RotatingText />
+            </Center>
+          </Suspense>
+          {/* Add OrbitControls if you want users to interact with the 3D text */}
+          {/* <OrbitControls enableZoom={false} enablePan={false} autoRotate autoRotateSpeed={0.5} /> */}
+        </Canvas>
+       )}
+       {typeof window === 'undefined' && <Skeleton className="h-64 w-full" />} {/* Placeholder during SSR */}
     </div>
   );
 }
@@ -141,3 +146,4 @@ function HeroSectionComponent() {
 // Add default export if this is the only export and dynamic import expects it
 export default HeroSectionComponent;
 export const HeroSection = HeroSectionComponent;
+
