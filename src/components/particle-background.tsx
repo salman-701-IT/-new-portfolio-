@@ -1,7 +1,7 @@
 
 'use client';
 
-import React, { useRef, useMemo, useEffect, useState } from 'react';
+import React, { useRef, useMemo, useEffect, useState, Suspense } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 
@@ -72,12 +72,32 @@ function Particles({ count = 5000 }) {
   );
 }
 
-export default function ParticleBackground() {
+// Define props for ParticleBackground to accept a loading component
+interface ParticleBackgroundProps {
+  loading?: React.ReactNode;
+}
+
+export default function ParticleBackground({ loading }: ParticleBackgroundProps) {
+   const [isMounted, setIsMounted] = useState(false);
+
+   useEffect(() => {
+     // Component did mount on client
+     setIsMounted(true);
+   }, []);
+
+   // Render loading state or null until mounted on the client
+   if (!isMounted) {
+     return loading || <div className="absolute inset-0 -z-10" />;
+   }
+
+  // Render Canvas only after client-side mount
   return (
     <div className="absolute inset-0 -z-10">
-      <Canvas camera={{ position: [0, 0, 1] }}>
-        <Particles />
-      </Canvas>
+       <Canvas camera={{ position: [0, 0, 1] }}>
+          <Suspense fallback={null}>
+            <Particles />
+          </Suspense>
+       </Canvas>
     </div>
   );
 }

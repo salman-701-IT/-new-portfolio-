@@ -1,3 +1,4 @@
+
 'use client';
 import React, { Suspense } from 'react';
 import dynamic from 'next/dynamic';
@@ -8,15 +9,18 @@ import { useInView } from 'react-intersection-observer';
 import { Skeleton } from '@/components/ui/skeleton'; // Import Skeleton for loading state
 
 // Dynamically import the 3D Text Component
-const ThreeDText = dynamic(() => import('../ThreeDTextClient'), {
+const ThreeDText = dynamic(() => import('@/components/ThreeDTextClient'), {
   ssr: false,
   loading: () => <Skeleton className="h-64 w-full mb-8" />,
 });
 
+// Define a loading component for the particle background
+const ParticleBackgroundLoading = () => <div className="absolute inset-0 -z-10" />;
+
 // Dynamically import the Particle Background Component
 const ParticleBackground = dynamic(() => import('../particle-background'), {
     ssr: false,
-    loading: () => <div className="absolute inset-0 -z-10" />, // Simple div or null during load
+    loading: ParticleBackgroundLoading, // Use the defined loading component
 });
 
 
@@ -29,10 +33,8 @@ function HeroSectionComponent() {
       id="hero"
       className="relative min-h-screen flex flex-col items-center justify-center text-center overflow-hidden"
     >
-      {/* Wrap ParticleBackground in Suspense if needed, or rely on its internal loading */}
-      <Suspense fallback={<div className="absolute inset-0 -z-10" />}>
-        <ParticleBackground />
-      </Suspense>
+      {/* Pass the loading component as a prop */}
+      <ParticleBackground loading={<ParticleBackgroundLoading />} />
 
 
       <div
@@ -77,4 +79,3 @@ function HeroSectionComponent() {
   );
 }
 export const HeroSection = HeroSectionComponent;
-// export default HeroSectionComponent; // Removed default export as it's named export now
