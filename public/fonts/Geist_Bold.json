@@ -1,0 +1,17 @@
+{
+  "glyphs": {},
+  "familyName": "Geist",
+  "styleName": "Bold",
+  "resolution": 1000,
+  "boundingBox": {
+    "yMin": -1,
+    "yMax": 1,
+    "xMin": -1,
+    "xMax": 1
+  },
+  "underlineThickness": 50,
+  "underlinePosition": -100,
+  "ascender": 800,
+  "descender": -200,
+  "original_font_information": "Placeholder for font data. Convert Geist-Bold.otf/ttf to JSON using tools like https://gero.github.io/facetype.js/"
+}
