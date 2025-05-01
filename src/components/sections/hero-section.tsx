@@ -129,3 +129,4 @@ export function HeroSection() {
 // Add default export if this is the only export and dynamic import expects it
 export default HeroSection;
 
+
