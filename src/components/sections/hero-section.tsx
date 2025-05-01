@@ -1,3 +1,4 @@
+
 'use client';
 
 import React, { useState, useEffect, Suspense } from 'react';
@@ -8,6 +9,10 @@ import { TypeAnimation } from 'react-type-animation';
 import SectionContainer from '../section-container';
 import { useInView } from 'react-intersection-observer';
 import { Skeleton } from '@/components/ui/skeleton'; // Import Skeleton for loading state
+import { Canvas } from '@react-three/fiber';
+import { Text3D, Center, OrbitControls } from '@react-three/drei';
+import { useSpring, animated } from '@react-spring/three';
+import * as THREE from 'three';
 
 
 // Dynamically import ParticleBackground with ssr: false
@@ -18,12 +23,6 @@ const ParticleBackground = dynamic(
     loading: () => <div className="absolute inset-0 -z-10 bg-background" />, // Simple background fallback
   }
 );
-
-
-import { Canvas } from '@react-three/fiber';
-import { Text3D, Center, OrbitControls } from '@react-three/drei';
-import { useSpring, animated } from '@react-spring/three';
-import * as THREE from 'three';
 
 
 const AnimatedText3D = animated(Text3D);
