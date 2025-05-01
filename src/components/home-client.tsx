@@ -12,7 +12,7 @@ import React, { Suspense } from 'react';
 
 // Dynamically import HeroSection with ssr: false now inside a Client Component
 const HeroSection = dynamic(
-  () => import('@/components/sections/hero-section').then((mod) => mod.HeroSection),
+  () => import('@/components/sections/hero-section').then((mod) => mod.HeroSection), // Use named export
   {
     ssr: false,
     loading: () => <Skeleton className="h-screen w-full" />, // Optional: Add a loading state
@@ -34,4 +34,3 @@ export default function HomeClient() {
     </div>
   );
 }
-
