@@ -63,8 +63,8 @@ function RotatingText() {
   );
 }
 
-
-function ThreeDText() {
+// Create a separate client component for the 3D text
+function ThreeDTextClient() {
   return (
     <div className="h-64 w-full mb-8">
       <Canvas camera={{ position: [0, 0, 8], fov: 50 }}>
@@ -82,6 +82,12 @@ function ThreeDText() {
     </div>
   );
 }
+
+// Use dynamic import to load the ThreeDTextClient component on the client side only
+const ThreeDText = dynamic(() => Promise.resolve(ThreeDTextClient), {
+  ssr: false,
+  loading: () => <Skeleton className="h-64 w-full mb-8" />,
+});
 
 function HeroSectionComponent() {
   const { ref, inView } = useInView({
