@@ -18,53 +18,53 @@ const ParticleBackground = dynamic(
   }
 );
 
-import { Canvas } from '@react-three/fiber';
-import { Text3D, Center, OrbitControls } from '@react-three/drei';
-import { useSpring, animated } from '@react-spring/three';
-import * as THREE from 'three';
-
-const AnimatedText3D = animated(Text3D);
-
-function RotatingText() {
-  const [hovered, setHovered] = useState(false);
-  const { rotation } = useSpring({
-    rotation: hovered ? [0, Math.PI * 2, 0] : [0, 0, 0],
-    config: { mass: 5, tension: 400, friction: 50 },
-  });
-
-  // Prevent hydration mismatch by delaying font loading until client-side
-  const [fontLoaded, setFontLoaded] = useState(false);
-  useEffect(() => {
-    setFontLoaded(true); // Assume font is available or handle actual loading if needed
-  }, []);
-
-  if (!fontLoaded) {
-    return null; // Or a loading state
-  }
-
-  return (
-    <AnimatedText3D
-      font="/fonts/Geist_Bold.json" // Ensure this font path is correct in public/fonts
-      size={1}
-      height={0.2}
-      curveSegments={12}
-      bevelEnabled
-      bevelThickness={0.02}
-      bevelSize={0.02}
-      bevelOffset={0}
-      bevelSegments={5}
-      rotation={rotation}
-      onPointerOver={() => setHovered(true)}
-      onPointerOut={() => setHovered(false)}
-    >
-      {`Salman Khan`}
-      <meshStandardMaterial color={'hsl(var(--accent))'} emissive={'hsl(var(--accent))'} emissiveIntensity={0.5} metalness={0.8} roughness={0.2} />
-    </AnimatedText3D>
-  );
-}
-
 // Create a separate client component for the 3D text
 function ThreeDTextClient() {
+  const { Canvas } = require('@react-three/fiber');
+  const { Text3D, Center, OrbitControls } = require('@react-three/drei');
+  const { useSpring, animated } = require('@react-spring/three');
+  const THREE = require('three');
+
+  const AnimatedText3D = animated(Text3D);
+
+  function RotatingText() {
+    const [hovered, setHovered] = useState(false);
+    const { rotation } = useSpring({
+      rotation: hovered ? [0, Math.PI * 2, 0] : [0, 0, 0],
+      config: { mass: 5, tension: 400, friction: 50 },
+    });
+
+    // Prevent hydration mismatch by delaying font loading until client-side
+    const [fontLoaded, setFontLoaded] = useState(false);
+    useEffect(() => {
+      setFontLoaded(true); // Assume font is available or handle actual loading if needed
+    }, []);
+
+    if (!fontLoaded) {
+      return null; // Or a loading state
+    }
+
+    return (
+      <AnimatedText3D
+        font="/fonts/Geist_Bold.json" // Ensure this font path is correct in public/fonts
+        size={1}
+        height={0.2}
+        curveSegments={12}
+        bevelEnabled
+        bevelThickness={0.02}
+        bevelSize={0.02}
+        bevelOffset={0}
+        bevelSegments={5}
+        rotation={rotation}
+        onPointerOver={() => setHovered(true)}
+        onPointerOut={() => setHovered(false)}
+      >
+        {`Salman Khan`}
+        <meshStandardMaterial color={'hsl(var(--accent))'} emissive={'hsl(var(--accent))'} emissiveIntensity={0.5} metalness={0.8} roughness={0.2} />
+      </AnimatedText3D>
+    );
+  }
+
   return (
     <div className="h-64 w-full mb-8">
       <Canvas camera={{ position: [0, 0, 8], fov: 50 }}>
