@@ -8,6 +8,7 @@ import { TypeAnimation } from 'react-type-animation';
 import SectionContainer from '../section-container';
 import { useInView } from 'react-intersection-observer';
 import { Skeleton } from '@/components/ui/skeleton'; // Import Skeleton for loading state
+
 import { Canvas } from '@react-three/fiber';
 import { Text3D, Center, OrbitControls } from '@react-three/drei';
 import { useSpring, animated } from '@react-spring/three';
