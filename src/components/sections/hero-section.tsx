@@ -14,28 +14,20 @@ const ThreeDText = dynamic(() => import('@/components/ThreeDTextClient'), {
   loading: () => <Skeleton className="h-64 w-full mb-8" />,
 });
 
-// Define a loading component for the particle background
-const ParticleBackgroundLoading = () => <div className="absolute inset-0 -z-10" />;
-
-// Dynamically import the Particle Background Component
-const ParticleBackground = dynamic(() => import('../particle-background'), {
-    ssr: false,
-    loading: ParticleBackgroundLoading, // Use the defined loading component
-});
+// ParticleBackground will be imported and rendered in home-client.tsx
 
 
 function HeroSectionComponent() {
   const { ref, inView } = useInView({
     threshold: 0.2,
+    triggerOnce: true, // Trigger animation only once
   });
   return (
     <SectionContainer
       id="hero"
+      // Keep relative positioning for content, but ParticleBackground will be handled elsewhere
       className="relative min-h-screen flex flex-col items-center justify-center text-center overflow-hidden"
     >
-      {/* Pass the loading component as a prop */}
-      <ParticleBackground loading={<ParticleBackgroundLoading />} />
-
 
       <div
       ref={ref}
@@ -78,4 +70,4 @@ function HeroSectionComponent() {
     </SectionContainer>
   );
 }
-export const HeroSection = HeroSectionComponent;
+export  const HeroSection = HeroSectionComponent;

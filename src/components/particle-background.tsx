@@ -1,7 +1,7 @@
 
 'use client';
 
-import React, { useRef, useMemo, useEffect, useState, Suspense } from 'react';
+import React, { useRef, useEffect, useState, useMemo } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 
@@ -61,43 +61,24 @@ function Particles({ count = 5000 }) {
           size={0.02}
           color={'hsl(var(--primary))'}
           sizeAttenuation
-          transparent={false} // Keep particles opaque for potential performance boost
+          transparent={true} // Keep particles opaque for potential performance boost
           alphaTest={0.5}
-          opacity={0.8}
+          opacity={0.9}
           depthWrite={false} // Disable depth writing for blending effect
-           blending={THREE.AdditiveBlending} // Use AdditiveBlending for glow effect
+          blending={THREE.AdditiveBlending} // Use AdditiveBlending for glow effect
         />
       </points>
     </>
   );
 }
 
-// Define props for ParticleBackground to accept a loading component
-interface ParticleBackgroundProps {
-  loading?: React.ReactNode;
-}
-
-export default function ParticleBackground({ loading }: ParticleBackgroundProps) {
-   const [isMounted, setIsMounted] = useState(false);
-
-   useEffect(() => {
-     // Component did mount on client
-     setIsMounted(true);
-   }, []);
-
-   // Render loading state or null until mounted on the client
-   if (!isMounted) {
-     return loading || <div className="absolute inset-0 -z-10" />;
-   }
-
-  // Render Canvas only after client-side mount
+export default function ParticleBackground() {
+  // The Canvas should take up the full container it's placed in
   return (
-    <div className="absolute inset-0 -z-10">
-       <Canvas camera={{ position: [0, 0, 1] }}>
-          <Suspense fallback={null}>
-            <Particles />
-          </Suspense>
-       </Canvas>
-    </div>
+    <Canvas camera={{ position: [0, 0, 1] }} style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}>
+      <fog attach="fog" args={['#030712', 10, 20]} />
+      {/* Suspense is handled by the dynamic import in home-client.tsx */}
+      <Particles />
+    </Canvas>
   );
 }
