@@ -1,7 +1,7 @@
 'use client';
 
 import dynamic from 'next/dynamic';
-import React, { Suspense } from 'react';
+import React from 'react';
 import { Skeleton } from '@/components/ui/skeleton'; // Import Skeleton for loading state
 import { AboutSection } from '@/components/sections/about-section';
 import { SkillsSection } from '@/components/sections/skills-section';
@@ -10,11 +10,11 @@ import { ContactSection } from '@/components/sections/contact-section';
 import { Footer } from '@/components/sections/footer';
 import ScrollToTopButton from '@/components/scroll-to-top-button';
 
-// Dynamically import HeroSection with ssr: false (already handled inside the component)
+// Dynamically import HeroSection with ssr: false (if needed, handled inside)
 const HeroSection = dynamic(
   () => import('@/components/sections/hero-section').then((mod) => mod.HeroSection),
   {
-    ssr: false, // Keep ssr: false here for the dynamic import itself
+    ssr: false, // Ensure HeroSection logic runs client-side if it uses client hooks/APIs
     loading: () => <Skeleton className="h-screen w-full" />,
   }
 );
@@ -24,7 +24,7 @@ const HeroSection = dynamic(
 export default function HomeClient() {
   return (
     <div className="relative flex flex-col min-h-screen bg-gradient-to-br from-background via-background to-indigo-950/30 overflow-hidden">
-      {/* Removed ParticleBackground component */}
+      {/* Removed ParticleBackground component rendering */}
 
       {/* Render other sections normally */}
       {/* Suspense for HeroSection is handled by its dynamic import */}
