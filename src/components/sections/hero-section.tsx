@@ -1,20 +1,15 @@
 'use client';
-import React, { Suspense } from 'react';
+import React from 'react';
 import dynamic from 'next/dynamic';
 import { Button } from '@/components/ui/button';
 import { TypeAnimation } from 'react-type-animation';
 import SectionContainer from '../section-container';
 import { useInView } from 'react-intersection-observer';
-import { Skeleton } from '@/components/ui/skeleton'; // Import Skeleton for loading state
-// Removed direct import of Canvas from @react-three/fiber
+import { Skeleton } from '@/components/ui/skeleton'; // Keep Skeleton for HeroSection loading state if needed elsewhere
 
-// Dynamically import the 3D Text Component
-const ThreeDText = dynamic(() => import('@/components/ThreeDTextClient'), {
-  ssr: false,
-  loading: () => <Skeleton className="h-64 w-full mb-8" />,
-});
+// Removed dynamic import of ThreeDTextClient
 
-// ParticleBackground is dynamically imported in home-client.tsx
+// Ensure ParticleBackground is dynamically imported in home-client.tsx if still needed conceptually, but it won't render anything.
 
 function HeroSectionComponent() {
   const { ref, inView } = useInView({
@@ -24,7 +19,7 @@ function HeroSectionComponent() {
   return (
     <SectionContainer
       id="hero"
-      // Keep relative positioning for content, but ParticleBackground will be handled elsewhere
+      // Keep relative positioning for content
       className="relative min-h-screen flex flex-col items-center justify-center text-center overflow-hidden"
     >
       <div
@@ -33,8 +28,12 @@ function HeroSectionComponent() {
           inView ? 'opacity-100' : 'opacity-0'
         }`}
       >
-        {/* Suspense for ThreeDText is handled by the dynamic import's loading state */}
-        <ThreeDText />
+        {/* Replace 3D Text with standard H1 tags */}
+        <div className="mb-8">
+           <h1 className="text-6xl md:text-8xl font-bold text-accent leading-tight text-glow">SALMAN</h1>
+           <h1 className="text-6xl md:text-8xl font-bold text-accent leading-tight text-glow">KHAN</h1>
+        </div>
+
 
         <div className="mb-8 h-8 text-xl md:text-2xl font-mono text-foreground">
           <TypeAnimation

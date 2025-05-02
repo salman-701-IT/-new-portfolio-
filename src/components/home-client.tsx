@@ -19,18 +19,12 @@ const HeroSection = dynamic(
   }
 );
 
-// Dynamically import the Particle Background Component
-const ParticleBackground = dynamic(() => import('@/components/particle-background'), {
-  ssr: false,
-  loading: () => <Skeleton className="absolute inset-0 -z-10 bg-[#030712]" />,
-});
+// Removed dynamic import for ParticleBackground
 
 export default function HomeClient() {
   return (
     <div className="relative flex flex-col min-h-screen bg-gradient-to-br from-background via-background to-indigo-950/30 overflow-hidden">
-      {/* Render Particle Background */}
-      {/* It handles its own client-side rendering and positioning */}
-      <ParticleBackground />
+      {/* Removed ParticleBackground component */}
 
       {/* Render other sections normally */}
       {/* Suspense for HeroSection is handled by its dynamic import */}
