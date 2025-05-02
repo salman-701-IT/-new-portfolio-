@@ -11,7 +11,7 @@ import { ContactSection } from '@/components/sections/contact-section';
 import { Footer } from '@/components/sections/footer';
 import ScrollToTopButton from '@/components/scroll-to-top-button';
 import { cn } from '@/lib/utils'; // Import cn
-import MotionBackground from '@/components/motion-background'; // Import MotionBackground
+import MotionBackground from '@/components/motion-background'; // Import MotionBackground with lowercase path
 
 
 // Dynamically import HeroSection with ssr: false (handled inside hero-section.tsx)
@@ -46,4 +46,3 @@ export default function HomeClient() {
     </div>
   );
 }
-

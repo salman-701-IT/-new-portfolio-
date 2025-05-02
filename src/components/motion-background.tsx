@@ -1,29 +1,53 @@
-
+// src/components/motion-background.tsx
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { cn } from '@/lib/utils';
 
-// Simple placeholder for MotionBackground
-// Replace with actual implementation (e.g., using particles, gradients, etc.)
-export default function MotionBackground() {
-    const [isMounted, setIsMounted] = useState(false);
+const MotionBackground = () => {
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const containerRef = useRef<HTMLDivElement>(null);
 
-    useEffect(() => {
-        setIsMounted(true);
-    }, []);
+  useEffect(() => {
+    const handleMouseMove = (event: MouseEvent) => {
+      if (containerRef.current) {
+        const rect = containerRef.current.getBoundingClientRect();
+        setMousePosition({
+          x: ((event.clientX - rect.left) / rect.width) * 100,
+          y: ((event.clientY - rect.top) / rect.height) * 100,
+        });
+      }
+    };
 
-    if (!isMounted) {
-        // Avoid rendering anything complex on the server
-        return null;
-    }
+    window.addEventListener('mousemove', handleMouseMove);
 
-    return (
-        <div
-            className={cn(
-                'fixed inset-0 -z-10 overflow-hidden', // Ensure it's behind content
-                'animated-gradient' // Use the existing gradient animation
-            )}
-        />
-    );
-}
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+    };
+  }, []);
+
+  return (
+    <div
+      ref={containerRef}
+      className={cn(
+        'fixed inset-0 -z-10 overflow-hidden transition-opacity duration-1000 ease-in-out' // Ensure it's behind content
+      )}
+      style={
+        {
+          '--mouse-x': `${mousePosition.x}%`,
+          '--mouse-y': `${mousePosition.y}%`,
+          background: `
+            radial-gradient(circle at var(--mouse-x) var(--mouse-y), hsl(var(--primary)/0.2) 0%, transparent 30%),
+            radial-gradient(circle at calc(100% - var(--mouse-x)) calc(100% - var(--mouse-y)), hsl(var(--accent)/0.2) 0%, transparent 30%),
+            hsl(var(--background))
+          `,
+        } as React.CSSProperties
+      }
+    >
+      {/* Optional: Add subtle particle/grid overlay if desired */}
+      {/* <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-5 mix-blend-overlay"></div> */}
+    </div>
+  );
+};
+
+export default MotionBackground;
