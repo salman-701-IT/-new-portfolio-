@@ -8,6 +8,8 @@ import { TypeAnimation } from 'react-type-animation';
 import SectionContainer from '../section-container';
 import { useInView } from 'react-intersection-observer';
 import { Skeleton } from '@/components/ui/skeleton'; // Import Skeleton for loading state
+import { cn } from '@/lib/utils';
+
 
 // Dynamically import the 3D background component, ensuring it only runs client-side
 const HeroBackground3D = dynamic(
@@ -18,12 +20,7 @@ const HeroBackground3D = dynamic(
   }
 );
 
-// Dynamically import the 3D Text Component
-const ThreeDText = dynamic(() => import('@/components/ThreeDTextClient'), {
-  ssr: false,
-  loading: () => <Skeleton className="h-64 w-full mb-8" />,
-});
-
+// Removed dynamic import for ThreeDText as the component doesn't exist
 
 function HeroSectionComponent() {
   const { ref, inView } = useInView({
@@ -35,7 +32,7 @@ function HeroSectionComponent() {
     <SectionContainer
       id="hero"
       // Keep relative positioning for content and allow overflow for 3D background
-      className="relative min-h-screen flex flex-col items-center justify-center text-center overflow-hidden"
+      className="relative min-h-screen flex flex-col items-center justify-center text-center overflow-hidden pt-16" // Added padding top
     >
        {/* Render the 3D Background, which will only fully render client-side */}
       <HeroBackground3D />
@@ -43,15 +40,17 @@ function HeroSectionComponent() {
       <div
         ref={ref}
         // Ensure content is above the 3D background
-        className={`relative z-10 transition-opacity duration-1000 ${
-          inView ? 'opacity-100' : 'opacity-0'
-        }`}
+        className={cn(
+            'relative z-10 transition-all duration-1000 ease-out',
+            inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4' // Smooth fade-in and slight upward movement
+        )}
       >
-        {/* 3D Text */}
-        <div className="mb-8">
-           <ThreeDText />
-        </div>
+        {/* Animated Name */}
+        <h1 className="text-5xl md:text-7xl font-bold mb-4 text-glow-primary animate-fade-in-slow">
+          Salman Khan
+        </h1>
 
+        {/* Removed usage of ThreeDText component */}
 
         {/* Typing animation */}
         <div className="mb-8 h-8 text-xl md:text-2xl font-mono text-foreground">
@@ -90,3 +89,5 @@ function HeroSectionComponent() {
   );
 }
 export const HeroSection = HeroSectionComponent;
+
+
