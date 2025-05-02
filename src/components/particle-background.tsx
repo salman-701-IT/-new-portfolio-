@@ -73,6 +73,19 @@ function Particles({ count = 5000 }) {
 }
 
 export default function ParticleBackground() {
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  // Don't render Canvas until mounted on the client
+  if (!isMounted) {
+    // Return a placeholder or null during SSR and initial client render before hydration.
+    // The parent's dynamic import loading state will handle the visual placeholder.
+    return null;
+  }
+
   // The Canvas should take up the full container it's placed in
   return (
     <Canvas camera={{ position: [0, 0, 1] }} style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}>
