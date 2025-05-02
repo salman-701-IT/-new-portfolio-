@@ -3,7 +3,7 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { Mail, MapPin, MessageCircle, Download } from 'lucide-react'; // Using MessageCircle for WhatsApp
+import { Mail, MapPin, MessageCircle, Download, Phone } from 'lucide-react'; // Using MessageCircle for WhatsApp, Add Phone
 import SectionContainer from '../section-container';
 import { useInView } from 'react-intersection-observer';
 import { cn } from '@/lib/utils';
@@ -11,7 +11,8 @@ import { cn } from '@/lib/utils';
 // Placeholder link for CV - replace with actual link
 const cvLink = '/salman_khan_cv.pdf'; // Assume CV is in public folder
 const mailtoLink = 'mailto:salmankhan701.it@email.com';
-const whatsappLink = 'https://wa.me/916381542362'; // Formatted WhatsApp link
+const whatsappLink = 'https://wa.me/919750129532'; // Updated WhatsApp link
+const phoneLink = 'tel:+919750129532'; // Updated Phone link
 
 export function ContactSection() {
   const { ref, inView } = useInView({
@@ -21,8 +22,9 @@ export function ContactSection() {
 
   const contactInfo = [
     { icon: Mail, text: 'salmankhan701.it@email.com', href: mailtoLink, label: 'Email' },
+    { icon: Phone, text: '+91-9750129532', href: phoneLink, label: 'Phone' }, // Added Phone
+    { icon: MessageCircle, text: '+91-9750129532', href: whatsappLink, label: 'WhatsApp', target: '_blank' },
     { icon: MapPin, text: 'Chennai, India', label: 'Location' },
-    { icon: MessageCircle, text: '+91-6381542362', href: whatsappLink, label: 'WhatsApp', target: '_blank' },
   ];
 
   return (

@@ -16,7 +16,7 @@ export function AboutSection() {
   const personalInfo = {
     fullName: 'Salman Khan S.',
     email: 'salmankhan701.it@email.com',
-    phone: '+91-6381542362',
+    phone: '+91-9750129532', // Updated phone number
     location: 'Chennai, Tamil Nadu, India',
     role: 'Creative Technologist, Developer, Designer, Video Editor',
     founder: 'Yumaris Agency',
@@ -66,7 +66,7 @@ export function AboutSection() {
             <p className="text-muted-foreground">
               I focus on building interactive, accessible, and futuristic websites that blend creativity with cutting-edge technology. Founder of Yumaris Agency, based in Chennai, India.
             </p>
-             <p className="text-muted-foreground">Reach me at: <a href={`mailto:${personalInfo.email}`} className="text-accent hover:underline">{personalInfo.email}</a></p>
+             <p className="text-muted-foreground">Reach me at: <a href={`mailto:${personalInfo.email}`} className="text-accent hover:underline">{personalInfo.email}</a> or Call: <a href={`tel:${personalInfo.phone}`} className="text-accent hover:underline">{personalInfo.phone}</a></p>
           </div>
         </div>
 
@@ -79,7 +79,7 @@ export function AboutSection() {
              <CardContent className="space-y-3 text-sm">
                <p className="flex items-center gap-2"><User size={16} /> {personalInfo.fullName}</p>
                <p className="flex items-center gap-2"><Mail size={16} /> <a href={`mailto:${personalInfo.email}`} className="hover:text-accent">{personalInfo.email}</a></p>
-               <p className="flex items-center gap-2"><Phone size={16} /> {personalInfo.phone}</p>
+               <p className="flex items-center gap-2"><Phone size={16} /> <a href={`tel:${personalInfo.phone}`} className="hover:text-accent">{personalInfo.phone}</a></p> {/* Link phone number */}
                <p className="flex items-center gap-2"><MapPin size={16} /> {personalInfo.location}</p>
                <p className="flex items-center gap-2"><Briefcase size={16} /> {personalInfo.role}</p>
                <p className="flex items-center gap-2"><Briefcase size={16} /> Founder of {personalInfo.founder}</p>
