@@ -5,11 +5,18 @@ import { Button } from '@/components/ui/button';
 import { TypeAnimation } from 'react-type-animation';
 import SectionContainer from '../section-container';
 import { useInView } from 'react-intersection-observer';
-import { Skeleton } from '@/components/ui/skeleton'; // Keep Skeleton for HeroSection loading state if needed elsewhere
+import { Skeleton } from '@/components/ui/skeleton'; // Import Skeleton for loading state
 
-// Removed dynamic import of ThreeDTextClient
 
-// Ensure ParticleBackground is dynamically imported in home-client.tsx if still needed conceptually, but it won't render anything.
+// Dynamically import the 3D background component
+const HeroBackground3D = dynamic(
+  () => import('@/components/HeroBackground3D'),
+  {
+    ssr: false, // Crucial for client-side only rendering
+    loading: () => <Skeleton className="absolute inset-0 -z-10 bg-transparent" />, // Optional loading state
+  }
+);
+
 
 function HeroSectionComponent() {
   const { ref, inView } = useInView({
@@ -19,22 +26,26 @@ function HeroSectionComponent() {
   return (
     <SectionContainer
       id="hero"
-      // Keep relative positioning for content
+      // Keep relative positioning for content and allow overflow for 3D background
       className="relative min-h-screen flex flex-col items-center justify-center text-center overflow-hidden"
     >
+       {/* Render the 3D Background */}
+      <HeroBackground3D />
+
       <div
         ref={ref}
-        className={`z-10 transition-opacity duration-1000 ${
+        // Ensure content is above the 3D background
+        className={`relative z-10 transition-opacity duration-1000 ${
           inView ? 'opacity-100' : 'opacity-0'
         }`}
       >
-        {/* Replace 3D Text with standard H1 tags */}
-        <div className="mb-8">
+        {/* Main heading */}
+         <div className="mb-8">
            <h1 className="text-6xl md:text-8xl font-bold text-accent leading-tight text-glow">SALMAN</h1>
            <h1 className="text-6xl md:text-8xl font-bold text-accent leading-tight text-glow">KHAN</h1>
         </div>
 
-
+        {/* Typing animation */}
         <div className="mb-8 h-8 text-xl md:text-2xl font-mono text-foreground">
           <TypeAnimation
             sequence={[
@@ -52,6 +63,8 @@ function HeroSectionComponent() {
             repeat={Infinity}
           />
         </div>
+
+        {/* Call to action button */}
         <Button
           size="lg"
           className="relative overflow-hidden group neon-glow-primary hover:shadow-[0_0_25px_theme(colors.primary),0_0_40px_theme(colors.primary)] transition-shadow duration-300"
