@@ -4,6 +4,7 @@ import './globals.css';
 import { cn } from '@/lib/utils';
 import { Toaster } from '@/components/ui/toaster'; // Import Toaster
 import { Providers } from './providers';
+import Header from '@/components/header'; // Import Header
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -36,6 +37,7 @@ export default function RootLayout({
         )}
       >
         <Providers>
+          <Header /> {/* Add Header component */}
           <main>{children}</main>
           <Toaster /> {/* Add Toaster component */}
         </Providers>

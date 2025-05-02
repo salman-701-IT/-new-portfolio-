@@ -89,6 +89,7 @@ body {
     @apply bg-background text-foreground dark; /* Force dark mode */
     min-height: 100vh;
     overflow-x: hidden; /* Prevent horizontal scroll */
+    padding-top: 4rem; /* Add padding to body to prevent content from being hidden behind fixed header */
   }
   html {
     scroll-behavior: smooth;

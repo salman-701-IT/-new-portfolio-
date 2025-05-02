@@ -1,0 +1,100 @@
+
+'use client';
+
+import React, { useState, useEffect } from 'react';
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
+import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import { Menu, Home, User, Code, Briefcase, Mail } from 'lucide-react';
+import { cn } from '@/lib/utils';
+
+const navLinks = [
+  { href: '#hero', label: 'Home', icon: Home },
+  { href: '#about', label: 'About', icon: User },
+  { href: '#skills', label: 'Skills', icon: Code },
+  { href: '#projects', label: 'Projects', icon: Briefcase },
+  { href: '#contact', label: 'Contact', icon: Mail },
+];
+
+export default function Header() {
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+    const handleScroll = () => {
+      if (window.scrollY > 50) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    handleScroll(); // Initial check
+
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  if (!isMounted) {
+    // Render nothing or a placeholder on the server/initial render
+    return <header className="fixed top-0 left-0 right-0 z-50 h-16 bg-transparent transition-all duration-300"></header>;
+  }
+
+  return (
+    <header
+      className={cn(
+        'fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-in-out',
+        isScrolled ? 'glassmorphism border-b border-border/30 py-2' : 'py-4'
+      )}
+    >
+      <div className="container mx-auto flex justify-between items-center px-4 md:px-8">
+        {/* Logo/Brand - Simple Text for now */}
+        <Link href="#hero" className="text-xl font-bold text-primary text-glow-primary transition-colors hover:text-accent">
+          SK
+        </Link>
+
+        {/* Desktop Navigation */}
+        <nav className="hidden md:flex space-x-1">
+          {navLinks.map((link) => (
+            <Button key={link.href} variant="ghost" asChild className="text-sm font-medium text-foreground/80 hover:text-accent hover:bg-accent/10">
+              <Link href={link.href}>{link.label}</Link>
+            </Button>
+          ))}
+        </nav>
+
+        {/* Mobile Navigation */}
+        <div className="md:hidden">
+          <Sheet>
+            <SheetTrigger asChild>
+              <Button variant="outline" size="icon" className="neon-glow hover:neon-glow-primary">
+                <Menu className="h-5 w-5" />
+              </Button>
+            </SheetTrigger>
+            <SheetContent side="right" className="w-[250px] glassmorphism p-4">
+              <nav className="flex flex-col space-y-4 mt-8">
+                 <Link href="#hero" className="text-xl font-bold text-primary text-glow-primary mb-4">
+                    SK
+                 </Link>
+                {navLinks.map((link) => (
+                  <Button
+                    key={link.href}
+                    variant="ghost"
+                    asChild
+                    className="justify-start text-foreground/90 hover:text-accent hover:bg-accent/10"
+                  >
+                    <Link href={link.href}>
+                      <link.icon className="mr-2 h-4 w-4" />
+                      {link.label}
+                    </Link>
+                  </Button>
+                ))}
+              </nav>
+            </SheetContent>
+          </Sheet>
+        </div>
+      </div>
+    </header>
+  );
+}
+

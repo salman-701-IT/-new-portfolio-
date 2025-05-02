@@ -59,7 +59,7 @@ export default function ScrollToTopButton() {
       size="icon"
       onClick={scrollToTop}
       className={cn(
-        'fixed bottom-6 right-6 z-50 rounded-full transition-opacity duration-300 neon-glow hover:neon-glow-primary hover:scale-110 hover:bg-primary/80 hover:text-primary-foreground',
+        'fixed bottom-6 right-6 z-[60] rounded-full transition-opacity duration-300 neon-glow hover:neon-glow-primary hover:scale-110 hover:bg-primary/80 hover:text-primary-foreground', // Increased z-index to 60
         isVisible ? 'opacity-100' : 'opacity-0 pointer-events-none'
       )}
       aria-label="Scroll to top"
