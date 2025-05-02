@@ -1,5 +1,6 @@
 
-'use client';
+'use client'; // Add 'use client' directive
+
 import React from 'react';
 import dynamic from 'next/dynamic';
 import { Button } from '@/components/ui/button';
@@ -10,18 +11,26 @@ import { Skeleton } from '@/components/ui/skeleton'; // Import Skeleton for load
 
 // Dynamically import the 3D background component, ensuring it only runs client-side
 const HeroBackground3D = dynamic(
-  () => import('@/components/HeroBackground3D'), // Corrected path if needed, assumed correct
+  () => import('@/components/HeroBackground3D'),
   {
     ssr: false, // Crucial for client-side only rendering
-    loading: () => <Skeleton className="absolute inset-0 -z-10 bg-transparent" />, // Optional loading state
+    loading: () => <Skeleton className="absolute inset-0 -z-10 bg-transparent" />, // Loading state
   }
 );
+
+// Dynamically import the 3D Text Component
+const ThreeDText = dynamic(() => import('@/components/ThreeDTextClient'), {
+  ssr: false,
+  loading: () => <Skeleton className="h-64 w-full mb-8" />,
+});
+
 
 function HeroSectionComponent() {
   const { ref, inView } = useInView({
     threshold: 0.2,
     triggerOnce: true, // Trigger animation only once
   });
+
   return (
     <SectionContainer
       id="hero"
@@ -38,11 +47,11 @@ function HeroSectionComponent() {
           inView ? 'opacity-100' : 'opacity-0'
         }`}
       >
-        {/* Main heading */}
-         <div className="mb-8">
-           <h1 className="text-6xl md:text-8xl font-bold text-accent leading-tight text-glow">SALMAN</h1>
-           <h1 className="text-6xl md:text-8xl font-bold text-accent leading-tight text-glow">KHAN</h1>
+        {/* 3D Text */}
+        <div className="mb-8">
+           <ThreeDText />
         </div>
+
 
         {/* Typing animation */}
         <div className="mb-8 h-8 text-xl md:text-2xl font-mono text-foreground">
