@@ -1,9 +1,9 @@
 
 'use client';
 
-import React, { useRef, Suspense } from 'react';
-import { Canvas, useFrame } from '@react-three/fiber'; // Import directly
-import { Box } from '@react-three/drei'; // Using Box for simplicity
+import React, { useRef, Suspense, useEffect, useState } from 'react';
+import { useFrame } from '@react-three/fiber'; // Keep useFrame if other logic needs it, otherwise remove
+import { Box, OrbitControls } from '@react-three/drei'; // Using Box for simplicity
 import * as THREE from 'three';
 import { Skeleton } from '@/components/ui/skeleton';
 
@@ -27,22 +27,31 @@ function RotatingElement() {
   );
 }
 
-// Main component to render the Canvas and the 3D element
-// No need for isMounted check here, dynamic import handles it.
+// Main component - No longer renders Canvas
 export default function HeroBackground3D() {
+    const [isMounted, setIsMounted] = useState(false);
+
+    useEffect(() => {
+        setIsMounted(true);
+    }, []);
+
+    if (!isMounted) {
+        return <Skeleton className="absolute inset-0 bg-transparent" />;
+    }
+
+  // Return a placeholder or null since Canvas is removed
   return (
     <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 0, opacity: 0.3 }}>
-      {/* Suspense is needed for components inside Canvas, but the dynamic import handles the loading state */}
-      <Suspense fallback={<Skeleton className="absolute inset-0 bg-transparent" />}>
-        <Canvas camera={{ position: [0, 0, 5], fov: 50 }}>
-          <ambientLight intensity={0.5} />
-          <pointLight position={[10, 10, 10]} intensity={1.5} />
-           <pointLight position={[-10, -10, 5]} intensity={0.8} color={'hsl(var(--accent))'} />
-          <RotatingElement />
-          {/* OrbitControls removed for now unless debugging is needed */}
-          {/* <OrbitControls enableZoom={false} enablePan={false} /> */}
-        </Canvas>
-      </Suspense>
+        {/* Canvas removed */}
+        {/* Optional: Keep Suspense if you plan to add other async components here */}
+        {/* <Suspense fallback={<Skeleton className="absolute inset-0 bg-transparent" />}> */}
+            {/* Render placeholder or nothing */}
+             <Skeleton className="absolute inset-0 bg-transparent border border-dashed border-muted-foreground" />
+            {/* Example placeholder content */}
+            {/* <div className="absolute inset-0 flex items-center justify-center text-muted-foreground">
+              3D Background Placeholder
+            </div> */}
+        {/* </Suspense> */}
     </div>
   );
 }

@@ -1,19 +1,16 @@
 
 'use client';
 
-import React, { Suspense, useRef } from 'react';
+import React, { Suspense, useRef, useEffect, useState } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { Text3D, Center, OrbitControls } from '@react-three/drei';
 import { useSpring, animated } from '@react-spring/three';
 import * as THREE from 'three';
 import { Skeleton } from '@/components/ui/skeleton';
-
-// Geist Bold font data - ensure public/fonts/Geist_Bold.json exists and is valid
-// Note: Adjusted import path assuming 'fonts' directory is directly under 'public'
-import GeistBold from '../../public/fonts/Geist_Bold.json';
+// Removed direct import of GeistBold from public
 
 // Animated Text Component
-function AnimatedText() {
+function AnimatedText({ fontData }: { fontData: any }) {
   const textRef = useRef<THREE.Mesh>(null!);
 
   const springProps = useSpring({
@@ -26,72 +23,84 @@ function AnimatedText() {
     loop: { reverse: true },
   });
 
-  // Subtle hover effect
-  const handlePointerOver = () => {
-     if (textRef.current) {
-        // Example: Slightly change color or scale on hover
-        // This requires more complex state management or direct manipulation
-     }
-  };
-
-  const handlePointerOut = () => {
-     if (textRef.current) {
-        // Revert changes
-     }
-  };
-
+  // Don't render if fontData is not loaded
+  if (!fontData) {
+    return null;
+  }
 
   return (
     <animated.mesh
         ref={textRef}
-        scale={springProps.scale as any} // Type assertion might be needed depending on spring version
-        rotation={springProps.rotation as any} // Type assertion might be needed
-        onPointerOver={handlePointerOver}
-        onPointerOut={handlePointerOut}
+        scale={springProps.scale as any}
+        rotation={springProps.rotation as any}
         >
       <Text3D
-        font={GeistBold as any} // Needs proper path and type casting
-        size={1.5} // Adjusted size for potentially larger text
+        font={fontData} // Use loaded font data
+        size={1.5}
         height={0.2}
         curveSegments={12}
         bevelEnabled
-        bevelThickness={0.05} // Increased bevel thickness
-        bevelSize={0.03} // Increased bevel size
+        bevelThickness={0.05}
+        bevelSize={0.03}
         bevelOffset={0}
         bevelSegments={5}
       >
         SALMAN KHAN
-        {/* Using MeshWobbleMaterial for a more dynamic effect */}
         <animated.meshStandardMaterial
             color={springProps.color}
             emissive={'hsl(var(--accent))'}
             emissiveIntensity={0.3}
             metalness={0.6}
             roughness={0.3}
-            wireframe={false} // Changed to false for solid look
+            wireframe={false}
             />
       </Text3D>
     </animated.mesh>
   );
 }
 
-// Main component to render the 3D text within a Canvas
+// Main component
 export default function ThreeDTextClient() {
-   // No need for isMounted check here
+   const [isMounted, setIsMounted] = useState(false);
+   const [fontData, setFontData] = useState<any>(null); // State for font data
+   const [isLoading, setIsLoading] = useState(true); // Loading state
+
+    useEffect(() => {
+        setIsMounted(true);
+        // Fetch font data on mount
+        fetch('/fonts/Geist_Bold.json') // Fetch from the public URL
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                setFontData(data);
+                setIsLoading(false);
+            })
+            .catch(error => {
+                console.error('Failed to load font:', error);
+                setIsLoading(false); // Stop loading even on error
+            });
+    }, []);
+
+    if (!isMounted || isLoading) {
+       return <Skeleton className="h-[250px] w-full bg-transparent" />;
+    }
+
   return (
     <div style={{ height: '250px', width: '100%', cursor: 'pointer' }}>
-      <Suspense fallback={<Skeleton className="h-full w-full bg-transparent" />}>
-        <Canvas camera={{ position: [0, 1, 8], fov: 50 }}>
-          <ambientLight intensity={0.6} />
-          <pointLight position={[10, 10, 10]} intensity={1.2} />
-          <pointLight position={[-10, -5, 5]} intensity={0.7} color={'hsl(var(--accent))'} />
+       <Canvas camera={{ position: [0, 1, 8], fov: 50 }}>
+        <ambientLight intensity={0.8} />
+        <pointLight position={[10, 10, 10]} intensity={1} />
+        <Suspense fallback={null}>
           <Center>
-            <AnimatedText />
+            <AnimatedText fontData={fontData} />
           </Center>
-          {/* Add OrbitControls for interactivity during development/testing */}
-          {/* <OrbitControls enableZoom={false} enablePan={false} autoRotate autoRotateSpeed={0.5} /> */}
-        </Canvas>
-      </Suspense>
+        </Suspense>
+        <OrbitControls enableZoom={false} enablePan={false} autoRotate autoRotateSpeed={0.5} />
+      </Canvas>
     </div>
   );
 }
