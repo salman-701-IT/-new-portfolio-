@@ -1,10 +1,16 @@
 'use client';
-import { Canvas } from '@react-three/fiber';
+// Removed Canvas import
 
 export default function ThreeScene() {
+  // Return a placeholder div as Canvas is removed
   return (
-    <Canvas>
-      {/* your 3D scene here */}
-    </Canvas>
+    <div className="h-full w-full flex items-center justify-center text-muted-foreground">
+      3D Scene Placeholder (Canvas removed)
+      {/* Original Canvas code commented out:
+        <Canvas>
+          {/* your 3D scene here *\/}
+        </Canvas>
+      */}
+    </div>
   );
 }
