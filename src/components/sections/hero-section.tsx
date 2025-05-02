@@ -1,3 +1,4 @@
+
 'use client';
 import React from 'react';
 import dynamic from 'next/dynamic';
@@ -7,16 +8,14 @@ import SectionContainer from '../section-container';
 import { useInView } from 'react-intersection-observer';
 import { Skeleton } from '@/components/ui/skeleton'; // Import Skeleton for loading state
 
-
-// Dynamically import the 3D background component
+// Dynamically import the 3D background component, ensuring it only runs client-side
 const HeroBackground3D = dynamic(
-  () => import('@/components/HeroBackground3D'),
+  () => import('@/components/HeroBackground3D'), // Corrected path if needed, assumed correct
   {
     ssr: false, // Crucial for client-side only rendering
     loading: () => <Skeleton className="absolute inset-0 -z-10 bg-transparent" />, // Optional loading state
   }
 );
-
 
 function HeroSectionComponent() {
   const { ref, inView } = useInView({
@@ -29,7 +28,7 @@ function HeroSectionComponent() {
       // Keep relative positioning for content and allow overflow for 3D background
       className="relative min-h-screen flex flex-col items-center justify-center text-center overflow-hidden"
     >
-       {/* Render the 3D Background */}
+       {/* Render the 3D Background, which will only fully render client-side */}
       <HeroBackground3D />
 
       <div

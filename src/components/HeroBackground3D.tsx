@@ -1,23 +1,18 @@
+
 'use client';
 
 import React, { useRef, Suspense, useEffect, useState } from 'react';
-import dynamic from 'next/dynamic';
+import { Canvas, useFrame } from '@react-three/fiber'; // Import directly
 import { Box, OrbitControls } from '@react-three/drei'; // Using Box for simplicity
 import * as THREE from 'three';
 import { Skeleton } from '@/components/ui/skeleton';
 
-// Dynamically import Canvas and useFrame only on the client
-const Canvas = dynamic(() => import('@react-three/fiber').then((mod) => mod.Canvas), { ssr: false });
-const useFrame = dynamic(() => import('@react-three/fiber').then((mod) => mod.useFrame), { ssr: false });
-
-
 // Component for the rotating 3D object
 function RotatingElement() {
   const meshRef = useRef<THREE.Mesh>(null!);
-  const frameHook = useFrame(); // Get the hook function
 
-  // Rotate mesh every frame only if useFrame is loaded
-  frameHook?.((state, delta) => {
+  // Rotate mesh every frame
+  useFrame((state, delta) => {
     if (meshRef.current) {
       meshRef.current.rotation.x += delta * 0.1;
       meshRef.current.rotation.y += delta * 0.15;
@@ -40,14 +35,15 @@ export default function HeroBackground3D() {
     setIsMounted(true);
   }, []);
 
-  if (!isMounted || !Canvas || !useFrame) {
-    // Render skeleton or null while waiting for mount or dynamic imports
+  // Render skeleton or null while waiting for client mount
+  if (!isMounted) {
     return <Skeleton className="absolute inset-0 bg-transparent" />;
   }
 
   return (
     <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 0, opacity: 0.3 }}>
       <Suspense fallback={<Skeleton className="absolute inset-0 bg-transparent" />}>
+        {/* Only render Canvas on the client after mount */}
         <Canvas camera={{ position: [0, 0, 5], fov: 50 }}>
           <ambientLight intensity={0.5} />
           <pointLight position={[10, 10, 10]} intensity={1.5} />
