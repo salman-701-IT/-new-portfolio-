@@ -28,12 +28,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
+    // Remove 'dark' class - ThemeProvider will manage this
+    <html lang="en" suppressHydrationWarning>
       <body
         className={cn(
           geistSans.variable,
           geistMono.variable,
-          'antialiased font-sans bg-background text-foreground'
+          'antialiased font-sans bg-background text-foreground' // Rely on CSS variables from globals.css
         )}
       >
         <Providers>

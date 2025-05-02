@@ -5,8 +5,9 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { Menu, Home, User, Code, Briefcase, Mail } from 'lucide-react';
+import { Menu, Home, User, Code, Briefcase, Mail, Sun, Moon } from 'lucide-react'; // Import Sun and Moon icons
 import { cn } from '@/lib/utils';
+import { useTheme } from '@/context/theme-provider'; // Import useTheme hook
 
 const navLinks = [
   { href: '#hero', label: 'Home', icon: Home },
@@ -15,6 +16,33 @@ const navLinks = [
   { href: '#projects', label: 'Projects', icon: Briefcase },
   { href: '#contact', label: 'Contact', icon: Mail },
 ];
+
+function ThemeToggle() {
+  const { theme, toggleTheme } = useTheme();
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted) {
+    // Render a placeholder or null during SSR/hydration to avoid mismatch
+     return <Button variant="ghost" size="icon" className="w-9 h-9 opacity-0" disabled />;
+  }
+
+  return (
+    <Button
+      variant="ghost"
+      size="icon"
+      onClick={toggleTheme}
+      aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
+      className="hover:text-accent hover:bg-accent/10"
+    >
+      {theme === 'light' ? <Moon className="h-5 w-5" /> : <Sun className="h-5 w-5" />}
+    </Button>
+  );
+}
+
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -54,17 +82,22 @@ export default function Header() {
           SK
         </Link>
 
-        {/* Desktop Navigation */}
-        <nav className="hidden md:flex space-x-1">
-          {navLinks.map((link) => (
-            <Button key={link.href} variant="ghost" asChild className="text-sm font-medium text-foreground/80 hover:text-accent hover:bg-accent/10">
-              <Link href={link.href}>{link.label}</Link>
-            </Button>
-          ))}
-        </nav>
+         {/* Desktop Navigation & Theme Toggle */}
+         <div className="hidden md:flex items-center space-x-1">
+            <nav className="flex space-x-1">
+                {navLinks.map((link) => (
+                    <Button key={link.href} variant="ghost" asChild className="text-sm font-medium text-foreground/80 hover:text-accent hover:bg-accent/10">
+                    <Link href={link.href}>{link.label}</Link>
+                    </Button>
+                ))}
+            </nav>
+            <ThemeToggle /> {/* Add ThemeToggle here */}
+        </div>
+
 
         {/* Mobile Navigation */}
-        <div className="md:hidden">
+        <div className="md:hidden flex items-center space-x-2">
+          <ThemeToggle /> {/* Add ThemeToggle for mobile view as well */}
           <Sheet>
             <SheetTrigger asChild>
               <Button variant="outline" size="icon" className="neon-glow hover:neon-glow-primary">
@@ -97,4 +130,3 @@ export default function Header() {
     </header>
   );
 }
-
