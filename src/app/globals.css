@@ -116,11 +116,21 @@ body {
    .text-glow-primary {
     text-shadow: 0 0 5px hsl(var(--primary)), 0 0 10px hsl(var(--primary));
   }
+  /* Updated animated-gradient class */
   .animated-gradient {
-    background-size: 200% 200%;
-    animation: gradient-animation 10s ease infinite;
+    background: linear-gradient(
+      -45deg,
+      hsl(var(--background)),
+      hsl(var(--primary) / 0.3),
+      hsl(var(--accent) / 0.3),
+      hsl(var(--background))
+    );
+    background-size: 400% 400%;
+    animation: gradient-motion 15s ease infinite;
   }
-  @keyframes gradient-animation {
+
+  /* Renamed animation to gradient-motion */
+  @keyframes gradient-motion {
     0% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }

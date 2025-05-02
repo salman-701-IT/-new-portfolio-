@@ -9,10 +9,11 @@ import { ProjectsSection } from '@/components/sections/projects-section';
 import { ContactSection } from '@/components/sections/contact-section';
 import { Footer } from '@/components/sections/footer';
 import ScrollToTopButton from '@/components/scroll-to-top-button';
+import { cn } from '@/lib/utils'; // Import cn
 
 // Dynamically import HeroSection with ssr: false (if needed, handled inside)
 const HeroSection = dynamic(
-  () => import('@/components/sections/hero-section').then((mod) => mod.HeroSection),
+  () => import('@/components/sections/hero-section'),
   {
     ssr: false, // Ensure HeroSection logic runs client-side if it uses client hooks/APIs
     loading: () => <Skeleton className="h-screen w-full" />,
@@ -23,8 +24,11 @@ const HeroSection = dynamic(
 
 export default function HomeClient() {
   return (
-    <div className="relative flex flex-col min-h-screen bg-gradient-to-br from-background via-background to-indigo-950/30 overflow-hidden">
-      {/* Removed ParticleBackground component rendering */}
+    <div className={cn(
+        "relative flex flex-col min-h-screen overflow-hidden",
+        "animated-gradient" // Apply the animated gradient class here
+        // Previous background: "bg-gradient-to-br from-background via-background to-indigo-950/30" - replaced by animated-gradient
+        )}>
 
       {/* Render other sections normally */}
       {/* Suspense for HeroSection is handled by its dynamic import */}
