@@ -1,4 +1,3 @@
-
 'use client';
 import React, { Suspense } from 'react';
 import dynamic from 'next/dynamic';
@@ -7,6 +6,7 @@ import { TypeAnimation } from 'react-type-animation';
 import SectionContainer from '../section-container';
 import { useInView } from 'react-intersection-observer';
 import { Skeleton } from '@/components/ui/skeleton'; // Import Skeleton for loading state
+// Removed direct import of Canvas from @react-three/fiber
 
 // Dynamically import the 3D Text Component
 const ThreeDText = dynamic(() => import('@/components/ThreeDTextClient'), {
@@ -14,8 +14,7 @@ const ThreeDText = dynamic(() => import('@/components/ThreeDTextClient'), {
   loading: () => <Skeleton className="h-64 w-full mb-8" />,
 });
 
-// ParticleBackground will be imported and rendered in home-client.tsx
-
+// ParticleBackground is dynamically imported in home-client.tsx
 
 function HeroSectionComponent() {
   const { ref, inView } = useInView({
@@ -28,14 +27,14 @@ function HeroSectionComponent() {
       // Keep relative positioning for content, but ParticleBackground will be handled elsewhere
       className="relative min-h-screen flex flex-col items-center justify-center text-center overflow-hidden"
     >
-
       <div
-      ref={ref}
-      className={`z-10 transition-opacity duration-1000 ${inView ? 'opacity-100' : 'opacity-0'}`}
+        ref={ref}
+        className={`z-10 transition-opacity duration-1000 ${
+          inView ? 'opacity-100' : 'opacity-0'
+        }`}
       >
         {/* Suspense for ThreeDText is handled by the dynamic import's loading state */}
         <ThreeDText />
-
 
         <div className="mb-8 h-8 text-xl md:text-2xl font-mono text-foreground">
           <TypeAnimation
@@ -70,4 +69,4 @@ function HeroSectionComponent() {
     </SectionContainer>
   );
 }
-export  const HeroSection = HeroSectionComponent;
+export const HeroSection = HeroSectionComponent;

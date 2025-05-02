@@ -1,11 +1,20 @@
-
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
-import { Canvas } from '@react-three/fiber';
+import React, { useState, useEffect, useRef, Suspense } from 'react';
+import dynamic from 'next/dynamic';
 import { Text3D, Center, OrbitControls } from '@react-three/drei';
 import { useSpring, animated } from '@react-spring/three';
 import * as THREE from 'three';
+import { Skeleton } from '@/components/ui/skeleton';
+
+// Dynamically import Canvas from @react-three/fiber
+const Canvas = dynamic(() => import('@react-three/fiber').then(mod => mod.Canvas), {
+  ssr: false,
+  loading: () => <Skeleton className="h-64 w-full mb-8" />,
+});
+
+// Font data needs to be fetched or loaded in a way compatible with client components
+// Using fetch as before, assuming Geist_Bold.json is in the public directory.
 
 // Animated Text Component
 function AnimatedText({ fontData }: { fontData: any }) {
@@ -17,6 +26,12 @@ function AnimatedText({ fontData }: { fontData: any }) {
     color: hovered ? 'hsl(var(--primary))' : 'hsl(var(--accent))',
     config: { mass: 1, tension: 280, friction: 60 },
   });
+
+  // Ensure fontData is valid before rendering Text3D
+  if (!fontData || !fontData.glyphs) {
+    console.error("Invalid font data passed to AnimatedText");
+    return null; // Or return some fallback
+  }
 
   return (
     <animated.mesh
@@ -49,25 +64,22 @@ export default function ThreeDTextClient() {
     setIsMounted(true); // Component is mounted on the client
     const fetchFontData = async () => {
       try {
+        // Fetch font data from the public directory
         const response = await fetch('/fonts/Geist_Bold.json');
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
         const data = await response.json();
-        // Basic validation - check if it looks like THREE.js font data
+        // Basic validation
         if (data && data.glyphs && data.boundingBox) {
-           setFontData(data);
+          setFontData(data);
         } else {
-            // If the fetched data is not valid, use a fallback or show error
-            console.warn("Fetched font data is not in the expected format. Using fallback text.");
-            setError("Failed to load 3D font.");
-            // Optionally, provide a THREE.js FontLoader compatible fallback object
-            // Or handle this case by rendering 2D text or a loading indicator
+          console.warn("Fetched font data is not in the expected format.");
+          setError("Failed to load 3D font data.");
         }
-
       } catch (e: any) {
         console.error("Failed to fetch font data:", e);
-        setError("Failed to load 3D font.");
+        setError(`Failed to load 3D font: ${e.message}`);
       } finally {
         setIsLoading(false);
       }
@@ -76,15 +88,14 @@ export default function ThreeDTextClient() {
     fetchFontData();
   }, []);
 
-  // Avoid rendering canvas until mounted and font is loaded/failed
+  // Render loading/error states or the Canvas
   if (!isMounted) {
-    return <div className="h-64 w-full mb-8 flex items-center justify-center"><p>Loading 3D Text...</p></div>; // Or Skeleton
+    return <Skeleton className="h-64 w-full mb-8" />;
   }
   if (isLoading) {
-     return <div className="h-64 w-full mb-8 flex items-center justify-center"><p>Loading 3D Font...</p></div>; // Or Skeleton
+    return <Skeleton className="h-64 w-full mb-8" />;
   }
   if (error || !fontData) {
-     // Render fallback 2D text or error message if font loading fails
      return (
        <div className="h-64 w-full mb-8 flex flex-col items-center justify-center text-center">
          <h1 className="text-6xl font-bold text-accent leading-tight">SALMAN</h1>
@@ -94,19 +105,21 @@ export default function ThreeDTextClient() {
      );
   }
 
-
+  // Ensure Canvas is only rendered client-side and after font data is loaded
   return (
     <div className="h-64 w-full mb-8">
-      <Canvas camera={{ position: [0, 0, 8], fov: 50 }}>
-        <ambientLight intensity={0.5} />
-        <pointLight position={[10, 10, 10]} intensity={1} color="hsl(var(--accent))" />
-        <pointLight position={[-10, -10, 10]} intensity={0.8} color="hsl(var(--primary))" />
-        <Center>
-          <AnimatedText fontData={fontData} />
-        </Center>
-        <OrbitControls enableZoom={false} enablePan={false} autoRotate autoRotateSpeed={0.5} />
-      </Canvas>
+      <Suspense fallback={<Skeleton className="h-64 w-full mb-8" />}>
+        <Canvas camera={{ position: [0, 0, 8], fov: 50 }}>
+          <ambientLight intensity={0.5} />
+          <pointLight position={[10, 10, 10]} intensity={1} color="hsl(var(--accent))" />
+          <pointLight position={[-10, -10, 10]} intensity={0.8} color="hsl(var(--primary))" />
+          <Center>
+            {/* Pass the loaded font data */}
+            <AnimatedText fontData={fontData} />
+          </Center>
+          <OrbitControls enableZoom={false} enablePan={false} autoRotate autoRotateSpeed={0.5} />
+        </Canvas>
+      </Suspense>
     </div>
   );
 }
-

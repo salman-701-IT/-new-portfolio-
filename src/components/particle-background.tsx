@@ -1,15 +1,25 @@
-
 'use client';
 
-import React, { useRef, useEffect, useState, useMemo } from 'react';
-import { Canvas, useFrame } from '@react-three/fiber';
+import React, { useRef, useEffect, useState, useMemo, Suspense } from 'react';
+import dynamic from 'next/dynamic';
 import * as THREE from 'three';
+import { Skeleton } from '@/components/ui/skeleton'; // Import Skeleton for loading
+
+// Dynamically import Canvas and useFrame from @react-three/fiber
+const Canvas = dynamic(() => import('@react-three/fiber').then(mod => mod.Canvas), {
+  ssr: false,
+  loading: () => <Skeleton className="absolute inset-0 -z-10 bg-[#030712]" />,
+});
+const useFrame = dynamic(() => import('@react-three/fiber').then(mod => mod.useFrame), {
+  ssr: false,
+});
+
 
 function Particles({ count = 5000 }) {
   const mesh = useRef<THREE.Points>(null!);
   const light = useRef<THREE.PointLight>(null!);
 
-  // State to hold particle positions, initialized client-side to avoid hydration mismatch
+  // State to hold particle positions, initialized client-side
   const [positions, setPositions] = useState<Float32Array | null>(null);
 
   useEffect(() => {
@@ -27,22 +37,30 @@ function Particles({ count = 5000 }) {
       particlesPosition[i * 3 + 2] = z;
     }
     setPositions(particlesPosition);
-  }, [count]); // Dependency array ensures this runs once on mount or when count changes
+  }, [count]);
 
-  useFrame((state) => {
-    const { clock } = state;
-    if (mesh.current) {
-      mesh.current.rotation.y = clock.getElapsedTime() * 0.05;
-      mesh.current.rotation.x = clock.getElapsedTime() * 0.02;
-    }
-     if (light.current) {
-      light.current.position.x = Math.sin(clock.elapsedTime * 0.5) * 10;
-      light.current.position.z = Math.cos(clock.elapsedTime * 0.5) * 10;
-    }
-  });
+  // useFrame needs to be conditionally called or wrapped
+  const FrameHandler = () => {
+    const frameHook = useFrame; // Get the hook function
+    if (!frameHook) return null; // Return null if hook is not available (SSR)
 
-  // Don't render the points until the positions are generated on the client
-  if (!positions) return null;
+    // Call useFrame inside a component that's guaranteed to run client-side
+    frameHook((state) => {
+      const { clock } = state;
+      if (mesh.current) {
+        mesh.current.rotation.y = clock.getElapsedTime() * 0.05;
+        mesh.current.rotation.x = clock.getElapsedTime() * 0.02;
+      }
+      if (light.current) {
+        light.current.position.x = Math.sin(clock.elapsedTime * 0.5) * 10;
+        light.current.position.z = Math.cos(clock.elapsedTime * 0.5) * 10;
+      }
+    });
+    return null; // This component doesn't render anything itself
+  };
+
+
+  if (!positions) return null; // Don't render points until positions are generated
 
   return (
     <>
@@ -61,13 +79,13 @@ function Particles({ count = 5000 }) {
           size={0.02}
           color={'hsl(var(--primary))'}
           sizeAttenuation
-          transparent={true} // Keep particles opaque for potential performance boost
-          alphaTest={0.5}
-          opacity={0.9}
-          depthWrite={false} // Disable depth writing for blending effect
-          blending={THREE.AdditiveBlending} // Use AdditiveBlending for glow effect
+          transparent={false} // Changed for potentially better performance
+          depthWrite={true} // Enable depth writing
+          // blending={THREE.AdditiveBlending} // Removed AdditiveBlending
         />
       </points>
+      {/* Conditionally render FrameHandler only on client */}
+      {typeof window !== 'undefined' && <FrameHandler />}
     </>
   );
 }
@@ -81,17 +99,18 @@ export default function ParticleBackground() {
 
   // Don't render Canvas until mounted on the client
   if (!isMounted) {
-    // Return a placeholder or null during SSR and initial client render before hydration.
-    // The parent's dynamic import loading state will handle the visual placeholder.
-    return null;
+    return <Skeleton className="absolute inset-0 -z-10 bg-[#030712]" />;
   }
 
-  // The Canvas should take up the full container it's placed in
+  // Use Suspense around Canvas provided by the dynamic import
   return (
-    <Canvas camera={{ position: [0, 0, 1] }} style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}>
-      <fog attach="fog" args={['#030712', 10, 20]} />
-      {/* Suspense is handled by the dynamic import in home-client.tsx */}
-      <Particles />
-    </Canvas>
+    <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: -10 }}>
+      <Suspense fallback={<Skeleton className="absolute inset-0 -z-10 bg-[#030712]" />}>
+        <Canvas camera={{ position: [0, 0, 1] }}>
+          <fog attach="fog" args={['#030712', 10, 20]} />
+          <Particles />
+        </Canvas>
+      </Suspense>
+    </div>
   );
 }
