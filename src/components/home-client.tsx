@@ -1,3 +1,4 @@
+
 'use client';
 
 import dynamic from 'next/dynamic';
@@ -10,25 +11,28 @@ import { ContactSection } from '@/components/sections/contact-section';
 import { Footer } from '@/components/sections/footer';
 import ScrollToTopButton from '@/components/scroll-to-top-button';
 import { cn } from '@/lib/utils'; // Import cn
+import MotionBackground from '@/components/motion-background'; // Import MotionBackground
 
-// Dynamically import HeroSection with ssr: false (if needed, handled inside)
+
+// Dynamically import HeroSection with ssr: false (handled inside hero-section.tsx)
 const HeroSection = dynamic(
-  () => import('@/components/sections/hero-section'),
+  () => import('@/components/sections/hero-section').then((mod) => mod.HeroSection),
   {
-    ssr: false, // Ensure HeroSection logic runs client-side if it uses client hooks/APIs
+    // ssr: false, // Ensure HeroSection logic runs client-side if it uses client hooks/APIs - Handled by 'use client' in HeroSection
     loading: () => <Skeleton className="h-screen w-full" />,
   }
 );
 
-// Removed dynamic import for ParticleBackground
 
 export default function HomeClient() {
   return (
     <div className={cn(
-        "relative flex flex-col min-h-screen overflow-hidden",
-        "animated-gradient" // Apply the animated gradient class here
-        // Previous background: "bg-gradient-to-br from-background via-background to-indigo-950/30" - replaced by animated-gradient
+        "relative flex flex-col min-h-screen overflow-hidden"
+        // animated-gradient class removed as MotionBackground handles background
         )}>
+
+      {/* Add the Motion Background */}
+       <MotionBackground />
 
       {/* Render other sections normally */}
       {/* Suspense for HeroSection is handled by its dynamic import */}
@@ -42,3 +46,4 @@ export default function HomeClient() {
     </div>
   );
 }
+
