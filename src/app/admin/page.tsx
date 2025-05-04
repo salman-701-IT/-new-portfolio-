@@ -1,4 +1,3 @@
-
 'use client';
 
 import React, { useState, useEffect, ChangeEvent } from 'react';
@@ -333,3 +332,4 @@ export default function AdminPage() {
     </div>
   );
 }
+
