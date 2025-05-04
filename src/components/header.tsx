@@ -5,7 +5,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { Menu, Home, User, Code, Briefcase, Mail, Sun, Moon } from 'lucide-react'; // Import Sun and Moon icons
+import { Menu, Home, User, Code, Briefcase, Mail, Sun, Moon, Shield } from 'lucide-react'; // Import Sun, Moon, Shield icons
 import { cn } from '@/lib/utils';
 import { useTheme } from '@/context/theme-provider'; // Import useTheme hook
 
@@ -15,6 +15,7 @@ const navLinks = [
   { href: '#skills', label: 'Skills', icon: Code },
   { href: '#projects', label: 'Projects', icon: Briefcase },
   { href: '#contact', label: 'Contact', icon: Mail },
+  { href: '/admin', label: 'Admin', icon: Shield }, // Add Admin link
 ];
 
 function ThemeToggle() {
@@ -51,18 +52,24 @@ export default function Header() {
   useEffect(() => {
     setIsMounted(true);
     const handleScroll = () => {
-      if (window.scrollY > 50) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
+      // Only access window if mounted (client-side)
+      if (typeof window !== 'undefined') {
+        if (window.scrollY > 50) {
+            setIsScrolled(true);
+          } else {
+            setIsScrolled(false);
+          }
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
-    handleScroll(); // Initial check
+    // Ensure event listener is added only on the client-side after mount
+    if (isMounted && typeof window !== 'undefined') {
+      window.addEventListener('scroll', handleScroll);
+      handleScroll(); // Initial check
 
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+      return () => window.removeEventListener('scroll', handleScroll);
+    }
+  }, [isMounted]);
 
   if (!isMounted) {
     // Render nothing or a placeholder on the server/initial render
@@ -78,7 +85,7 @@ export default function Header() {
     >
       <div className="container mx-auto flex justify-between items-center px-4 md:px-8">
         {/* Logo/Brand - Simple Text for now */}
-        <Link href="#hero" className="text-xl font-bold text-primary text-glow-primary transition-colors hover:text-accent">
+        <Link href="/#hero" className="text-xl font-bold text-primary text-glow-primary transition-colors hover:text-accent">
           SK
         </Link>
 
@@ -87,7 +94,12 @@ export default function Header() {
             <nav className="flex space-x-1">
                 {navLinks.map((link) => (
                     <Button key={link.href} variant="ghost" asChild className="text-sm font-medium text-foreground/80 hover:text-accent hover:bg-accent/10">
-                    <Link href={link.href}>{link.label}</Link>
+                       {/* Use Next Link for internal navigation, regular anchor for hash links */}
+                      {link.href.startsWith('/') ? (
+                         <Link href={link.href}>{link.label}</Link>
+                       ) : (
+                         <a href={link.href}>{link.label}</a>
+                       )}
                     </Button>
                 ))}
             </nav>
@@ -106,7 +118,7 @@ export default function Header() {
             </SheetTrigger>
             <SheetContent side="right" className="w-[250px] glassmorphism p-4">
               <nav className="flex flex-col space-y-4 mt-8">
-                 <Link href="#hero" className="text-xl font-bold text-primary text-glow-primary mb-4">
+                 <Link href="/#hero" className="text-xl font-bold text-primary text-glow-primary mb-4">
                     SK
                  </Link>
                 {navLinks.map((link) => (
@@ -116,10 +128,18 @@ export default function Header() {
                     asChild
                     className="justify-start text-foreground/90 hover:text-accent hover:bg-accent/10"
                   >
-                    <Link href={link.href}>
-                      <link.icon className="mr-2 h-4 w-4" />
-                      {link.label}
-                    </Link>
+                     {/* Use Next Link for internal navigation, regular anchor for hash links */}
+                     {link.href.startsWith('/') ? (
+                       <Link href={link.href}>
+                         <link.icon className="mr-2 h-4 w-4" />
+                         {link.label}
+                       </Link>
+                      ) : (
+                        <a href={link.href}>
+                          <link.icon className="mr-2 h-4 w-4" />
+                          {link.label}
+                        </a>
+                      )}
                   </Button>
                 ))}
               </nav>
