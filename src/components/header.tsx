@@ -5,17 +5,17 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { Menu, Home, User, Code, Briefcase, Mail, Sun, Moon, Shield } from 'lucide-react'; // Import Sun, Moon, Shield icons
+import { Menu, Home, User, Code, Briefcase, Mail, Sun, Moon } from 'lucide-react'; // Removed Shield icon
 import { cn } from '@/lib/utils';
 import { useTheme } from '@/context/theme-provider'; // Import useTheme hook
 
+// Removed Admin link from navLinks
 const navLinks = [
   { href: '#hero', label: 'Home', icon: Home },
   { href: '#about', label: 'About', icon: User },
   { href: '#skills', label: 'Skills', icon: Code },
   { href: '#projects', label: 'Projects', icon: Briefcase },
   { href: '#contact', label: 'Contact', icon: Mail },
-  { href: '/admin', label: 'Admin', icon: Shield }, // Add Admin link
 ];
 
 function ThemeToggle() {
