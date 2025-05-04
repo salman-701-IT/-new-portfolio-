@@ -3,7 +3,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Mail, Phone, MapPin, User, Briefcase, Languages, GraduationCap, Zap, BrainCircuit, Fingerprint, Box, Code, Film, Bot, Sparkles, Rocket, Target, Palette, MonitorSmartphone, Lock, Search, BarChart, CheckCircle } from 'lucide-react'; // Added CheckCircle
+import { Mail, Phone, MapPin, User, Briefcase, Languages, GraduationCap, Zap, BrainCircuit, Fingerprint, Box, Code, Film, Bot, Sparkles, Rocket, Target, Palette, MonitorSmartphone, Lock, Search, BarChart, CheckCircle, Eye } from 'lucide-react'; // Added Eye icon
 import SectionContainer from '../section-container';
 import { useInView } from 'react-intersection-observer';
 import { cn } from '@/lib/utils';
@@ -45,6 +45,9 @@ export function AboutSection() {
     { icon: Rocket, title: 'Technology Exploration', description: 'Innovating with biometrics, IoT solutions, 3D interfaces, and voice technologies.' }, // Refined description
   ];
 
+  const mission = "To empower students, creators, and small businesses by delivering innovative, accessible, and intelligent digital solutions — blending technology, creativity, and education.";
+  const vision = "To be a leading force in transforming how people learn, grow, and succeed through AI-powered tools, immersive design, and inclusive technology.";
+
 
   return (
     <SectionContainer id="about" className="py-16 md:py-24">
@@ -59,7 +62,7 @@ export function AboutSection() {
                     layout="fill"
                     objectFit="cover"
                     className="transition-transform duration-500 hover:scale-110"
-                    data-ai-hint="indian male avatar realistic professional" // Added hint for a suitable image
+                    data-ai-hint="indian male avatar realistic professional" // Updated hint for a suitable image
                  />
             </div>
           </div>
@@ -76,6 +79,26 @@ export function AboutSection() {
             </p>
              <p className="text-muted-foreground">Connect with me: <a href={`mailto:${personalInfo.email}`} className="text-accent hover:underline">{personalInfo.email}</a> | Call: <a href={`tel:${personalInfo.phone}`} className="text-accent hover:underline">{personalInfo.phone}</a></p>
           </div>
+        </div>
+
+        {/* Mission and Vision */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <Card className="glassmorphism hover:border-primary transition-colors">
+                <CardHeader>
+                <CardTitle className="flex items-center gap-2 text-primary"><Target /> Mission</CardTitle>
+                </CardHeader>
+                <CardContent>
+                <p className="text-foreground/90">{mission}</p>
+                </CardContent>
+            </Card>
+             <Card className="glassmorphism hover:border-accent transition-colors">
+                <CardHeader>
+                <CardTitle className="flex items-center gap-2 text-accent"><Eye /> Vision</CardTitle>
+                </CardHeader>
+                <CardContent>
+                <p className="text-foreground/90">{vision}</p>
+                </CardContent>
+            </Card>
         </div>
 
         {/* Personal Info & Expertise */}
