@@ -4,10 +4,11 @@
 import dynamic from 'next/dynamic';
 import React from 'react';
 import { Skeleton } from '@/components/ui/skeleton'; // Import Skeleton for loading state
-import { AboutSection } from '@/components/sections/about-section';
-import { SkillsSection } from '@/components/sections/skills-section';
-import { ProjectsSection } from '@/components/sections/projects-section';
-import { ContactSection } from '@/components/sections/contact-section';
+// Removed imports for About, Skills, Projects, Contact sections
+// import { AboutSection } from '@/components/sections/about-section';
+// import { SkillsSection } from '@/components/sections/skills-section';
+// import { ProjectsSection } from '@/components/sections/projects-section';
+// import { ContactSection } from '@/components/sections/contact-section';
 import { Footer } from '@/components/sections/footer';
 import ScrollToTopButton from '@/components/scroll-to-top-button';
 import { cn } from '@/lib/utils'; // Import cn
@@ -34,15 +35,16 @@ export default function HomeClient() {
       {/* Add the Motion Background */}
        <MotionBackground />
 
-      {/* Render other sections normally */}
-      {/* Suspense for HeroSection is handled by its dynamic import */}
+      {/* Render only the Hero section for a "smaller" home page */}
       <HeroSection />
-      <AboutSection />
-      <SkillsSection />
-      <ProjectsSection />
-      <ContactSection />
+      {/* Removed AboutSection, SkillsSection, ProjectsSection, ContactSection */}
+      {/* <AboutSection /> */}
+      {/* <SkillsSection /> */}
+      {/* <ProjectsSection /> */}
+      {/* <ContactSection /> */}
       <Footer />
       <ScrollToTopButton />
     </div>
   );
 }
+
