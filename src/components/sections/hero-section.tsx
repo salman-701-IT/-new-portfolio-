@@ -1,3 +1,4 @@
+
 'use client'; // Add 'use client' directive
 
 import React, { useState, useEffect } from 'react'; // Import useState and useEffect
@@ -9,11 +10,16 @@ import { useInView } from 'react-intersection-observer';
 import { Skeleton } from '@/components/ui/skeleton'; // Import Skeleton for loading state
 import { cn } from '@/lib/utils';
 import { Hand, Mail, Sparkles } from 'lucide-react'; // Import Hand, Mail, and Sparkles icons
-// Removed import of MotionBackground - it's rendered globally in home-client.tsx
+import MotionBackground from '@/components/motion-background'; // Import MotionBackground
 
-// Removed dynamic import for ParticleBackground as it was causing errors and removed
 
-// Removed dynamic import for ThreeDText placeholder
+// Placeholder for 3D Text Component - ensure this component exists or remove if not needed
+// Removing the dynamic import for ThreeDTextClient as it doesn't exist
+// const ThreeDText = dynamic(() => import('@/components/ThreeDTextClient'), {
+//   ssr: false,
+//   loading: () => <Skeleton className="h-[150px] md:h-[200px] w-full mb-8" />, // Adjusted loading skeleton size
+// });
+
 
 function getGreeting(): string {
   const hour = new Date().getHours();
@@ -43,8 +49,8 @@ function HeroSectionComponent() {
       // Keep relative positioning for content and allow overflow for background elements
       className="relative min-h-screen flex flex-col items-center justify-center text-center overflow-hidden pt-20 pb-10" // Adjusted padding
     >
-       {/* Motion Background is rendered globally in home-client.tsx */}
-       {/* Optional Particle Background - Removed */}
+       {/* Motion Background */}
+       <MotionBackground />
 
 
       <div
@@ -73,7 +79,8 @@ function HeroSectionComponent() {
         >
             Salman Khan S.
         </h1>
-         {/* Removed 3D Text placeholder */}
+         {/* Removed the 3D Text Component usage */}
+        {/* <ThreeDText /> */}
 
 
         {/* Typing animation for roles - Updated roles for professionalism */}
@@ -121,7 +128,7 @@ function HeroSectionComponent() {
             )}
             asChild
             >
-            <a href="mailto:salmankhan701.it@email.com?subject=Project%20Inquiry:%20Let's%20Collaborate">
+            <a href="mailto:salmankhan701.it@gmail.com?subject=Project%20Inquiry:%20Let's%20Collaborate"> {/* Updated email */}
                 {/* Conic gradient background */}
                 <span className="absolute inset-[-1000%] animate-[spin_4s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,hsl(var(--primary)/0.8)_0%,hsl(var(--accent)/0.8)_50%,hsl(var(--primary)/0.8)_100%)] opacity-75 group-hover:opacity-100 transition-opacity duration-500" />
                 {/* Inner content span */}

@@ -16,7 +16,7 @@ export function AboutSection() {
 
   const personalInfo = {
     fullName: 'Salman Khan S.',
-    email: 'salmankhan701.it@email.com',
+    email: 'salmankhan701.it@gmail.com', // Updated email
     phone: '+91-9750129532',
     location: 'Chennai, Tamil Nadu, India',
     role: 'Creative Technologist | Full Stack Developer | AI Solutions Architect | Educator | Designer', // Updated role for professionalism
@@ -171,4 +171,3 @@ export function AboutSection() {
     </SectionContainer>
   );
 }
-

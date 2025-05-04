@@ -1,3 +1,4 @@
+
 'use client';
 
 import React from 'react';
@@ -9,7 +10,7 @@ import { useInView } from 'react-intersection-observer';
 import { cn } from '@/lib/utils';
 
 // Removed CV link placeholder
-const mailtoLink = 'mailto:salmankhan701.it@email.com';
+const mailtoLink = 'mailto:salmankhan701.it@gmail.com'; // Updated email
 const whatsappLink = 'https://wa.me/919750129532'; // Updated WhatsApp link
 const phoneLink = 'tel:+919750129532'; // Updated Phone link
 
@@ -20,7 +21,7 @@ export function ContactSection() {
   });
 
   const contactInfo = [
-    { icon: Mail, text: 'salmankhan701.it@email.com', href: mailtoLink, label: 'Email Address' }, // More descriptive label
+    { icon: Mail, text: 'salmankhan701.it@gmail.com', href: mailtoLink, label: 'Email Address' }, // Updated email, More descriptive label
     { icon: Phone, text: '+91-9750129532', href: phoneLink, label: 'Phone Number' }, // More descriptive label
     { icon: MessageCircle, text: '+91-9750129532', href: whatsappLink, label: 'WhatsApp', target: '_blank' },
     { icon: MapPin, text: 'Chennai, India', label: 'Location' },

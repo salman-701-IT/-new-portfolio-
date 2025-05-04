@@ -1,3 +1,4 @@
+
 'use client';
 
 import React from 'react';
@@ -26,6 +27,8 @@ interface Project {
   category: string[]; // Added category for potential filtering
 }
 
+const mailtoBase = 'mailto:salmankhan701.it@gmail.com'; // Updated base email
+
 // Project data based on user request
 const projectsData: Project[] = [
   {
@@ -37,7 +40,7 @@ const projectsData: Project[] = [
     aiHint: 'ai face detection security overlay',
     tech: ['Python', 'TensorFlow.js', 'ONNX', 'OpenCV'],
     demoLink: '#', // Placeholder link
-    learnMoreLink: 'mailto:salmankhan701.it@email.com?subject=Inquiry:%20Face%20Liveness%20Detection',
+    learnMoreLink: `${mailtoBase}?subject=Inquiry:%20Face%20Liveness%20Detection`, // Updated link
     button1Text: 'Try Live Demo',
     button2Text: 'Case Study',
     category: ['AI', 'Security'],
@@ -51,7 +54,7 @@ const projectsData: Project[] = [
     aiHint: 'chatbot interface ecommerce gradient',
     tech: ['Dialogflow', 'JS', 'Firebase'],
     demoLink: '#', // Placeholder link
-    learnMoreLink: 'mailto:salmankhan701.it@email.com?subject=Inquiry:%20AI%20Chatbot',
+    learnMoreLink: `${mailtoBase}?subject=Inquiry:%20AI%20Chatbot`, // Updated link
     button1Text: 'Chat Demo',
     button2Text: 'See Flow',
     category: ['AI', 'Web', 'E-commerce'],
@@ -65,7 +68,7 @@ const projectsData: Project[] = [
     aiHint: 'game interface voice control education',
     tech: ['JS', 'Web Speech API', 'Canvas'],
     demoLink: '#', // Placeholder link
-    learnMoreLink: 'mailto:salmankhan701.it@email.com?subject=Inquiry:%20Voice%20Game',
+    learnMoreLink: `${mailtoBase}?subject=Inquiry:%20Voice%20Game`, // Updated link
     button1Text: 'Play Preview',
     button2Text: 'Learn More',
     category: ['Games', 'Web', 'Education'],
@@ -79,7 +82,7 @@ const projectsData: Project[] = [
     aiHint: 'learning platform dashboard certificate',
     tech: ['HTML/CSS/JS', 'Firebase', 'PDFGen'],
     demoLink: '#', // Placeholder link
-    learnMoreLink: 'mailto:salmankhan701.it@email.com?subject=Inquiry:%20Yumaris%20LMS',
+    learnMoreLink: `${mailtoBase}?subject=Inquiry:%20Yumaris%20LMS`, // Updated link
     button1Text: 'Try Sample Course',
     button2Text: 'Download Cert',
     category: ['Web', 'Education', 'LMS'],
@@ -93,7 +96,7 @@ const projectsData: Project[] = [
     aiHint: 'iot dashboard sensor graph circuit',
     tech: ['ESP32', 'Arduino', 'Wi-Fi', 'Sensors'],
     demoLink: '#', // Placeholder link
-    learnMoreLink: 'mailto:salmankhan701.it@email.com?subject=Inquiry:%20IoT%20Green%20Campus',
+    learnMoreLink: `${mailtoBase}?subject=Inquiry:%20IoT%20Green%20Campus`, // Updated link
     button1Text: 'View Sensor Demo',
     button2Text: 'See Wiring',
     category: ['IoT', 'Embedded'],
@@ -107,7 +110,7 @@ const projectsData: Project[] = [
     aiHint: 'video editing reel portfolio motion graphics',
     tech: ['Premiere Pro', 'Canva', 'After Effects'],
     demoLink: '#', // Placeholder link
-    learnMoreLink: 'mailto:salmankhan701.it@email.com?subject=Inquiry:%20Multimedia%20Portfolio',
+    learnMoreLink: `${mailtoBase}?subject=Inquiry:%20Multimedia%20Portfolio`, // Updated link
     button1Text: 'Watch Reels',
     button2Text: 'View Designs',
     category: ['Media', 'Design'],
@@ -121,14 +124,13 @@ const projectsData: Project[] = [
     aiHint: 'website mockup laptop modern responsive',
     tech: ['React', 'Tailwind', 'Firebase'],
     demoLink: '#', // Placeholder link for visiting a sample site
-    learnMoreLink: 'mailto:salmankhan701.it@email.com?subject=Inquiry:%20Client%20Websites',
+    learnMoreLink: `${mailtoBase}?subject=Inquiry:%20Client%20Websites`, // Updated link
     button1Text: 'Visit Site',
     button2Text: 'View Portfolio',
     category: ['Web', 'Design'],
   },
 ];
 
-const mailtoBase = 'mailto:salmankhan701.it@email.com';
 
 export function ProjectsSection() {
  const { ref, inView } = useInView({

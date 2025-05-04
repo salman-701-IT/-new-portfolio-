@@ -12,7 +12,7 @@ const socialLinks = [
   { icon: Github, href: 'https://github.com/salmankhan', label: 'GitHub' },
 ];
 
-const mailtoLink = 'mailto:salmankhan701.it@email.com';
+const mailtoLink = 'mailto:salmankhan701.it@gmail.com'; // Updated email
 
 
 export function Footer() {
@@ -43,7 +43,7 @@ export function Footer() {
         </div>
         <p className="text-sm text-muted-foreground">
           {/* Render year only when available */}
-          {currentYear && `© ${currentYear} Salman Khan. All rights reserved.`}
+          {currentYear && `© ${currentYear} Salman Khan S. All rights reserved.`} {/* Added initial */}
         </p>
       </div>
     </SectionContainer>
