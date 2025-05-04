@@ -8,9 +8,8 @@ import SectionContainer from '../section-container';
 import { useInView } from 'react-intersection-observer';
 import { Skeleton } from '@/components/ui/skeleton'; // Import Skeleton for loading state
 import { cn } from '@/lib/utils';
-import { Hand, Mail } from 'lucide-react'; // Import Hand and Mail icons
-import HeroBackground3D from '../HeroBackground3D'; // Import the 3D background
-
+import { Hand, Mail, Sparkles } from 'lucide-react'; // Import Hand, Mail, and Sparkles icons
+import MotionBackground from '@/components/motion-background'; // Import MotionBackground
 
 // Dynamically import the Particle Background component placeholder
 const ParticleBackground = dynamic(() => import('@/components/particle-background'), {
@@ -18,11 +17,12 @@ const ParticleBackground = dynamic(() => import('@/components/particle-backgroun
   loading: () => <Skeleton className="absolute inset-0 -z-10 bg-transparent" /> // Use transparent background for loading skeleton
 });
 
-// Placeholder for 3D Text - Not used currently
+// Placeholder for 3D Text Component - Removed dynamic import as component doesn't exist
 // const ThreeDText = dynamic(() => import('@/components/ThreeDTextClient'), {
 //   ssr: false,
-//   loading: () => <Skeleton className="h-64 w-full mb-8" />,
+//   loading: () => <Skeleton className="h-[150px] md:h-[200px] w-full mb-8" />, // Adjusted loading skeleton size
 // });
+
 
 function getGreeting(): string {
   const hour = new Date().getHours();
@@ -49,18 +49,18 @@ function HeroSectionComponent() {
   return (
     <SectionContainer
       id="hero"
-      // Keep relative positioning for content and allow overflow for 3D background
-      className="relative min-h-screen flex flex-col items-center justify-center text-center overflow-hidden pt-16" // Added padding top
+      // Keep relative positioning for content and allow overflow for background elements
+      className="relative min-h-screen flex flex-col items-center justify-center text-center overflow-hidden pt-20 pb-10" // Adjusted padding
     >
-       {/* Render 3D Background */}
-       <HeroBackground3D />
-       {/* Render Particle Background Placeholder */}
+       {/* Motion Background */}
+       <MotionBackground />
+       {/* Optional Particle Background */}
        <ParticleBackground />
 
 
       <div
         ref={ref}
-        // Ensure content is above the 3D background
+        // Ensure content is above the background elements
         className={cn(
             'relative z-10 transition-all duration-1000 ease-out',
             inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4' // Smooth fade-in and slight upward movement
@@ -73,24 +73,22 @@ function HeroSectionComponent() {
             </div>
           )}
 
-        {/* Name with enhanced styling */}
+        {/* Name with enhanced styling - Using H1 as fallback */}
         <h1
-          className={cn(
-            "text-5xl md:text-7xl font-bold mb-4 text-foreground animate-fade-in-slow",
-            "bg-clip-text text-transparent bg-gradient-to-r from-primary via-accent to-primary", // Gradient text
-            "text-glow-primary" // Existing glow effect
-          )}
-          style={{ animationDelay: '0.5s' }}
+            className={cn(
+                "text-5xl md:text-7xl font-bold mb-4 text-foreground animate-fade-in-slow",
+                "bg-clip-text text-transparent bg-gradient-to-r from-primary via-accent to-primary", // Gradient text
+                "text-glow-primary" // Existing glow effect
+            )}
+            style={{ animationDelay: '0.5s' }}
         >
-           Salman Khan S.
+            Salman Khan S.
         </h1>
-
-
-        {/* Removed Placeholder for 3D Text */}
+         {/* Removed Suspense wrapper and ThreeDText component */}
 
 
         {/* Typing animation for roles - Updated roles for professionalism */}
-        <div className="mb-8 h-8 text-xl md:text-2xl font-mono text-foreground animate-fade-in-slow" style={{ animationDelay: '0.8s' }}>
+        <div className="mb-6 h-8 text-xl md:text-2xl font-mono text-foreground animate-fade-in-slow" style={{ animationDelay: '0.8s' }}>
           <TypeAnimation
             sequence={[
               'Creative Technologist', // Start with the main role
@@ -114,19 +112,28 @@ function HeroSectionComponent() {
           />
         </div>
 
+        {/* Added Descriptive Text */}
+        <p
+            className="max-w-2xl mx-auto text-base md:text-lg text-foreground/80 mb-10 animate-fade-in-slow"
+            style={{ animationDelay: '1.0s' }}
+        >
+           Based in Chennai, India, I craft innovative digital experiences, blending cutting-edge web technologies with AI, creative media, and education to empower businesses and learners worldwide. Let's build something truly remarkable together. Your vision, amplified by technology.
+        </p>
+
+
         {/* Call to action button - Link to email */}
-        <div className="animate-fade-in-slow" style={{ animationDelay: '1.1s' }}>
+        <div className="animate-fade-in-slow" style={{ animationDelay: '1.2s' }}>
             <Button
             size="lg"
             className="relative overflow-hidden group neon-glow-primary hover:shadow-[0_0_25px_theme(colors.primary),0_0_40px_theme(colors.primary)] transition-shadow duration-300"
             asChild
             >
-            <a href="mailto:salmankhan701.it@email.com?subject=Project%20Inquiry">
+            <a href="mailto:salmankhan701.it@email.com?subject=Project%20Inquiry:%20Let's%20Collaborate">
                 {/* Conic gradient background */}
                 <span className="absolute inset-[-1000%] animate-[spin_3s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,hsl(var(--primary)/0.8)_0%,hsl(var(--accent)/0.8)_50%,hsl(var(--primary)/0.8)_100%)] opacity-75 group-hover:opacity-100 transition-opacity duration-300" />
                 {/* Inner content span */}
                 <span className="relative z-10 inline-flex h-full w-full cursor-pointer items-center justify-center rounded-md bg-background px-8 py-3 text-sm font-medium text-foreground backdrop-blur-sm group-hover:text-primary-foreground transition-colors duration-300 group-hover:bg-transparent">
-                 <Mail className="mr-2 h-4 w-4 transition-transform group-hover:scale-110" /> Let's Collaborate
+                 <Sparkles className="mr-2 h-4 w-4 transition-transform group-hover:scale-110" /> Let's Collaborate
                 </span>
             </a>
             </Button>
