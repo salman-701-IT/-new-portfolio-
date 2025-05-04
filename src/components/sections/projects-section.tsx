@@ -1,11 +1,10 @@
-
 'use client';
 
 import React, { useState, useEffect } from 'react'; // Added useState, useEffect
 import Image from 'next/image';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, Code, Eye, Gamepad2, Video, Tv, Award, CircuitBoard, Bot, Loader2 } from 'lucide-react'; // Added Loader2
+import { ArrowRight, Code, Eye, Gamepad2, Video, Tv, Award, CircuitBoard, Bot, Loader2, ScanFace, MessageCircle, Headset, Lightbulb, Leaf, PlugZap, Laptop2 } from 'lucide-react'; // Added Loader2
 import SectionContainer from '../section-container';
 import { useInView } from 'react-intersection-observer';
 import { cn } from '@/lib/utils';
@@ -29,6 +28,108 @@ const getIconComponent = (iconName: string | React.ElementType): React.ElementTy
 const mailtoBase = 'mailto:salmankhan701.it@gmail.com'; // Updated base email
 
 
+const projectsData = [
+    {
+      id: 'face-liveness',
+      title: 'Face Liveness Detection System',
+      icon: ScanFace,
+      description: "An AI-powered system that detects whether a face is real or spoofed using webcam input. Enhances biometric authentication using live detection algorithms.",
+      image: 'https://picsum.photos/seed/facedetect/400/300',
+      aiHint: 'face liveness detection interface',
+      tech: ['Python', 'TensorFlow.js', 'ONNX', 'OpenCV'],
+      demoLink: '#',
+      learnMoreLink: '#',
+      button1Text: '▶️ Try Live Demo',
+      button2Text: '📄 Case Study',
+      category: ['AI', 'Security'],
+    },
+    {
+      id: 'ai-ecommerce-chatbot',
+      title: 'AI Chatbot with E-Commerce Support',
+      icon: MessageCircle,
+      description: "Built a smart chatbot using Dialogflow that handles orders, responds to user queries, and tracks deliveries with contextual understanding.",
+      image: 'https://picsum.photos/seed/ecommercebot/400/300',
+      aiHint: 'chatbot interface gradient',
+      tech: ['Dialogflow', 'JS', 'Firebase'],
+      demoLink: '#',
+      learnMoreLink: '#',
+      button1Text: '💬 Chat Demo',
+      button2Text: '🔍 See Flow',
+      category: ['AI', 'Web'],
+    },
+    {
+      id: 'voice-vocational-game',
+      title: 'Voice-Controlled Vocational Game',
+      icon: Headset,
+      description: "Designed a gamified simulation where learners perform skill tasks using only their voice — ideal for inclusive vocational education.",
+      image: 'https://picsum.photos/seed/voicegame/400/300',
+      aiHint: 'vocational game interface',
+      tech: ['JS', 'Web Speech API', 'Canvas'],
+      demoLink: '#',
+      learnMoreLink: '#',
+      button1Text: '🎮 Play Preview',
+      button2Text: '📚 Learn More',
+      category: ['Games', 'Education'],
+    },
+    {
+      id: 'yumaris-lms',
+      title: 'Yumaris Skill Learning LMS',
+      icon: Lightbulb,
+      description: "A custom learning platform offering recorded skill courses, auto quizzes, and downloadable certification — powered by Firebase.",
+      image: 'https://picsum.photos/seed/yumarislms/400/300',
+      aiHint: 'lms dashboard interface',
+      tech: ['HTML/CSS/JS', 'Firebase', 'PDFGen'],
+      demoLink: '#',
+      learnMoreLink: '#',
+      button1Text: '📘 Try Sample Course',
+      button2Text: '📥 Download Cert',
+      category: ['Web', 'Education'],
+    },
+    {
+      id: 'iot-green-campus',
+      title: 'IoT Green Campus Automation',
+      icon: Leaf,
+      description: "An IoT solution to monitor campus energy and environment using real-time sensors (water, CO₂, light) and control appliances wirelessly.",
+      image: 'https://picsum.photos/seed/iotcampus/400/300',
+      aiHint: 'iot campus dashboard',
+      tech: ['ESP32', 'Arduino', 'Wi-Fi', 'Sensors'],
+      demoLink: '#',
+      learnMoreLink: '#',
+      button1Text: '🌱 View Sensor Demo',
+      button2Text: '🔌 See Wiring',
+      category: ['IoT', 'AI'],
+    },
+    {
+      id: 'multimedia-portfolio',
+      title: 'Multimedia Editing Portfolio',
+      icon: Video,
+      description: "A showcase of YouTube intros, reels, event edits, and logo animations done for brands and influencers under Yumaris Media Services.",
+      image: 'https://picsum.photos/seed/multimediaportfolio/400/300',
+      aiHint: 'video editing timeline interface',
+      tech: ['Premiere Pro', 'Canva', 'After Effects'],
+      demoLink: '#',
+      learnMoreLink: '#',
+      button1Text: '🎥 Watch Reels',
+      button2Text: '🎨 View Designs',
+      category: ['Media'],
+    },
+    {
+      id: 'client-websites',
+      title: 'Client Websites by Yumaris',
+      icon: Laptop2,
+      description: "Modern, fast-loading websites built for businesses with mobile-friendly designs and SEO optimization — using Firebase & React.",
+      image: 'https://picsum.photos/seed/clientwebsites/400/300',
+      aiHint: 'website design showcase',
+      tech: ['React', 'Tailwind', 'Firebase'],
+      demoLink: '#',
+      learnMoreLink: '#',
+      button1Text: '🌐 Visit Site',
+      button2Text: '📄 View Portfolio',
+      category: ['Web'],
+    },
+  ];
+
+
 export function ProjectsSection() {
  const { ref, inView } = useInView({
     triggerOnce: true,
@@ -42,21 +143,10 @@ export function ProjectsSection() {
 
 
   useEffect(() => {
-    const fetchProjects = async () => {
-      setIsLoading(true);
-      setError(null);
-      try {
-        const fetchedProjects = await getProjects();
-        setProjects(fetchedProjects);
-      } catch (err) {
-        console.error("Error fetching projects:", err);
-        setError("Failed to load projects. Please try again later.");
-      } finally {
-        setIsLoading(false);
-      }
-    };
+    // Replace Firebase fetch with static data
+    setIsLoading(false);
+    setProjects(projectsData as Project[]); // Use your defined projects array
 
-    fetchProjects();
   }, []); // Fetch projects on component mount
 
 
@@ -89,7 +179,9 @@ export function ProjectsSection() {
             {!isLoading && !error && projects.length > 0 && (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                   {projects.map((project, index) => {
-                    const IconComponent = getIconComponent(project.icon); // Get the icon component
+                    //const IconComponent = getIconComponent(project.icon); // Get the icon component
+                    const IconComponent = project.icon as React.ElementType; // Ensure correct type assertion
+
                     return (
                       <Card
                           key={project.id}
