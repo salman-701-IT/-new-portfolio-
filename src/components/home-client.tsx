@@ -14,12 +14,17 @@ import { cn } from '@/lib/utils'; // Import cn
 import MotionBackground from '@/components/motion-background'; // Import MotionBackground with lowercase path
 
 
-// Dynamically import HeroSection with ssr: false (handled inside hero-section.tsx)
+// Dynamically import HeroSection with a more visually appealing loading state
 const HeroSection = dynamic(
   () => import('@/components/sections/hero-section').then((mod) => mod.HeroSection),
   {
-    // ssr: false, // Ensure HeroSection logic runs client-side if it uses client hooks/APIs - Handled by 'use client' in HeroSection
-    loading: () => <Skeleton className="h-screen w-full" />,
+    // ssr: false is handled by 'use client' in HeroSection
+     loading: () => (
+       <div className="h-screen w-full flex items-center justify-center bg-background">
+         {/* Centered, pulsing skeleton matching theme */}
+         <Skeleton className="h-1/2 w-3/4 animate-pulse rounded-lg bg-primary/10" />
+       </div>
+     ),
   }
 );
 
