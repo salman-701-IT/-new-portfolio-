@@ -1,4 +1,3 @@
-
 'use client'; // Add 'use client' directive
 
 import React, { useState, useEffect, Suspense } from 'react'; // Import useState and useEffect
@@ -11,8 +10,18 @@ import { Skeleton } from '@/components/ui/skeleton'; // Import Skeleton for load
 import { cn } from '@/lib/utils';
 import { Hand, Mail } from 'lucide-react'; // Import Hand and Mail icons
 
-// Dynamically import the 3D Text Component placeholder - Removed as component doesn't exist
 
+// Dynamically import the Particle Background component
+const ParticleBackground = dynamic(() => import('@/components/particle-background'), {
+  ssr: false,
+  loading: () => <Skeleton className="absolute inset-0 -z-10 bg-transparent" /> // Use transparent background for loading skeleton
+});
+
+// Placeholder for 3D Text - Not used currently
+// const ThreeDText = dynamic(() => import('@/components/ThreeDTextClient'), {
+//   ssr: false,
+//   loading: () => <Skeleton className="h-64 w-full mb-8" />,
+// });
 
 function getGreeting(): string {
   const hour = new Date().getHours();
@@ -42,7 +51,8 @@ function HeroSectionComponent() {
       // Keep relative positioning for content and allow overflow for 3D background
       className="relative min-h-screen flex flex-col items-center justify-center text-center overflow-hidden pt-16" // Added padding top
     >
-       {/* Placeholder for removed Particle Background */}
+       {/* Render Particle Background */}
+       <ParticleBackground />
 
 
       <div
@@ -60,22 +70,12 @@ function HeroSectionComponent() {
             </div>
           )}
 
-        {/* Animated Name */}
+        {/* Static Name */}
         <h1 className="text-5xl md:text-7xl font-bold mb-4 text-glow-primary animate-fade-in-slow" style={{ animationDelay: '0.5s' }}>
-           <TypeAnimation
-              sequence={['Salman Khan', 3000, '']} // Repeat name animation
-              wrapper="span"
-              cursor={true}
-              repeat={Infinity}
-              speed={30}
-            />
+           Salman Khan
         </h1>
 
-        {/* Placeholder for 3D Text */}
-         <div className="h-[50px] md:h-[60px] mb-8 flex items-center justify-center"> {/* Adjusted height for text */}
-             {/* Placeholder text since 3D text is removed */}
-             {/* <p className="text-muted-foreground text-sm">[3D Text Placeholder Removed]</p> */}
-         </div>
+        {/* Removed Placeholder for 3D Text */}
 
 
         {/* Typing animation for roles */}
