@@ -1,3 +1,4 @@
+
 'use client';
 
 import React, { useState, useEffect, ChangeEvent } from 'react';
@@ -44,8 +45,18 @@ export default function AdminPage() {
   // --- Authentication Placeholder ---
   // !!! WARNING: THIS IS NOT SECURE FOR PRODUCTION !!!
   // Replace with a proper authentication system (e.g., Firebase Auth)
-  const isAuthenticated = true; // Simulate logged-in state
-  // --------------------------------
+  const [isAuthenticated, setIsAuthenticated] = useState(false); // Simulate logged-in state
+  const [loginPassword, setLoginPassword] = useState('');
+  const correctPassword = process.env.NEXT_PUBLIC_ADMIN_PASSWORD || 'admin';
+
+
+  const handleLogin = () => {
+    if (loginPassword === correctPassword) {
+      setIsAuthenticated(true);
+    } else {
+      toast({ variant: 'destructive', title: 'Login Failed', description: 'Incorrect password.' });
+    }
+  };
 
   const [projects, setProjects] = useState<Project[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -190,9 +201,17 @@ export default function AdminPage() {
              <CardTitle>Admin Access Required</CardTitle>
            </CardHeader>
            <CardContent>
-             <p>You must be logged in to manage portfolio content.</p>
-             {/* Add a login button/link here in a real application */}
+            <Label htmlFor="password">Password</Label>
+            <Input
+              type="password"
+              id="password"
+              value={loginPassword}
+              onChange={(e) => setLoginPassword(e.target.value)}
+            />
            </CardContent>
+           <CardFooter>
+             <Button onClick={handleLogin}>Login</Button>
+           </CardFooter>
          </Card>
        </div>
      );
