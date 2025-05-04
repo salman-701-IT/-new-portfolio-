@@ -9,24 +9,14 @@ import SectionContainer from '../section-container';
 import { useInView } from 'react-intersection-observer';
 import { Skeleton } from '@/components/ui/skeleton'; // Import Skeleton for loading state
 import { cn } from '@/lib/utils';
-import { Hand } from 'lucide-react'; // Import Hand icon
+import { Hand, Mail } from 'lucide-react'; // Import Hand and Mail icons
 
 // Dynamically import the 3D background component, ensuring it only runs client-side
-// Removed dynamic import for HeroBackground3D as it caused errors
+// Removed dynamic import for HeroBackground3D
 // Dynamically import ParticleBackground
-const ParticleBackground = dynamic(
-  () => import('@/components/particle-background'),
-  {
-    ssr: false,
-    loading: () => <Skeleton className="absolute inset-0 -z-10 bg-[#030712]" />,
-  }
-);
+// Removed dynamic import for ParticleBackground as it was causing errors
 
 // Dynamically import the 3D Text Component placeholder - Removed as component doesn't exist
-// const ThreeDText = dynamic(() => import('@/components/ThreeDTextClient'), {
-//   ssr: false,
-//   loading: () => <Skeleton className="h-64 w-full mb-8" />,
-// });
 
 
 function getGreeting(): string {
@@ -57,8 +47,7 @@ function HeroSectionComponent() {
       // Keep relative positioning for content and allow overflow for 3D background
       className="relative min-h-screen flex flex-col items-center justify-center text-center overflow-hidden pt-16" // Added padding top
     >
-       {/* Render the Particle Background, which will only fully render client-side */}
-        <ParticleBackground />
+       {/* Removed Particle Background */}
 
 
       <div
@@ -78,18 +67,23 @@ function HeroSectionComponent() {
 
         {/* Animated Name */}
         <h1 className="text-5xl md:text-7xl font-bold mb-4 text-glow-primary animate-fade-in-slow" style={{ animationDelay: '0.5s' }}>
-          Salman Khan
+           <TypeAnimation
+              sequence={['Salman Khan', 3000, '']} // Repeat name animation
+              wrapper="span"
+              cursor={true}
+              repeat={Infinity}
+              speed={30}
+            />
         </h1>
 
         {/* Placeholder for 3D Text */}
-        {/* <ThreeDText /> */}
          <div className="h-[50px] md:h-[60px] mb-8 flex items-center justify-center"> {/* Adjusted height for text */}
-            {/* Ensure skeleton has appropriate height if needed */}
-            {/* <Skeleton className="h-full w-64" /> */}
+             {/* Placeholder text since 3D text is removed */}
+             {/* <p className="text-muted-foreground text-sm">[3D Text Placeholder Removed]</p> */}
          </div>
 
 
-        {/* Typing animation */}
+        {/* Typing animation for roles */}
         <div className="mb-8 h-8 text-xl md:text-2xl font-mono text-foreground animate-fade-in-slow" style={{ animationDelay: '0.8s' }}>
           <TypeAnimation
             sequence={[
@@ -101,6 +95,10 @@ function HeroSectionComponent() {
               1500,
               'Creative Technologist',
               1500,
+              'AI Enthusiast',
+              1500,
+              'Educator',
+              1500,
             ]}
             wrapper="span"
             speed={50}
@@ -108,17 +106,17 @@ function HeroSectionComponent() {
           />
         </div>
 
-        {/* Call to action button */}
+        {/* Call to action button - Link to email */}
         <div className="animate-fade-in-slow" style={{ animationDelay: '1.1s' }}>
             <Button
             size="lg"
             className="relative overflow-hidden group neon-glow-primary hover:shadow-[0_0_25px_theme(colors.primary),0_0_40px_theme(colors.primary)] transition-shadow duration-300"
             asChild
             >
-            <a href="#projects">
+            <a href="mailto:salmankhan701.it@email.com?subject=Project%20Inquiry">
                 <span className="absolute inset-[-1000%] animate-[spin_3s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,hsl(var(--primary))_0%,hsl(var(--accent))_50%,hsl(var(--primary))_100%)]" />
                 <span className="relative z-10 inline-flex h-full w-full cursor-pointer items-center justify-center rounded-md bg-background px-8 py-3 text-sm font-medium text-foreground backdrop-blur-3xl group-hover:text-primary-foreground transition-colors duration-300">
-                View My Work
+                 <Mail className="mr-2 h-4 w-4" /> Contact Me
                 </span>
             </a>
             </Button>

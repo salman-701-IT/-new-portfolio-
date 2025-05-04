@@ -1,15 +1,15 @@
+
 'use client';
 
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { Mail, MapPin, MessageCircle, Download, Phone } from 'lucide-react'; // Using MessageCircle for WhatsApp, Add Phone
+import { Mail, MapPin, MessageCircle, Phone } from 'lucide-react'; // Using MessageCircle for WhatsApp, Add Phone, Remove Download
 import SectionContainer from '../section-container';
 import { useInView } from 'react-intersection-observer';
 import { cn } from '@/lib/utils';
 
-// Placeholder link for CV - replace with actual link
-const cvLink = '/salman_khan_cv.pdf'; // Assume CV is in public folder
+// Removed CV link placeholder
 const mailtoLink = 'mailto:salmankhan701.it@email.com';
 const whatsappLink = 'https://wa.me/919750129532'; // Updated WhatsApp link
 const phoneLink = 'tel:+919750129532'; // Updated Phone link
@@ -60,14 +60,14 @@ export function ContactSection() {
               ))}
             </div>
 
-            {/* Download CV */}
+            {/* Email Me Section */}
             <div className="flex flex-col items-center justify-center text-center space-y-6 p-6 bg-secondary/50 rounded-lg">
-                 <h3 className="text-xl font-semibold text-foreground">Interested in my profile?</h3>
-                <p className="text-muted-foreground text-sm">Download my CV to learn more about my skills and experience.</p>
+                 <h3 className="text-xl font-semibold text-foreground">Let's Discuss Your Project!</h3>
+                <p className="text-muted-foreground text-sm">Interested in collaborating or have a question? Send me an email.</p>
                 <Button size="lg" asChild className="group neon-glow hover:shadow-[0_0_25px_theme(colors.accent),0_0_40px_theme(colors.accent)] transition-shadow duration-300">
-                    <a href={cvLink} download="Salman_Khan_CV.pdf">
-                    <Download className="mr-2 h-5 w-5 transition-transform group-hover:-translate-y-1" />
-                    Download CV
+                    <a href={mailtoLink + '?subject=Project%20Inquiry'}>
+                      <Mail className="mr-2 h-5 w-5 transition-transform group-hover:-translate-y-1" />
+                      Send Email
                     </a>
                 </Button>
             </div>
