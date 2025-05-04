@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -42,6 +43,12 @@ body {
     --sidebar-accent-foreground: 240 5.9% 10%;
     --sidebar-border: 240 5.9% 90%;
     --sidebar-ring: 326 74% 49%;
+
+    /* Text glow pulse variables */
+    --text-glow-pulse-from-shadow: 0 0 8px hsl(var(--primary)/0.7), 0 0 15px hsl(var(--primary)/0.4);
+    --text-glow-pulse-to-shadow: 0 0 12px hsl(var(--primary)/0.9), 0 0 20px hsl(var(--primary)/0.6);
+    --text-glow-primary-base: 0 0 8px hsl(var(--primary)/0.8), 0 0 15px hsl(var(--primary)/0.5);
+    --text-glow-accent-base: 0 0 8px hsl(var(--accent)/0.8), 0 0 15px hsl(var(--accent)/0.5);
   }
 
   /* Dark theme variables */
@@ -79,6 +86,12 @@ body {
     --sidebar-accent-foreground: 240 5.9% 10%;
     --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 326 74% 49%;
+
+    /* Text glow pulse variables */
+    --text-glow-pulse-from-shadow: 0 0 8px hsl(var(--primary)/0.8), 0 0 15px hsl(var(--primary)/0.5);
+    --text-glow-pulse-to-shadow: 0 0 12px hsl(var(--primary)/1), 0 0 20px hsl(var(--primary)/0.7);
+    --text-glow-primary-base: 0 0 8px hsl(var(--primary)/0.9), 0 0 15px hsl(var(--primary)/0.6);
+    --text-glow-accent-base: 0 0 8px hsl(var(--accent)/0.9), 0 0 15px hsl(var(--accent)/0.6);
   }
 }
 
@@ -104,30 +117,24 @@ body {
 @layer utilities {
   .glassmorphism {
     /* Adjust opacity for light/dark modes if necessary, or keep consistent */
-    @apply bg-card/60 dark:bg-card/60 backdrop-blur-lg border border-border/20 dark:border-border/20;
+    @apply bg-card/60 dark:bg-card/60 backdrop-blur-lg border border-border/20 dark:border-border/20 rounded-lg; /* Added rounded-lg */
   }
   .neon-glow {
-    @apply shadow-[0_0_15px_theme(colors.accent/0.7),0_0_30px_theme(colors.accent/0.5)] dark:shadow-[0_0_15px_theme(colors.accent),0_0_30px_theme(colors.accent)];
+    /* Subtle glow for accent */
+    @apply shadow-[0_0_8px_theme(colors.accent/0.5),0_0_15px_theme(colors.accent/0.3)] dark:shadow-[0_0_10px_theme(colors.accent/0.7),0_0_20px_theme(colors.accent/0.5)];
   }
   .neon-glow-primary {
-     @apply shadow-[0_0_15px_theme(colors.primary/0.7),0_0_30px_theme(colors.primary/0.5)] dark:shadow-[0_0_15px_theme(colors.primary),0_0_30px_theme(colors.primary)];
+     /* Subtle glow for primary */
+     @apply shadow-[0_0_8px_theme(colors.primary/0.5),0_0_15px_theme(colors.primary/0.3)] dark:shadow-[0_0_10px_theme(colors.primary/0.7),0_0_20px_theme(colors.primary/0.5)];
   }
   .text-glow {
-    text-shadow: 0 0 5px hsl(var(--accent)/0.7), 0 0 10px hsl(var(--accent)/0.5);
+    text-shadow: var(--text-glow-accent-base);
   }
-   .dark .text-glow {
-      text-shadow: 0 0 5px hsl(var(--accent)), 0 0 10px hsl(var(--accent));
-   }
 
   .text-glow-primary {
-    text-shadow: 0 0 5px hsl(var(--primary)/0.7), 0 0 10px hsl(var(--primary)/0.5);
+    text-shadow: var(--text-glow-primary-base);
+    animation: text-glow-pulse 3s infinite alternate; /* Add pulse animation */
   }
-    .dark .text-glow-primary {
-     text-shadow: 0 0 5px hsl(var(--primary)), 0 0 10px hsl(var(--primary));
-   }
-
-  /* Motion Background relies on CSS variables directly */
-  /* No changes needed for .animated-gradient or @keyframes gradient-motion */
 
   /* Basic scroll fade-in animation */
   .scroll-fade-in {
@@ -148,4 +155,15 @@ body {
   .animate-fade-in-slow {
     animation: fade-in-slow 1.5s ease-out forwards; /* Increased duration */
   }
+
+  /* Text glow pulse animation */
+  @keyframes text-glow-pulse {
+    from {
+        text-shadow: var(--text-glow-pulse-from-shadow);
+    }
+    to {
+        text-shadow: var(--text-glow-pulse-to-shadow);
+    }
+  }
+ /* Removed invalid nested @keyframes rule */
 }

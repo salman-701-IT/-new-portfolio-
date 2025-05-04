@@ -11,11 +11,6 @@ import { Skeleton } from '@/components/ui/skeleton'; // Import Skeleton for load
 import { cn } from '@/lib/utils';
 import { Hand, Mail } from 'lucide-react'; // Import Hand and Mail icons
 
-// Dynamically import the 3D background component, ensuring it only runs client-side
-// Removed dynamic import for HeroBackground3D
-// Dynamically import ParticleBackground
-// Removed dynamic import for ParticleBackground as it was causing errors
-
 // Dynamically import the 3D Text Component placeholder - Removed as component doesn't exist
 
 
@@ -47,7 +42,7 @@ function HeroSectionComponent() {
       // Keep relative positioning for content and allow overflow for 3D background
       className="relative min-h-screen flex flex-col items-center justify-center text-center overflow-hidden pt-16" // Added padding top
     >
-       {/* Removed Particle Background */}
+       {/* Placeholder for removed Particle Background */}
 
 
       <div
@@ -61,7 +56,7 @@ function HeroSectionComponent() {
          {/* Greeting Message - Only render on client */}
          {isMounted && greeting && (
             <div className="mb-4 text-lg md:text-xl text-accent flex items-center justify-center gap-2 animate-fade-in-slow" style={{ animationDelay: '0.2s' }}>
-              <Hand className="h-5 w-5 animate-bounce" /> {greeting}! I'm
+              <Hand className="h-5 w-5 animate-bounce text-primary" /> {greeting}! I'm
             </div>
           )}
 
@@ -87,18 +82,20 @@ function HeroSectionComponent() {
         <div className="mb-8 h-8 text-xl md:text-2xl font-mono text-foreground animate-fade-in-slow" style={{ animationDelay: '0.8s' }}>
           <TypeAnimation
             sequence={[
-              'Website Designer',
-              1500,
-              'Developer',
-              1500,
-              'Video Editor',
-              1500,
-              'Creative Technologist',
+              'Creative Technologist', // Start with the main role
+              2000,
+              'Web Developer',
               1500,
               'AI Enthusiast',
               1500,
+              'Video Editor',
+              1500,
               'Educator',
               1500,
+              'Designer',
+              1500,
+              'Founder @ Yumaris',
+              2000,
             ]}
             wrapper="span"
             speed={50}
@@ -114,9 +111,11 @@ function HeroSectionComponent() {
             asChild
             >
             <a href="mailto:salmankhan701.it@email.com?subject=Project%20Inquiry">
-                <span className="absolute inset-[-1000%] animate-[spin_3s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,hsl(var(--primary))_0%,hsl(var(--accent))_50%,hsl(var(--primary))_100%)]" />
-                <span className="relative z-10 inline-flex h-full w-full cursor-pointer items-center justify-center rounded-md bg-background px-8 py-3 text-sm font-medium text-foreground backdrop-blur-3xl group-hover:text-primary-foreground transition-colors duration-300">
-                 <Mail className="mr-2 h-4 w-4" /> Contact Me
+                {/* Conic gradient background */}
+                <span className="absolute inset-[-1000%] animate-[spin_3s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,hsl(var(--primary)/0.8)_0%,hsl(var(--accent)/0.8)_50%,hsl(var(--primary)/0.8)_100%)] opacity-75 group-hover:opacity-100 transition-opacity duration-300" />
+                {/* Inner content span */}
+                <span className="relative z-10 inline-flex h-full w-full cursor-pointer items-center justify-center rounded-md bg-background px-8 py-3 text-sm font-medium text-foreground backdrop-blur-sm group-hover:text-primary-foreground transition-colors duration-300 group-hover:bg-transparent">
+                 <Mail className="mr-2 h-4 w-4 transition-transform group-hover:scale-110" /> Contact Me
                 </span>
             </a>
             </Button>
