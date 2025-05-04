@@ -51,20 +51,16 @@ export function AboutSection() {
       <div ref={ref} className={cn('space-y-12 scroll-fade-in', inView && 'scroll-fade-in-visible')}>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 items-center">
           <div className="md:col-span-1 flex justify-center">
-             {/* Placeholder for 3D Avatar */}
+             {/* Placeholder for Avatar */}
             <div className="relative w-48 h-48 md:w-64 md:h-64 rounded-full overflow-hidden border-4 border-primary neon-glow-primary animate-pulse flex items-center justify-center bg-secondary text-muted-foreground">
-                 {/* Placeholder text for 3D Avatar */}
-                 <span className="text-sm text-center p-4">3D Avatar Placeholder</span>
-                 {/*
                  <Image
-                    src="https://picsum.photos/300/300"
+                    src="https://picsum.photos/seed/indianavatar/300/300"
                     alt="Salman Khan S. - Creative Technologist" // Updated alt text
                     layout="fill"
                     objectFit="cover"
                     className="transition-transform duration-500 hover:scale-110"
-                    data-ai-hint="professional avatar futuristic technologist" // Updated hint
+                    data-ai-hint="indian male avatar realistic professional" // Added hint for a suitable image
                  />
-                 */}
             </div>
           </div>
           <div className="md:col-span-2 space-y-4 text-center md:text-left">
