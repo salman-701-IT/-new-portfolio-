@@ -47,8 +47,15 @@ export default function AdminPage() {
   // Replace with a proper authentication system (e.g., Firebase Auth)
   const [isAuthenticated, setIsAuthenticated] = useState(false); // Simulate logged-in state
   const [loginPassword, setLoginPassword] = useState('');
+  const [isMounted, setIsMounted] = useState(false); // State to track client-side mount
   // Best practice: Use environment variable NEXT_PUBLIC_ADMIN_PASSWORD
   const correctPassword = process.env.NEXT_PUBLIC_ADMIN_PASSWORD || 'salman@4002'; // Updated default password
+
+
+   // Set mounted state after component mounts
+   useEffect(() => {
+     setIsMounted(true);
+   }, []);
 
 
   const handleLogin = () => {
@@ -71,7 +78,7 @@ export default function AdminPage() {
   });
 
   useEffect(() => {
-    if (!isAuthenticated) return; // Prevent fetching if not "authenticated"
+    if (!isAuthenticated || !isMounted) return; // Prevent fetching if not authenticated or not mounted
 
     const fetchProjects = async () => {
       setIsLoading(true);
@@ -87,7 +94,7 @@ export default function AdminPage() {
     };
 
     fetchProjects();
-  }, [isAuthenticated, toast]);
+  }, [isAuthenticated, isMounted, toast]); // Add isMounted to dependency array
 
 
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -99,7 +106,7 @@ export default function AdminPage() {
   };
 
    const onSubmit: SubmitHandler<ProjectFormData> = async (data) => {
-    if (!isAuthenticated) return;
+    if (!isAuthenticated || !isMounted) return; // Prevent submission if not authenticated or mounted
     setIsSubmitting(true);
 
     try {
@@ -175,7 +182,7 @@ export default function AdminPage() {
   };
 
    const handleDelete = async (id: string) => {
-    if (!isAuthenticated) return;
+    if (!isAuthenticated || !isMounted) return; // Prevent delete if not authenticated or mounted
     // Consider adding image deletion from storage here as well
     try {
       await deleteProject(id);
@@ -192,6 +199,16 @@ export default function AdminPage() {
     reset();
      setImageFile(null);
   };
+
+   // Render nothing or a placeholder until mounted on client to avoid hydration mismatch
+   if (!isMounted) {
+     // You can return null or a simple loading indicator
+     return (
+        <div className="container mx-auto py-10 px-4 flex justify-center items-center h-screen">
+            <Loader2 className="h-12 w-12 animate-spin text-primary" />
+        </div>
+     );
+   }
 
    // --- Authentication Gate ---
    if (!isAuthenticated) {
@@ -219,6 +236,7 @@ export default function AdminPage() {
    }
    // -------------------------
 
+  // Render admin content only if mounted and authenticated
   return (
     <div className="container mx-auto py-10 px-4">
       <h1 className="text-3xl font-bold mb-8 text-primary">Admin Panel - Manage Portfolio</h1>
@@ -352,3 +370,4 @@ export default function AdminPage() {
     </div>
   );
 }
+
