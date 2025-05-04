@@ -146,13 +146,13 @@ body {
     transform: translateY(0);
   }
 
-   /* Simple fade-in animation */
+   /* Enhanced fade-in animation */
    @keyframes fade-in-slow {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
+    from { opacity: 0; transform: translateY(15px); filter: blur(4px); }
+    to { opacity: 1; transform: translateY(0); filter: blur(0px); }
   }
   .animate-fade-in-slow {
-    animation: fade-in-slow 1.5s ease-out forwards; /* Increased duration */
+    animation: fade-in-slow 1.2s ease-out forwards; /* Slightly faster duration */
   }
 
   /* Text glow pulse animation */
@@ -165,6 +165,7 @@ body {
     }
   }
 
+
   /* Scan animation for project card */
   @keyframes scan {
     0% { transform: translateY(-100%); }
@@ -173,4 +174,21 @@ body {
   .animate-scan-active {
       animation: scan 2s linear infinite;
   }
+
+    /* Waving hand animation */
+    @keyframes wave {
+      0%, 100% { transform: rotate(0deg); }
+      10%, 30% { transform: rotate(14deg); }
+      20%, 40% { transform: rotate(-8deg); }
+      50% { transform: rotate(14deg); }
+      60% { transform: rotate(-4deg); }
+      70% { transform: rotate(10deg); }
+      80% { transform: rotate(-2deg); }
+      90% { transform: rotate(5deg); }
+    }
+    .animate-wave {
+      display: inline-block; /* Ensure transform-origin is applied correctly */
+      transform-origin: 70% 70%; /* Adjust origin for a more natural wave */
+      animation: wave 2.5s infinite;
+    }
 }
