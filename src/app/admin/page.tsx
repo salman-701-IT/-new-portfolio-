@@ -47,7 +47,8 @@ export default function AdminPage() {
   // Replace with a proper authentication system (e.g., Firebase Auth)
   const [isAuthenticated, setIsAuthenticated] = useState(false); // Simulate logged-in state
   const [loginPassword, setLoginPassword] = useState('');
-  const correctPassword = process.env.NEXT_PUBLIC_ADMIN_PASSWORD || 'admin';
+  // Best practice: Use environment variable NEXT_PUBLIC_ADMIN_PASSWORD
+  const correctPassword = process.env.NEXT_PUBLIC_ADMIN_PASSWORD || 'salman@4002'; // Updated default password
 
 
   const handleLogin = () => {
@@ -351,4 +352,3 @@ export default function AdminPage() {
     </div>
   );
 }
-
