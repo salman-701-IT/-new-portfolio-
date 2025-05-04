@@ -17,9 +17,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'Neo Portfolio - Salman Khan',
+  title: 'Neo Portfolio - Salman Khan S.', // Added initial
   description:
-    'Futuristic 3D animated portfolio for Salman Khan, a creative technologist and developer based in Chennai, India.',
+    'Explore the portfolio of Salman Khan S., a Creative Technologist specializing in web development, AI solutions, creative media, and education. Founder of Yumaris Agency, based in Chennai, India.', // Updated description
 };
 
 export default function RootLayout({

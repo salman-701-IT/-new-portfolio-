@@ -2,7 +2,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Mail, Phone, MapPin, User, Briefcase, Languages, GraduationCap, Zap, BrainCircuit, Fingerprint, Box, Code, Film, Bot, Sparkles, Rocket, Target, Palette, MonitorSmartphone, Lock, Search, BarChart } from 'lucide-react'; // Added more icons
+import { Mail, Phone, MapPin, User, Briefcase, Languages, GraduationCap, Zap, BrainCircuit, Fingerprint, Box, Code, Film, Bot, Sparkles, Rocket, Target, Palette, MonitorSmartphone, Lock, Search, BarChart, CheckCircle } from 'lucide-react'; // Added CheckCircle
 import SectionContainer from '../section-container';
 import { useInView } from 'react-intersection-observer';
 import { cn } from '@/lib/utils';
@@ -18,30 +18,30 @@ export function AboutSection() {
     email: 'salmankhan701.it@email.com',
     phone: '+91-9750129532',
     location: 'Chennai, Tamil Nadu, India',
-    role: 'Creative Technologist | Founder | Developer | Educator | Designer | AI Enthusiast', // Updated role
+    role: 'Creative Technologist | Full Stack Developer | AI Solutions Architect | Educator | Designer', // Updated role for professionalism
     founder: 'Yumaris Agency',
     languages: 'English, Tamil, Hindi',
     education: 'B.Tech Information Technology (Pursuing), Chennai',
   };
 
-  // Updated expertise based on text
+  // Updated expertise for better clarity and impact
    const expertise = [
-    { icon: MonitorSmartphone, text: 'Web Development (React, Firebase)' },
-    { icon: Bot, text: 'AI Automation & Chatbots' },
-    { icon: Film, text: 'Video Editing & Creative Content' },
-    { icon: Palette, text: 'Design & Branding' },
-    { icon: GraduationCap, text: 'Education & Mentoring' },
-    { icon: Fingerprint, text: 'Futuristic Tech (Biometrics, IoT)' },
+    { icon: MonitorSmartphone, text: 'Full Stack Web Development (React, Firebase, Next.js)' }, // More specific
+    { icon: Bot, text: 'AI & Automation Solutions (Dialogflow, TensorFlow.js)' }, // Added tech examples
+    { icon: Film, text: 'Digital Media Production (Video, Graphics)' }, // More professional term
+    { icon: Palette, text: 'UI/UX & Brand Design' }, // Combined and more specific
+    { icon: GraduationCap, text: 'Technology Education & Mentoring' }, // More descriptive
+    { icon: Fingerprint, text: 'Emerging Technologies (Biometrics, IoT, 3D UI)' }, // Grouped related tech
   ];
 
-  // Updated agency focus based on text
+  // Updated agency focus for professionalism and clarity
    const agencyFocus = [
-    { icon: Code, title: 'Web Development', description: 'Stunning, responsive websites using React, Tailwind CSS, Firebase.' },
-    { icon: Bot, title: 'AI & Automation', description: 'Intelligent Dialogflow chatbots, course recommenders, business automation.' },
-    { icon: Film, title: 'Creative Media', description: 'Video editing (YouTube, reels), motion graphics, engaging content.' },
-    { icon: GraduationCap, title: 'Education & Training', description: 'Live tutoring, recorded skill courses, LMS platforms, certifications.' },
-    { icon: Palette, title: 'Design & Branding', description: 'Custom branding, posters, digital content, SEO, digital marketing.' },
-    { icon: Rocket, title: 'Futuristic Tech', description: 'Exploring face liveness, embedded systems (ESP32/IoT), 3D UI, voice interfaces.' },
+    { icon: Code, title: 'Web Development', description: 'Crafting dynamic, responsive websites and web applications with modern frameworks.' }, // Refined description
+    { icon: Bot, title: 'AI & Automation', description: 'Developing intelligent chatbots, recommendation engines, and process automation.' }, // Refined description
+    { icon: Film, title: 'Creative Media', description: 'Producing engaging video content, motion graphics, and digital assets.' }, // Refined description
+    { icon: GraduationCap, title: 'Education & Training', description: 'Delivering live tutoring, creating skill-based courses, and building LMS platforms.' }, // Refined description
+    { icon: Palette, title: 'Design & Branding', description: 'Designing unique brand identities, marketing materials, and user interfaces.' }, // Refined description
+    { icon: Rocket, title: 'Technology Exploration', description: 'Innovating with biometrics, IoT solutions, 3D interfaces, and voice technologies.' }, // Refined description
   ];
 
 
@@ -54,26 +54,26 @@ export function AboutSection() {
             <div className="relative w-48 h-48 md:w-64 md:h-64 rounded-full overflow-hidden border-4 border-primary neon-glow-primary animate-pulse">
                  <Image
                     src="https://picsum.photos/300/300"
-                    alt="Salman Khan Avatar"
+                    alt="Salman Khan S. - Creative Technologist" // Updated alt text
                     layout="fill"
                     objectFit="cover"
                     className="transition-transform duration-500 hover:scale-110"
-                    data-ai-hint="professional avatar futuristic" // Updated hint
+                    data-ai-hint="professional avatar futuristic technologist" // Updated hint
                  />
             </div>
           </div>
           <div className="md:col-span-2 space-y-4 text-center md:text-left">
              <h2 className="text-3xl md:text-4xl font-bold text-glow-primary flex items-center justify-center md:justify-start gap-2"> <Rocket className="w-8 h-8" /> Meet Salman Khan S.</h2>
              <p className="text-lg md:text-xl text-foreground/80 font-semibold">
-               The Creative Technologist Behind <span className="text-accent">Yumaris Agency</span>
+               Driving Innovation at <span className="text-accent">Yumaris Agency</span>
              </p>
             <p className="text-muted-foreground">
-              Founder | Developer | Educator | Designer | AI Enthusiast
+              Founder | Developer | Educator | Designer | AI Architect
             </p>
             <p className="text-foreground/90">
-               I’m a passionate and multi-talented creator from Chennai, India, building the future through web design, AI-powered solutions, creative media, and education. I specialize in blending technology, design, and automation to solve real-world problems and help businesses, students, and creators grow.
+               Based in Chennai, India, I am a versatile Creative Technologist passionate about leveraging web development, AI, digital media, and education to build impactful solutions. My focus is on integrating technology and design to empower businesses, students, and creators worldwide.
             </p>
-             <p className="text-muted-foreground">Reach me at: <a href={`mailto:${personalInfo.email}`} className="text-accent hover:underline">{personalInfo.email}</a> or Call: <a href={`tel:${personalInfo.phone}`} className="text-accent hover:underline">{personalInfo.phone}</a></p>
+             <p className="text-muted-foreground">Connect with me: <a href={`mailto:${personalInfo.email}`} className="text-accent hover:underline">{personalInfo.email}</a> | Call: <a href={`tel:${personalInfo.phone}`} className="text-accent hover:underline">{personalInfo.phone}</a></p>
           </div>
         </div>
 
@@ -81,7 +81,7 @@ export function AboutSection() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
            <Card className="glassmorphism hover:border-primary transition-colors">
              <CardHeader>
-               <CardTitle className="flex items-center gap-2 text-accent"><User /> Personal Info</CardTitle>
+               <CardTitle className="flex items-center gap-2 text-accent"><User /> About Me</CardTitle>
              </CardHeader>
              <CardContent className="space-y-3 text-sm">
                <p className="flex items-center gap-2"><User size={16} /> {personalInfo.fullName}</p>
@@ -89,15 +89,15 @@ export function AboutSection() {
                <p className="flex items-center gap-2"><Phone size={16} /> <a href={`tel:${personalInfo.phone}`} className="hover:text-accent">{personalInfo.phone}</a></p>
                <p className="flex items-center gap-2"><MapPin size={16} /> {personalInfo.location}</p>
                <p className="flex items-center gap-2"><Briefcase size={16} /> {personalInfo.role}</p>
-               <p className="flex items-center gap-2"><Briefcase size={16} /> Founder of {personalInfo.founder}</p>
-               <p className="flex items-center gap-2"><Languages size={16} /> {personalInfo.languages}</p>
-               <p className="flex items-center gap-2"><GraduationCap size={16} /> {personalInfo.education}</p>
+               <p className="flex items-center gap-2"><Briefcase size={16} /> Founder, {personalInfo.founder}</p>
+               <p className="flex items-center gap-2"><Languages size={16} /> Proficient in: {personalInfo.languages}</p>
+               <p className="flex items-center gap-2"><GraduationCap size={16} /> Education: {personalInfo.education}</p>
              </CardContent>
            </Card>
 
            <Card className="glassmorphism hover:border-accent transition-colors">
              <CardHeader>
-               <CardTitle className="flex items-center gap-2 text-primary"><Zap /> Core Expertise</CardTitle>
+               <CardTitle className="flex items-center gap-2 text-primary"><Zap /> Core Competencies</CardTitle>
              </CardHeader>
              <CardContent className="grid grid-cols-2 sm:grid-cols-3 gap-4">
                {expertise.map((item, index) => (
@@ -113,7 +113,7 @@ export function AboutSection() {
         {/* Yumaris Agency Focus */}
          <Card className="glassmorphism hover:border-primary transition-colors">
            <CardHeader>
-             <CardTitle className="flex items-center gap-2 text-accent"><Target /> Yumaris Agency: What I Do</CardTitle>
+             <CardTitle className="flex items-center gap-2 text-accent"><Target /> Yumaris Agency: Services Offered</CardTitle>
            </CardHeader>
            <CardContent className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
              {agencyFocus.map((focus, index) => (
@@ -131,11 +131,14 @@ export function AboutSection() {
           {/* Why Work With Me */}
          <Card className="glassmorphism hover:border-accent transition-colors">
            <CardHeader>
-             <CardTitle className="flex items-center gap-2 text-primary"><Sparkles /> Why Work With Me?</CardTitle>
+             <CardTitle className="flex items-center gap-2 text-primary"><Sparkles /> The Yumaris Advantage</CardTitle>
            </CardHeader>
-           <CardContent>
-             <p className="text-foreground/90">
-                I bring <span className="font-semibold text-accent">innovation, affordability, and heart</span> into everything I build. Whether you need a branded website, a creative video, a smart AI system, or engaging educational tools, Yumaris Agency is here to make it happen — beautifully and effectively.
+           <CardContent className="space-y-3">
+             <p className="text-foreground/90 flex items-start gap-2">
+                <CheckCircle size={18} className="text-accent mt-0.5 flex-shrink-0"/> I integrate <span className="font-semibold text-accent">innovation, affordability, and dedicated partnership</span> into every project.
+             </p>
+             <p className="text-foreground/90 flex items-start gap-2">
+                <CheckCircle size={18} className="text-accent mt-0.5 flex-shrink-0"/> Whether you require a sophisticated website, captivating media, intelligent AI systems, or effective educational platforms, Yumaris Agency delivers results that are both aesthetically pleasing and functionally robust.
              </p>
            </CardContent>
          </Card>

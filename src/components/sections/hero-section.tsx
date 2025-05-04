@@ -9,9 +9,10 @@ import { useInView } from 'react-intersection-observer';
 import { Skeleton } from '@/components/ui/skeleton'; // Import Skeleton for loading state
 import { cn } from '@/lib/utils';
 import { Hand, Mail } from 'lucide-react'; // Import Hand and Mail icons
+import HeroBackground3D from '../HeroBackground3D'; // Import the 3D background
 
 
-// Dynamically import the Particle Background component
+// Dynamically import the Particle Background component placeholder
 const ParticleBackground = dynamic(() => import('@/components/particle-background'), {
   ssr: false,
   loading: () => <Skeleton className="absolute inset-0 -z-10 bg-transparent" /> // Use transparent background for loading skeleton
@@ -51,7 +52,9 @@ function HeroSectionComponent() {
       // Keep relative positioning for content and allow overflow for 3D background
       className="relative min-h-screen flex flex-col items-center justify-center text-center overflow-hidden pt-16" // Added padding top
     >
-       {/* Render Particle Background */}
+       {/* Render 3D Background */}
+       <HeroBackground3D />
+       {/* Render Particle Background Placeholder */}
        <ParticleBackground />
 
 
@@ -70,31 +73,39 @@ function HeroSectionComponent() {
             </div>
           )}
 
-        {/* Static Name */}
-        <h1 className="text-5xl md:text-7xl font-bold mb-4 text-glow-primary animate-fade-in-slow" style={{ animationDelay: '0.5s' }}>
-           Salman Khan
+        {/* Name with enhanced styling */}
+        <h1
+          className={cn(
+            "text-5xl md:text-7xl font-bold mb-4 text-foreground animate-fade-in-slow",
+            "bg-clip-text text-transparent bg-gradient-to-r from-primary via-accent to-primary", // Gradient text
+            "text-glow-primary" // Existing glow effect
+          )}
+          style={{ animationDelay: '0.5s' }}
+        >
+           Salman Khan S.
         </h1>
+
 
         {/* Removed Placeholder for 3D Text */}
 
 
-        {/* Typing animation for roles */}
+        {/* Typing animation for roles - Updated roles for professionalism */}
         <div className="mb-8 h-8 text-xl md:text-2xl font-mono text-foreground animate-fade-in-slow" style={{ animationDelay: '0.8s' }}>
           <TypeAnimation
             sequence={[
               'Creative Technologist', // Start with the main role
               2000,
-              'Web Developer',
+              'Full Stack Developer', // More specific
               1500,
-              'AI Enthusiast',
+              'AI Solutions Architect', // More specific
               1500,
-              'Video Editor',
+              'Digital Media Specialist', // More professional
               1500,
-              'Educator',
+              'Technology Educator', // More professional
               1500,
-              'Designer',
+              'UI/UX Designer', // More specific
               1500,
-              'Founder @ Yumaris',
+              'Founder @ Yumaris Agency', // Keep Founder
               2000,
             ]}
             wrapper="span"
@@ -115,7 +126,7 @@ function HeroSectionComponent() {
                 <span className="absolute inset-[-1000%] animate-[spin_3s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,hsl(var(--primary)/0.8)_0%,hsl(var(--accent)/0.8)_50%,hsl(var(--primary)/0.8)_100%)] opacity-75 group-hover:opacity-100 transition-opacity duration-300" />
                 {/* Inner content span */}
                 <span className="relative z-10 inline-flex h-full w-full cursor-pointer items-center justify-center rounded-md bg-background px-8 py-3 text-sm font-medium text-foreground backdrop-blur-sm group-hover:text-primary-foreground transition-colors duration-300 group-hover:bg-transparent">
-                 <Mail className="mr-2 h-4 w-4 transition-transform group-hover:scale-110" /> Contact Me
+                 <Mail className="mr-2 h-4 w-4 transition-transform group-hover:scale-110" /> Let's Collaborate
                 </span>
             </a>
             </Button>

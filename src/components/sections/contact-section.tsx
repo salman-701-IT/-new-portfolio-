@@ -1,4 +1,3 @@
-
 'use client';
 
 import React from 'react';
@@ -21,8 +20,8 @@ export function ContactSection() {
   });
 
   const contactInfo = [
-    { icon: Mail, text: 'salmankhan701.it@email.com', href: mailtoLink, label: 'Email' },
-    { icon: Phone, text: '+91-9750129532', href: phoneLink, label: 'Phone' }, // Added Phone
+    { icon: Mail, text: 'salmankhan701.it@email.com', href: mailtoLink, label: 'Email Address' }, // More descriptive label
+    { icon: Phone, text: '+91-9750129532', href: phoneLink, label: 'Phone Number' }, // More descriptive label
     { icon: MessageCircle, text: '+91-9750129532', href: whatsappLink, label: 'WhatsApp', target: '_blank' },
     { icon: MapPin, text: 'Chennai, India', label: 'Location' },
   ];
@@ -30,12 +29,12 @@ export function ContactSection() {
   return (
     <SectionContainer id="contact" className="py-16 md:py-24">
       <div ref={ref} className={cn('max-w-4xl mx-auto scroll-fade-in', inView && 'scroll-fade-in-visible')}>
-        <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-glow-primary">Get In Touch</h2>
+        <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-glow-primary">Let's Connect</h2> {/* Changed title */}
         <Card className="glassmorphism p-6 md:p-10 border-primary neon-glow-primary">
           <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
             {/* Contact Info */}
             <div className="space-y-6">
-              <h3 className="text-2xl font-semibold mb-4 text-accent">Contact Information</h3>
+              <h3 className="text-2xl font-semibold mb-4 text-accent">Contact Details</h3> {/* Changed title */}
               {contactInfo.map((item, index) => (
                 <div key={index} className="flex items-center gap-4 group">
                   <div className="p-3 bg-secondary rounded-full group-hover:bg-accent transition-colors">
@@ -62,12 +61,12 @@ export function ContactSection() {
 
             {/* Email Me Section */}
             <div className="flex flex-col items-center justify-center text-center space-y-6 p-6 bg-secondary/50 rounded-lg">
-                 <h3 className="text-xl font-semibold text-foreground">Let's Discuss Your Project!</h3>
-                <p className="text-muted-foreground text-sm">Interested in collaborating or have a question? Send me an email.</p>
+                 <h3 className="text-xl font-semibold text-foreground">Ready to Start Your Project?</h3> {/* Changed title */}
+                <p className="text-muted-foreground text-sm">I'm excited to hear about your ideas. Send me an email to discuss how we can collaborate.</p> {/* Refined text */}
                 <Button size="lg" asChild className="group neon-glow hover:shadow-[0_0_25px_theme(colors.accent),0_0_40px_theme(colors.accent)] transition-shadow duration-300">
-                    <a href={mailtoLink + '?subject=Project%20Inquiry'}>
+                    <a href={mailtoLink + '?subject=Project%20Inquiry:%20Let\'s%20Collaborate'}> {/* Updated subject */}
                       <Mail className="mr-2 h-5 w-5 transition-transform group-hover:-translate-y-1" />
-                      Send Email
+                      Initiate Contact {/* Changed button text */}
                     </a>
                 </Button>
             </div>
