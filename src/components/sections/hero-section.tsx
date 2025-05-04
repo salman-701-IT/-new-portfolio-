@@ -9,18 +9,11 @@ import { useInView } from 'react-intersection-observer';
 import { Skeleton } from '@/components/ui/skeleton'; // Import Skeleton for loading state
 import { cn } from '@/lib/utils';
 import { Hand, Mail, Sparkles } from 'lucide-react'; // Import Hand, Mail, and Sparkles icons
-import MotionBackground from '@/components/motion-background'; // Import MotionBackground
+// Removed import of MotionBackground - it's rendered globally in home-client.tsx
 
-// Dynamically import the Particle Background component placeholder
-const ParticleBackground = dynamic(() => import('@/components/particle-background'), {
-  ssr: false,
-  loading: () => <Skeleton className="absolute inset-0 -z-10 bg-transparent" /> // Use transparent background for loading skeleton
-});
+// Removed dynamic import for ParticleBackground as it was causing errors and removed
 
-
-// Placeholder for 3D Text Component - ensure this component exists or remove if not needed
-// Removed dynamic import as component doesn't exist
-
+// Removed dynamic import for ThreeDText placeholder
 
 function getGreeting(): string {
   const hour = new Date().getHours();
@@ -50,11 +43,8 @@ function HeroSectionComponent() {
       // Keep relative positioning for content and allow overflow for background elements
       className="relative min-h-screen flex flex-col items-center justify-center text-center overflow-hidden pt-20 pb-10" // Adjusted padding
     >
-       {/* Motion Background */}
-       <MotionBackground />
-       {/* Optional Particle Background */}
-       {/* Removed ParticleBackground due to persistent errors */}
-       {/* <ParticleBackground /> */}
+       {/* Motion Background is rendered globally in home-client.tsx */}
+       {/* Optional Particle Background - Removed */}
 
 
       <div
@@ -83,7 +73,7 @@ function HeroSectionComponent() {
         >
             Salman Khan S.
         </h1>
-         {/* Removed Suspense wrapper and ThreeDText component placeholder */}
+         {/* Removed 3D Text placeholder */}
 
 
         {/* Typing animation for roles - Updated roles for professionalism */}

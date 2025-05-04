@@ -11,14 +11,14 @@ import { ContactSection } from '@/components/sections/contact-section';
 import { Footer } from '@/components/sections/footer';
 import ScrollToTopButton from '@/components/scroll-to-top-button';
 import { cn } from '@/lib/utils'; // Import cn
-import MotionBackground from '@/components/motion-background'; // Import MotionBackground with lowercase path
+import MotionBackground from '@/components/motion-background'; // Import MotionBackground normally
 
 
 // Dynamically import HeroSection with a more visually appealing loading state
+// ssr: false is not needed here as the component itself is marked 'use client'
 const HeroSection = dynamic(
   () => import('@/components/sections/hero-section').then((mod) => mod.HeroSection),
   {
-    // ssr: false is handled by 'use client' in HeroSection
      loading: () => (
        <div className="h-screen w-full flex items-center justify-center bg-background">
          {/* Centered, pulsing skeleton matching theme */}
@@ -40,6 +40,7 @@ export default function HomeClient() {
        <MotionBackground />
 
       {/* Render all sections */}
+      {/* Suspense for HeroSection is handled by its dynamic import loading state */}
       <HeroSection />
       <AboutSection />
       <SkillsSection />
