@@ -3,24 +3,20 @@
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'; // Added CardHeader, CardTitle
 import SectionContainer from '../section-container';
-import { Code, Smartphone, Database, BrainCircuit, Figma, Bot, Gamepad, Fingerprint, Settings, Palette, Tv, GitBranch, Film, Search, BarChart, Lock, GraduationCap, Box, Paintbrush } from 'lucide-react'; // Added more relevant icons
+import { Code, Smartphone, Database, BrainCircuit, Figma, Bot, Gamepad, Fingerprint, Settings, Palette, Tv, GitBranch, Film, Search, BarChart, Lock, GraduationCap, Box, Paintbrush, MonitorSmartphone, Router, Cpu, Hand, Wifi, Bluetooth, Activity, Wand2, Award, Layers3d, Gamepad2, Megaphone, Target, Share2, MessageSquare, ShieldCheck, Shield, Puzzle, Brain, Clock, Mic, Languages, Link, Cube, ShoppingCart } from 'lucide-react'; // Added more relevant icons
 import { useInView } from 'react-intersection-observer';
 import { cn } from '@/lib/utils';
 
-// Updated skills array based on the provided text
+// Updated skills array based on the user's detailed input
 const skills = [
-  { category: 'Web Development', icon: Code, tools: ['React', 'JavaScript', 'Next.js', 'Firebase', 'Tailwind CSS', 'HTML', 'CSS'] },
-  { category: 'AI & Automation', icon: BrainCircuit, tools: ['Dialogflow Chatbots', 'AI Automation', 'Course Recommenders', 'TensorFlow.js'] },
-  { category: 'Creative Media', icon: Film, tools: ['Video Editing (YouTube, Reels)', 'Motion Graphics', 'Creative Content'] },
-  { category: 'Design & Branding', icon: Paintbrush, tools: ['UI/UX Design (Figma)', 'Branding', 'Poster Design', 'Digital Content'] },
-  { category: 'Marketing & SEO', icon: Search, tools: ['SEO', 'Digital Marketing'] },
-  { category: 'Futuristic Tech', icon: Fingerprint, tools: ['Face Recognition/Liveness', '3D UI & Animation', 'Voice Interfaces'] },
-  { category: 'Embedded & IoT', icon: Settings, tools: ['IoT', 'Arduino', 'ESP32'] },
-  { category: 'Education & Platforms', icon: GraduationCap, tools: ['LMS Platforms', 'Live Tutoring', 'Skill Courses', 'Certifications'] },
-   { category: 'Programming', icon: GitBranch, tools: ['C', 'C++', 'Python (Basic)'] }, // Added Python based on AI context
-  { category: 'Mobile Development', icon: Smartphone, tools: ['Dart', 'Flutter (Basic)'] }, // Kept basic mobile
-  { category: 'Cybersecurity', icon: Lock, tools: ['Awareness Projects'] },
-  { category: 'Game Design (Learning)', icon: Gamepad, tools: ['Voice-Controlled UI'] },
+  { category: 'Web & App Development', icon: MonitorSmartphone, tools: ['HTML', 'CSS', 'JavaScript', 'React.js', 'Tailwind CSS', 'Firebase (Hosting, Auth, Realtime DB)', 'Responsive Web Design', 'E-commerce Websites', 'SEO Optimization'] },
+  { category: 'Artificial Intelligence & Automation', icon: BrainCircuit, tools: ['TensorFlow.js', 'ONNX', 'AI Chatbots (Dialogflow)', 'Face Liveness Detection', 'AI Course Recommenders', 'Automated Email & Response Systems'] },
+  { category: 'Embedded Systems & IoT', icon: Cpu, tools: ['Arduino', 'ESP32', 'C', 'C++', 'Flex Sensor Integration', 'Wi-Fi & Bluetooth', 'Real-time Sensor Data Handling'] },
+  { category: 'Design & Multimedia', icon: Palette, tools: ['Video Editing (YouTube, Reels, Events)', 'Motion Graphics', 'Visual Effects', 'Adobe Premiere Pro', 'Canva', 'Branding Design (Logo, Poster)', 'UI/UX Design', '3D Web Interface Design'] },
+  { category: 'Educational & LMS Development', icon: GraduationCap, tools: ['Live Tutoring Setup', 'Course Recording & Publishing', 'Skill-Based LMS', 'Certification', 'Gamified Learning', 'Educational Chatbots'] },
+  { category: 'Marketing & Branding', icon: Megaphone, tools: ['Social Media Marketing (Instagram, LinkedIn, YouTube)', 'Google Ads', 'Meta Ads', 'Email, SMS, WhatsApp Marketing', 'Content Marketing', 'Reputation Management'] },
+  { category: 'Cybersecurity & Biometric Projects', icon: Shield, tools: ['Basic Cybersecurity Principles', 'Biometric Authentication', 'Face Detection', 'Anti-Spoofing Systems'] },
+  { category: 'Other Skills', icon: Puzzle, tools: ['Time & Project Management', 'Voice-Controlled Game Dev', 'Multilingual (English, Tamil, Hindi)', 'Blockchain (Learning)'] },
 ];
 
 
@@ -66,4 +62,3 @@ export function SkillsSection() {
     </SectionContainer>
   );
 }
-
