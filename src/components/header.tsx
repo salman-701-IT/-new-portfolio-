@@ -4,7 +4,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet'; // Added SheetHeader, SheetTitle
 import { Menu, Home, User, Code, Briefcase, Mail, Sun, Moon } from 'lucide-react'; // Removed Shield icon
 import { cn } from '@/lib/utils';
 import { useTheme } from '@/context/theme-provider'; // Import useTheme hook
@@ -117,10 +117,13 @@ export default function Header() {
               </Button>
             </SheetTrigger>
             <SheetContent side="right" className="w-[250px] glassmorphism p-4">
-              <nav className="flex flex-col space-y-4 mt-8">
-                 <Link href="/#hero" className="text-xl font-bold text-primary text-glow-primary mb-4">
-                    SK
-                 </Link>
+              <SheetHeader className="mb-4">
+                <SheetTitle className="sr-only">Navigation Menu</SheetTitle> {/* Visually hidden title for accessibility */}
+                <Link href="/#hero" className="text-xl font-bold text-primary text-glow-primary">
+                  SK
+                </Link>
+              </SheetHeader>
+              <nav className="flex flex-col space-y-2"> {/* Adjusted space-y */}
                 {navLinks.map((link) => (
                   <Button
                     key={link.href}
