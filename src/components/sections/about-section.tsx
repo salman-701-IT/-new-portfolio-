@@ -76,14 +76,14 @@ export function AboutSection() {
           <div className="md:col-span-1 flex justify-center">
             {/* Avatar Placeholder */}
             <div className="relative w-48 h-48 md:w-64 md:h-64 rounded-full overflow-hidden border-4 border-primary neon-glow-primary flex items-center justify-center bg-secondary text-muted-foreground">
-                 <Image src="/salman.png" // Updated image source to be a path from public
+                 <Image src="/images/WhatsApp_Image_2025-03-14_at_14.39.16_a19611d5-removebg-preview.png" 
  alt="Salman Khan S. - Creative Technologist & AI Developer"
                     layout="fill"
                     objectFit="cover"
                     className="transition-transform duration-500 hover:scale-110"
-                    data-ai-hint="avatar portrait"
+                    data-ai-hint="avatar portrait Indian"
                     onError={(e) => {
-                      // Fallback to a picsum image if salman.png is not found or errors
+                      // Fallback to a picsum image if the primary image is not found or errors
                       e.currentTarget.src = 'https://picsum.photos/seed/salman_avatar/256/256';
                     }}
                  />
@@ -163,7 +163,7 @@ export function AboutSection() {
          </Card>
 
 
-        {/* Competitions & Projects */}
+        {/* Competitions & Key Projects */}
         <Card className="glassmorphism hover:border-accent transition-colors">
             <CardHeader>
                 <CardTitle className="flex items-center gap-2 text-primary"><Award /> Competitions & Key Projects</CardTitle>
