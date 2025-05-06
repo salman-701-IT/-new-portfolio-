@@ -76,9 +76,8 @@ export function AboutSection() {
           <div className="md:col-span-1 flex justify-center">
             {/* Avatar Placeholder */}
             <div className="relative w-48 h-48 md:w-64 md:h-64 rounded-full overflow-hidden border-4 border-primary neon-glow-primary flex items-center justify-center bg-secondary text-muted-foreground">
-                 <Image
-                    src="https://picsum.photos/seed/indianavatar/300/300" // Consider replacing with a professional photo
-                    alt="Salman Khan S. - Creative Technologist & AI Developer"
+                 <Image src="https://i.imgur.com/t88wW3x.jpg" // Updated image source
+ alt="Salman Khan S. - Creative Technologist & AI Developer"
                     layout="fill"
                     objectFit="cover"
                     className="transition-transform duration-500 hover:scale-110"
