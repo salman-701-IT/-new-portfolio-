@@ -10,7 +10,7 @@ import { cn } from '@/lib/utils';
 import { Badge } from '@/components/ui/badge'; // Import Badge
 
 export function AboutSection() {
-  const { ref, inView } = useInView({
+  const { ref, inView } = useInView({ 
     triggerOnce: true,
     threshold: 0.1,
   });
@@ -76,12 +76,16 @@ export function AboutSection() {
           <div className="md:col-span-1 flex justify-center">
             {/* Avatar Placeholder */}
             <div className="relative w-48 h-48 md:w-64 md:h-64 rounded-full overflow-hidden border-4 border-primary neon-glow-primary flex items-center justify-center bg-secondary text-muted-foreground">
-                 <Image src="https://i.imgur.com/t88wW3x.jpg" // Updated image source
+                 <Image src="/salman.png" // Updated image source to be a path from public
  alt="Salman Khan S. - Creative Technologist & AI Developer"
                     layout="fill"
                     objectFit="cover"
                     className="transition-transform duration-500 hover:scale-110"
-                    data-ai-hint="indian male avatar realistic professional"
+                    data-ai-hint="avatar portrait"
+                    onError={(e) => {
+                      // Fallback to a picsum image if salman.png is not found or errors
+                      e.currentTarget.src = 'https://picsum.photos/seed/salman_avatar/256/256';
+                    }}
                  />
             </div>
           </div>
