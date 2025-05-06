@@ -3,7 +3,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Mail, Phone, MapPin, User, Briefcase, Languages, GraduationCap, Zap, BrainCircuit, Fingerprint, Box, Code, Film, Bot, Sparkles, Rocket, Target, Palette, MonitorSmartphone, Lock, Search, BarChart, CheckCircle, Eye, Award, Trophy, Code2, Cpu, Smartphone, Gamepad2, Headset, Lightbulb, Leaf, Video, Laptop2, Layers3, Paintbrush, Megaphone, Shield } from 'lucide-react'; // Replaced Layers3d with Layers3
+import { Mail, Phone, MapPin, User, Briefcase, Languages, GraduationCap, Zap, BrainCircuit, Fingerprint, Box, Code, Film, Bot, Sparkles, Rocket, Target, Palette, MonitorSmartphone, Lock, Search, BarChart, CheckCircle, Eye, Award, Trophy, Code2, Cpu, Smartphone, Gamepad2, Headset, Lightbulb, Leaf, Video, Laptop2, Layers3, Paintbrush, Megaphone, Shield } from 'lucide-react'; // Changed Layers3d to Layers3
 import SectionContainer from '../section-container';
 import { useInView } from 'react-intersection-observer';
 import { cn } from '@/lib/utils';
@@ -52,7 +52,7 @@ export function AboutSection() {
       { icon: Leaf, text: 'Green Campus with IoT – Smart automation for colleges' },
       { icon: Gamepad2, text: 'Voice-Controlled Vocational Game – Accessible learning simulation' },
       { icon: Bot, text: 'AI-powered Chatbot for eCommerce (order tracking, product search)' },
-      { icon: Layers3, text: '3D animated personal portfolio (React + Tailwind + Three.js)' }, // Updated icon to Layers3
+      { icon: Layers3, text: '3D animated personal portfolio (React + Tailwind + Three.js)' }, // Changed Layers3d to Layers3
   ];
 
   // Technical Skills
