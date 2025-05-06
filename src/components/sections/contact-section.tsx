@@ -1,4 +1,3 @@
-
 'use client';
 
 import React from 'react';
@@ -11,10 +10,10 @@ import { cn } from '@/lib/utils';
 import { Label } from '@/components/ui/label'; // Import Label
 import { Textarea } from '@/components/ui/textarea'; // Import Textarea
 
-// Removed CV link placeholder
-const mailtoLink = 'mailto:salmankhan701.it@gmail.com'; // Updated email
-const whatsappLink = 'https://wa.me/919750129532'; // Updated WhatsApp link
-const phoneLink = 'tel:+919750129532'; // Updated Phone link
+// Updated email and links
+const mailtoLink = 'mailto:salmankhan701.it@gmail.com';
+const whatsappLink = 'https://wa.me/919750129532';
+const phoneLink = 'tel:+919750129532';
 
 export function ContactSection() {
   const { ref, inView } = useInView({
@@ -23,19 +22,20 @@ export function ContactSection() {
   });
 
   const contactInfo = [
-    { icon: Mail, text: 'salmankhan701.it@gmail.com', href: mailtoLink, label: 'Email Address' }, // Updated email, More descriptive label
-    { icon: Phone, text: '+91-9750129532', href: phoneLink, label: 'Phone Number' }, // More descriptive label
+    { icon: Mail, text: 'salmankhan701.it@gmail.com', href: mailtoLink, label: 'Email Address' },
+    { icon: Phone, text: '+91-9750129532', href: phoneLink, label: 'Phone Number' },
     { icon: MessageCircle, text: '+91-9750129532', href: whatsappLink, label: 'WhatsApp', target: '_blank' },
     { icon: MapPin, text: 'Chennai, India', label: 'Location' },
   ];
 
-  // Basic handler to construct mailto link with subject and body (for demonstration)
+  // Handler to construct mailto link with subject and body
   const handleSendMessage = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
     const message = formData.get('message') as string;
-    const subject = 'Project Inquiry: Let\'s Collaborate';
-    const body = encodeURIComponent(message || 'I\'d like to discuss a project!');
+    const subject = 'Project Inquiry: Let\'s Collaborate'; // Default subject
+    const body = encodeURIComponent(message || 'I\'d like to discuss a project!'); // Default body if message is empty
+    // Open the user's default email client
     window.location.href = `${mailtoLink}?subject=${encodeURIComponent(subject)}&body=${body}`;
   };
 
@@ -43,12 +43,12 @@ export function ContactSection() {
   return (
     <SectionContainer id="contact" className="py-16 md:py-24">
       <div ref={ref} className={cn('max-w-4xl mx-auto scroll-fade-in', inView && 'scroll-fade-in-visible')}>
-        <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-glow-primary">Get in Touch</h2> {/* Changed title */}
+        <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-glow-primary">Get in Touch</h2>
         <Card className="glassmorphism p-6 md:p-10 border-primary neon-glow-primary">
-           <CardHeader className="p-0 mb-6"> {/* Added CardHeader */}
+           <CardHeader className="p-0 mb-6">
                <CardTitle className="text-2xl font-semibold text-center text-accent">Contact Details</CardTitle>
            </CardHeader>
-          <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-start"> {/* Changed to items-start */}
+          <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-start">
             {/* Contact Info */}
             <div className="space-y-6">
               {contactInfo.map((item, index) => (
@@ -92,6 +92,7 @@ export function ContactSection() {
                   <Send className="mr-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
                   Send Message via Email
                 </Button>
+                {/* Added note below the button */}
                 <p className="text-xs text-muted-foreground text-center">
                     (Opens your default email client)
                 </p>
