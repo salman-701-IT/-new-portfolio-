@@ -1,10 +1,11 @@
+
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
 import { cn } from '@/lib/utils';
-import { Toaster } from '@/components/ui/toaster'; // Import Toaster
-import { Providers } from './providers';
-import Header from '@/components/header'; // Import Header
+import { Toaster } from '@/components/ui/toaster';
+import { ThemeProvider } from '@/context/theme-provider'; // Import ThemeProvider directly
+import Header from '@/components/header';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -17,9 +18,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'Neo Portfolio - Salman Khan S.', // Added initial
+  title: 'Neo Portfolio - Salman Khan S.',
   description:
-    'Explore the portfolio of Salman Khan S., a Creative Technologist specializing in web development, AI solutions, creative media, and education. Founder of Yumaris Agency, based in Chennai, India.', // Updated description
+    'Explore the portfolio of Salman Khan S., a Creative Technologist specializing in web development, AI solutions, creative media, and education. Founder of Yumaris Agency, based in Chennai, India.',
 };
 
 export default function RootLayout({
@@ -28,20 +29,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    // Remove 'dark' class - ThemeProvider will manage this
     <html lang="en" suppressHydrationWarning>
       <body
         className={cn(
           geistSans.variable,
           geistMono.variable,
-          'antialiased font-sans bg-background text-foreground' // Rely on CSS variables from globals.css
+          'antialiased font-sans bg-background text-foreground'
         )}
       >
-        <Providers>
-          <Header /> {/* Add Header component */}
+        <ThemeProvider defaultTheme="dark" storageKey="portfolio-theme"> {/* Use ThemeProvider directly */}
+          <Header />
           <main>{children}</main>
-          <Toaster /> {/* Add Toaster component */}
-        </Providers>
+          <Toaster />
+        </ThemeProvider>
       </body>
     </html>
   );
