@@ -7,9 +7,9 @@ import { Instagram, Linkedin, Github, Mail } from 'lucide-react'; // Import Mail
 import SectionContainer from '../section-container';
 
 const socialLinks = [
-  { icon: Instagram, href: 'https://instagram.com/salmankhan', label: 'Instagram' }, // Replace with actual links
-  { icon: Linkedin, href: 'https://linkedin.com/in/salmankhan', label: 'LinkedIn' },
-  { icon: Github, href: 'https://github.com/salmankhan', label: 'GitHub' },
+  { icon: Instagram, href: 'https://www.instagram.com/salman_loves_wild?igsh=MXN6cDRnazJkOXV2ag==', label: 'Instagram' }, // Replace with actual links
+  { icon: Linkedin, href: 'https://www.linkedin.com/in/salmankhan-salmankhan-bb4161299?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app', label: 'LinkedIn' },
+  { icon: Github, href: 'https://github.com/salman-701-IT', label: 'GitHub' },
 ];
 
 const mailtoLink = 'mailto:salmankhan701.it@gmail.com'; // Updated email
