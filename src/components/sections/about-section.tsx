@@ -33,76 +33,84 @@ const aboutData = {
     name: "Salman Khan S.",
     tagline: "Creative Technologist, AI Developer, & Founder of Yumaris Agency",
     location: "Chennai, India",
-    summary: "I specialize in building smart, accessible, and immersive digital experiences that blend cutting-edge technology with creative storytelling — whether it’s through AI-powered platforms, interactive websites, or skill-based learning systems.",
+    summary: "A dynamic and innovative technologist with a flair for creative problem-solving. I specialize in crafting intelligent, user-centric digital experiences that seamlessly integrate cutting-edge technology with compelling storytelling. My work spans AI-driven platforms, interactive web and mobile applications, and transformative educational systems. I am dedicated to pushing the boundaries of what's possible to deliver impactful solutions.",
     profileImage: "/salman.png", // Path to image in public folder
   },
   academicBackground: {
     title: "Academic Background",
     icon: GraduationCap,
     degree: "Bachelor of Technology in Information Technology (Pursuing)",
-    focusAreas: ["Artificial Intelligence & Machine Learning", "Human-Computer Interaction", "Web & Mobile Development", "Cybersecurity", "Embedded Systems & IoT"],
-    description: "My academic journey complements my passion for solving real-world problems through automation, AI, and design.",
+    focusAreas: [
+        "Artificial Intelligence & Machine Learning (Deep Learning, NLP)", 
+        "Human-Computer Interaction (UI/UX Design Principles)", 
+        "Web & Mobile Development (Full-Stack, Cross-Platform)", 
+        "Cybersecurity (Network Security, Ethical Hacking concepts)", 
+        "Embedded Systems & IoT (Microcontroller Programming, Sensor Integration)",
+        "Data Structures & Algorithms",
+        "Database Management Systems"
+    ],
+    description: "My academic journey is intensely focused on harnessing technology to solve complex, real-world challenges through innovative automation, intelligent systems, and user-first design principles. I am constantly exploring new paradigms in tech.",
   },
   specializations: [
-    { title: "AI Solutions", icon: BrainCircuit, details: "Liveness detection, recommendation systems, automation", color: "text-sky-400" },
-    { title: "Web Design & Full-Stack Development", icon: Code2, details: "React, Firebase, Tailwind, SEO", color: "text-emerald-400" },
-    { title: "App Development", icon: Smartphone, details: "Flutter, Firebase, cross-platform solutions", color: "text-blue-400" },
-    { title: "Embedded Tech & IoT", icon: Cpu, details: "Arduino, ESP32, Smart Campus systems", color: "text-orange-400" },
-    { title: "Voice-Controlled Tools", icon: Headset, details: "Gamified learning and accessibility", color: "text-purple-400" },
-    { title: "EdTech Platforms", icon: BookOpen, details: "Skill courses with quizzes, certification, dashboards", color: "text-yellow-400" },
-    { title: "Video Editing & Multimedia", icon: Film, details: "Social content, motion graphics, branding videos", color: "text-red-400" },
+    { title: "AI Solutions Development", icon: BrainCircuit, details: "Expert in Liveness detection, advanced recommendation systems, and sophisticated automation tools, leveraging models like TensorFlow & ONNX.", color: "text-sky-400" },
+    { title: "Web Design & Full-Stack Development", icon: Code2, details: "Proficient in React, Next.js, Firebase, and Tailwind CSS, focusing on SEO-friendly, high-performance, and scalable web applications.", color: "text-emerald-400" },
+    { title: "Cross-Platform App Development", icon: Smartphone, details: "Building native-like experiences on iOS and Android using Flutter and Firebase, ensuring wide accessibility and robust functionality.", color: "text-blue-400" },
+    { title: "Embedded Technology & IoT Systems", icon: Cpu, details: "Specializing in Arduino and ESP32 for Smart Campus solutions, sensor networks, and real-time data processing applications.", color: "text-orange-400" },
+    { title: "Voice-Controlled & Interactive Tools", icon: Headset, details: "Creating gamified learning environments and accessibility tools using voice recognition and interactive simulations.", color: "text-purple-400" },
+    { title: "EdTech Platform Engineering", icon: BookOpen, details: "Developing comprehensive skill-based online courses featuring interactive quizzes, automated certification, and user-friendly dashboards.", color: "text-yellow-400" },
+    { title: "Multimedia Production & Video Editing", icon: Film, details: "Producing engaging social media content, professional motion graphics, and compelling branding videos for diverse audiences.", color: "text-red-400" },
   ],
   yumarisAgency: {
-    title: "Yumaris Agency",
+    title: "Yumaris Agency - Innovation Hub",
     icon: Building,
-    tagline: "My tech and creative startup, offering three core services:",
+    tagline: "My tech and creative startup, delivering excellence across three core service pillars:",
     services: [
-      { name: "Education", icon: GraduationCap, items: ["Live tutoring for school students", "Recorded skill-learning courses with certification", "AI-based course recommendations"] },
-      { name: "Website Design & Development", icon: Laptop2, items: ["Business and personal websites", "eCommerce and service portals", "Digital branding and automation tools"] },
-      { name: "Video Editing & Multimedia Production", icon: Video, items: ["Event and social media videos", "Animated explainers, intros, and reels", "YouTube content for educators and creators"] },
+      { name: "Next-Gen Education Services", icon: GraduationCap, items: ["Personalized live tutoring for K-12 students, enhancing academic performance.", "Curated recorded skill-learning courses with industry-recognized certification.", "AI-driven course recommendation engine for tailored learning paths."] },
+      { name: "Digital Presence & Web Solutions", icon: Laptop2, items: ["Custom business and personal website design & development with a focus on UI/UX.", "Scalable eCommerce platforms and dynamic service portals with integrated payment gateways.", "Comprehensive digital branding, content strategy, and marketing automation tools."] },
+      { name: "Creative Multimedia & Video Production", icon: Video, items: ["High-impact event coverage and engaging social media video content (Reels, Shorts).", "Professional animated explainer videos, dynamic intros/outros, and motion graphics.", "Full-service YouTube content creation for educators, influencers, and corporate clients."] },
     ],
-    footer: "All services are priced affordably and designed to empower students, startups, and small businesses."
+    footer: "All Yumaris services are meticulously crafted to be affordable and strategically designed to empower students, startups, and small to medium-sized businesses to thrive in the digital age."
   },
   competitionsAndProjects: {
-      title: "Competitions & Projects Highlights",
+      title: "Key Competitions & Project Highlights",
       icon: Trophy,
       items: [
-        { name: "Finalist – CodeCode Hackathon", icon: Award },
-        { name: "Participant – IIT Bombay Hackathon", icon: Award },
-        { name: "Face Liveness Detection system for biometric security", icon: Fingerprint },
-        { name: "Green Campus with IoT – Smart automation for colleges", icon: Leaf },
-        { name: "Voice-Controlled Vocational Game – Accessible learning simulation", icon: Gamepad2 },
-        { name: "AI-powered Chatbot for eCommerce", icon: Bot },
-        { name: "3D animated personal portfolio (React + Tailwind + Three.js)", icon: Layers3, projectLink:"/#projects" }, // Example of linking to a project section
+        { name: "Finalist – CodeCode Hackathon (Showcased innovative AI solution)", icon: Award },
+        { name: "Active Participant – IIT Bombay National Hackathon (Developed IoT prototype)", icon: Award },
+        { name: "Advanced Face Liveness Detection system for enhanced biometric security protocols", icon: Fingerprint },
+        { name: "Eco-Friendly Green Campus Automation using IoT – Smart energy and resource management for educational institutions", icon: Leaf },
+        { name: "Accessible Voice-Controlled Vocational Training Game – Simulating real-world job tasks for inclusive learning", icon: Gamepad2 },
+        { name: "Intelligent AI-powered Chatbot for E-commerce with order tracking and personalized support", icon: Bot },
+        { name: "Dynamic 3D Animated Personal Portfolio (React, Tailwind CSS, Three.js) showcasing interactive UI/UX", icon: Layers3, projectLink:"/#projects" },
       ]
   },
   missionVision: [
       {
         title: "Mission",
         icon: Target,
-        text: "To empower students, creators, and small businesses by delivering innovative, accessible, and intelligent digital solutions — blending technology, creativity, and education.",
+        text: "To empower students, creators, and small businesses by delivering innovative, accessible, and intelligent digital solutions — blending technology, creativity, and education to foster growth and success.",
         color: "text-primary"
       },
       {
         title: "Vision",
         icon: Eye,
-        text: "To be a leading force in transforming how people learn, grow, and succeed through AI-powered tools, immersive design, and inclusive technology.",
+        text: "To be a leading global force in transforming how individuals and organizations learn, innovate, and achieve their full potential through AI-powered tools, immersive digital experiences, and inclusive technology.",
         color: "text-accent"
       }
   ],
   technicalSkills: {
-    title: "Technical Skills Snapshot",
+    title: "Core Technical Proficiency",
     icon: Settings,
     categories: [
-      { name: "Languages", items: ["Python", "C/C++", "Dart", "JavaScript", "HTML", "CSS"], icon: Code },
-      { name: "Frameworks/Tools", items: ["TensorFlow", "Flutter", "Firebase", "ONNX", "Arduino IDE", "React", "Next.js", "Tailwind CSS"], icon: Box },
-      { name: "Platforms", items: ["Web", "Android", "ESP32"], icon: MonitorSmartphone },
-      { name: "Creative Tools", items: ["Adobe Premiere Pro", "Canva", "After Effects"], icon: Palette },
+      { name: "Programming Languages", items: ["Python (Advanced)", "C/C++ (Proficient)", "Dart (Flutter)", "JavaScript (ES6+)", "HTML5", "CSS3", "SQL"], icon: Code },
+      { name: "Frameworks & Libraries", items: ["TensorFlow", "Keras", "Flutter", "Firebase Suite", "ONNX", "Arduino IDE", "React", "Next.js", "Node.js", "Express.js", "Tailwind CSS"], icon: Box },
+      { name: "Development Platforms", items: ["Web (Frontend & Backend)", "Android (Native & Cross-Platform)", "ESP32 Microcontrollers", "Cloud Platforms (Firebase, basic AWS/GCP)"], icon: MonitorSmartphone },
+      { name: "Creative & Design Tools", items: ["Adobe Premiere Pro (Expert)", "Adobe After Effects (Intermediate)", "Canva (Advanced)", "Figma (UI/UX Design)", "Blender (Basic 3D Modeling)"], icon: Palette },
     ]
   },
   contactPrompt: {
-    text: "Interested in collaborating or learning more?",
-    buttonText: "Let's Connect",
+    text: "Inspired to collaborate or eager to learn more about my work? Let's connect and explore the possibilities.",
+    buttonText: "Start a Conversation",
     icon: Mail,
     email: "salmankhan701.it@gmail.com"
   }
@@ -199,6 +207,7 @@ export function AboutSection() {
             </AccordionTrigger>
             <AccordionContent className="p-6 pt-0">
               <p className="text-lg font-medium text-foreground mb-2">{aboutData.academicBackground.degree}</p>
+              <h4 className="text-md font-semibold text-primary mb-1">Focus Areas:</h4>
               <ul className="list-disc list-inside space-y-1 text-foreground/80 mb-3">
                 {aboutData.academicBackground.focusAreas.map((area, i) => <li key={i}>{area}</li>)}
               </ul>
@@ -211,7 +220,7 @@ export function AboutSection() {
             <AccordionTrigger className="p-6 text-xl font-semibold hover:no-underline text-primary hover:bg-primary/10 transition-colors">
                <div className="flex items-center">
                 <Rocket className="w-6 h-6 mr-3 text-primary" /> {/* Generic Icon for Trigger */}
-                What I Specialize In
+                Key Specializations
               </div>
             </AccordionTrigger>
             <AccordionContent className="p-6 pt-0">
