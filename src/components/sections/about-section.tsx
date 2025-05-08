@@ -152,7 +152,7 @@ export function AboutSection() {
             <div className="relative w-64 h-64 md:w-72 md:h-72 rounded-full overflow-hidden border-4 border-primary neon-glow-primary shadow-2xl mb-6 transform transition-all duration-500 group-hover:scale-105">
               <Image
                 src={aboutData.personalIntro.profileImage}
-                alt={`${aboutData.personalIntro.name} - ${aboutData.personalIntro.tagline}`}
+                alt={`${aboutData.personalIntro.name} - Creative Technologist & AI Developer`}
                 width={300}
                 height={300}
                 className="rounded-full object-cover aspect-square"
