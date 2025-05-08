@@ -67,7 +67,7 @@ export function AboutSection() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 items-center">
           <div className="md:col-span-1 flex justify-center">
             <div className="w-48 h-48 md:w-64 md:h-64 rounded-full overflow-hidden border-4 border-primary neon-glow-primary flex items-center justify-center bg-secondary">
-                 <Image src="/salman-avatar.png" 
+                 <Image src="/salman.png" 
                     alt="Salman Khan S. - Creative Technologist & AI Developer"
                     width={256} // Explicit width, matches md:w-64
                     height={256} // Explicit height, matches md:h-64
@@ -206,3 +206,4 @@ export function AboutSection() {
       </div>
     </SectionContainer>
   );
+}
