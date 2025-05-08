@@ -2,7 +2,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Mail, Phone, MapPin, User, Briefcase, Languages, GraduationCap, Zap, BrainCircuit, Fingerprint, Box, Code, Film, Bot, Sparkles, Rocket, Target, Palette, MonitorSmartphone, Lock, Search, BarChart, CheckCircle, Eye, Award, Trophy, Code2, Cpu, Smartphone, Gamepad2, Headset, Lightbulb, Leaf, Video, Laptop2, Layers3, Paintbrush, Megaphone, Shield } from 'lucide-react'; // Changed Layers3d to Layers3
+import { Mail, Phone, MapPin, User, Briefcase, Languages, GraduationCap, Zap, BrainCircuit, Fingerprint, Box, Code, Film, Bot, Sparkles, Rocket, Target, Palette, MonitorSmartphone, Lock, Search, BarChart, CheckCircle, Eye, Award, Trophy, Code2, Cpu, Smartphone, Gamepad2, Headset, Lightbulb, Leaf, Video, Laptop2, Layers3, Paintbrush, Megaphone, Shield } from 'lucide-react';
 import SectionContainer from '../section-container';
 import { useInView } from 'react-intersection-observer';
 import { cn } from '@/lib/utils';
@@ -19,13 +19,12 @@ export function AboutSection() {
     email: 'salmankhan701.it@gmail.com',
     phone: '+91-9750129532',
     location: 'Chennai, Tamil Nadu, India',
-    role: 'Creative Technologist | AI Developer | Founder', // Simplified role
+    role: 'Creative Technologist | AI Developer | Founder',
     founder: 'Yumaris Agency',
     languages: 'English, Tamil, Hindi',
-    education: 'B.Tech Information Technology (Pursuing)', // Updated education status
+    education: 'B.Tech Information Technology (Pursuing)',
   };
 
-  // Updated Specializations based on user input
   const specializations = [
     { icon: BrainCircuit, text: 'AI Solutions (Liveness detection, recommendation systems, automation)' },
     { icon: Code2, text: 'Web Design & Full-Stack Development (React, Firebase, Tailwind, SEO)' },
@@ -36,14 +35,12 @@ export function AboutSection() {
     { icon: Video, text: 'Video Editing (Social content, motion graphics, branding videos)' },
   ];
 
-  // Yumaris Agency Services
   const yumarisServices = [
     { title: 'Education', icon: GraduationCap, details: ['Live tutoring for school students', 'Recorded skill-learning courses with certification', 'AI-based course recommendations'] },
     { title: 'Website Design & Development', icon: Laptop2, details: ['Business and personal websites', 'eCommerce and service portals', 'Digital branding and automation tools'] },
     { title: 'Video Editing & Multimedia', icon: Film, details: ['Event and social media videos', 'Animated explainers, intros, and reels', 'YouTube content for educators and creators'] },
   ];
 
-  // Competitions & Projects
   const competitionsProjects = [
       { icon: Trophy, text: 'Finalist – CodeCode Hackathon' },
       { icon: Award, text: 'Participant – IIT Bombay Hackathon' },
@@ -51,10 +48,9 @@ export function AboutSection() {
       { icon: Leaf, text: 'Green Campus with IoT – Smart automation for colleges' },
       { icon: Gamepad2, text: 'Voice-Controlled Vocational Game – Accessible learning simulation' },
       { icon: Bot, text: 'AI-powered Chatbot for eCommerce (order tracking, product search)' },
-      { icon: Layers3, text: '3D animated personal portfolio (React + Tailwind + Three.js)' }, // Changed Layers3d to Layers3
+      { icon: Layers3, text: '3D animated personal portfolio (React + Tailwind + Three.js)' },
   ];
 
-  // Technical Skills
   const techSkills = [
     { category: 'Languages', skills: ['Python', 'C/C++', 'Dart', 'JavaScript', 'HTML', 'CSS'] },
     { category: 'Frameworks/Tools', skills: ['TensorFlow', 'Flutter', 'Firebase', 'ONNX', 'Arduino IDE', 'React', 'Next.js', 'Tailwind CSS'] },
@@ -62,26 +58,23 @@ export function AboutSection() {
     { category: 'Creative Tools', skills: ['Adobe Premiere Pro', 'Canva', 'After Effects'] },
   ];
 
-
   const mission = "To empower students, creators, and small businesses by delivering innovative, accessible, and intelligent digital solutions — blending technology, creativity, and education.";
   const vision = "To be a leading force in transforming how people learn, grow, and succeed through AI-powered tools, immersive design, and inclusive technology.";
-
 
   return (
     <SectionContainer id="about" className="py-16 md:py-24">
       <div ref={ref} className={cn('space-y-12 scroll-fade-in', inView && 'scroll-fade-in-visible')}>
-        {/* Introduction Section */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 items-center">
           <div className="md:col-span-1 flex justify-center">
-            {/* Avatar Placeholder */}
-            <div className="relative w-48 h-48 md:w-64 md:h-64 rounded-full overflow-hidden border-4 border-primary neon-glow-primary flex items-center justify-center bg-secondary text-muted-foreground">
+            <div className="w-48 h-48 md:w-64 md:h-64 rounded-full overflow-hidden border-4 border-primary neon-glow-primary flex items-center justify-center bg-secondary">
                  <Image src="/salman-avatar.png" 
                     alt="Salman Khan S. - Creative Technologist & AI Developer"
-                    layout="fill"
+                    width={256} // Explicit width, matches md:w-64
+                    height={256} // Explicit height, matches md:h-64
                     objectFit="cover"
                     className="transition-transform duration-500 hover:scale-110"
-                    data-ai-hint="avatar portrait Indian man" // Updated AI hint
-                    priority // Add priority to prioritize loading of this important image
+                    data-ai-hint="avatar portrait Indian man"
+                    priority
                  />
             </div>
           </div>
@@ -101,7 +94,6 @@ export function AboutSection() {
           </div>
         </div>
 
-        {/* Academic Background & Specializations */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
            <Card className="glassmorphism hover:border-primary transition-colors">
              <CardHeader>
@@ -127,10 +119,10 @@ export function AboutSection() {
              </CardHeader>
              <CardContent className="space-y-4">
                <p className="text-muted-foreground text-sm">At the intersection of tech, design, and education, I focus on:</p>
-               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4"> {/* Adjusted for potentially better wrapping on small screens */}
+               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                  {specializations.map((item, index) => (
-                   <div key={index} className="flex items-start gap-3 p-3 bg-secondary/50 rounded-lg hover:bg-secondary transition-colors"> {/* items-start for better alignment with multi-line text */}
-                     <item.icon className="w-6 h-6 text-primary flex-shrink-0 mt-1" /> {/* Added mt-1 for slight alignment adjustment */}
+                   <div key={index} className="flex items-start gap-3 p-3 bg-secondary/50 rounded-lg hover:bg-secondary transition-colors">
+                     <item.icon className="w-6 h-6 text-primary flex-shrink-0 mt-1" />
                      <span className="text-xs font-medium text-foreground/90">{item.text}</span>
                    </div>
                  ))}
@@ -139,7 +131,6 @@ export function AboutSection() {
            </Card>
          </div>
 
-         {/* Yumaris Agency Section */}
          <Card className="glassmorphism hover:border-primary transition-colors">
            <CardHeader>
              <CardTitle className="flex items-center gap-2 text-accent"><Briefcase /> Yumaris Agency</CardTitle>
@@ -158,11 +149,9 @@ export function AboutSection() {
            </CardContent>
          </Card>
 
-
-        {/* Competitions & Key Projects */}
         <Card className="glassmorphism hover:border-accent transition-colors">
             <CardHeader>
-                <CardTitle className="flex items-center gap-2 text-primary"><Award /> Competitions & Key Projects</CardTitle>
+                <CardTitle className="flex items-center gap-2 text-primary"><Award /> Competitions &amp; Key Projects</CardTitle>
             </CardHeader>
             <CardContent>
                 <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3">
@@ -176,8 +165,6 @@ export function AboutSection() {
             </CardContent>
         </Card>
 
-
-        {/* Mission and Vision */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             <Card className="glassmorphism hover:border-primary transition-colors">
                 <CardHeader>
@@ -197,8 +184,6 @@ export function AboutSection() {
             </Card>
         </div>
 
-
-        {/* Technical Skills Section */}
          <Card className="glassmorphism hover:border-primary transition-colors">
            <CardHeader>
              <CardTitle className="flex items-center gap-2 text-accent"><Code /> Technical Skills</CardTitle>
@@ -218,8 +203,6 @@ export function AboutSection() {
               ))}
            </CardContent>
          </Card>
-
       </div>
     </SectionContainer>
   );
-}
