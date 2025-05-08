@@ -41,10 +41,10 @@ const aboutData = {
     icon: GraduationCap,
     degree: "Bachelor of Technology in Information Technology (Pursuing)",
     focusAreas: [
-        "Artificial Intelligence & Machine Learning (Deep Learning, NLP)", 
-        "Human-Computer Interaction (UI/UX Design Principles)", 
-        "Web & Mobile Development (Full-Stack, Cross-Platform)", 
-        "Cybersecurity (Network Security, Ethical Hacking concepts)", 
+        "Artificial Intelligence & Machine Learning (Deep Learning, NLP)",
+        "Human-Computer Interaction (UI/UX Design Principles)",
+        "Web & Mobile Development (Full-Stack, Cross-Platform)",
+        "Cybersecurity (Network Security, Ethical Hacking concepts)",
         "Embedded Systems & IoT (Microcontroller Programming, Sensor Integration)",
         "Data Structures & Algorithms",
         "Database Management Systems"
