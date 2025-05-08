@@ -1,4 +1,3 @@
-
 'use client';
 import React from 'react';
 import Image from 'next/image';
@@ -76,7 +75,7 @@ export function AboutSection() {
           <div className="md:col-span-1 flex justify-center">
             {/* Avatar Placeholder */}
             <div className="relative w-48 h-48 md:w-64 md:h-64 rounded-full overflow-hidden border-4 border-primary neon-glow-primary flex items-center justify-center bg-secondary text-muted-foreground">
-                 <Image src="/salman.png" 
+                 <Image src="/WhatsApp_Image_2025-03-14_at_14.39.16_a19611d5-removebg-preview.png" 
  alt="Salman Khan S. - Creative Technologist & AI Developer"
                     layout="fill"
                     objectFit="cover"
@@ -131,10 +130,10 @@ export function AboutSection() {
              </CardHeader>
              <CardContent className="space-y-4">
                <p className="text-muted-foreground text-sm">At the intersection of tech, design, and education, I focus on:</p>
-               <div className="grid grid-cols-2 gap-4">
+               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4"> {/* Adjusted for potentially better wrapping on small screens */}
                  {specializations.map((item, index) => (
-                   <div key={index} className="flex items-center gap-3 p-3 bg-secondary/50 rounded-lg hover:bg-secondary transition-colors">
-                     <item.icon className="w-6 h-6 text-primary flex-shrink-0" />
+                   <div key={index} className="flex items-start gap-3 p-3 bg-secondary/50 rounded-lg hover:bg-secondary transition-colors"> {/* items-start for better alignment with multi-line text */}
+                     <item.icon className="w-6 h-6 text-primary flex-shrink-0 mt-1" /> {/* Added mt-1 for slight alignment adjustment */}
                      <span className="text-xs font-medium text-foreground/90">{item.text}</span>
                    </div>
                  ))}
@@ -227,4 +226,3 @@ export function AboutSection() {
     </SectionContainer>
   );
 }
-
