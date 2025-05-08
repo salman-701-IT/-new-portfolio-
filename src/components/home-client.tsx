@@ -4,14 +4,14 @@
 import dynamic from 'next/dynamic';
 import React from 'react';
 import { Skeleton } from '@/components/ui/skeleton'; // Import Skeleton for loading state
-import { AboutSection } from '@/components/sections/about-section';
+import { AboutSection } from '@/components/sections/about-section'; // Ensured correct import
 import { SkillsSection } from '@/components/sections/skills-section';
 import { ProjectsSection } from '@/components/sections/projects-section';
 import { ContactSection } from '@/components/sections/contact-section';
 import { Footer } from '@/components/sections/footer';
 import ScrollToTopButton from '@/components/scroll-to-top-button';
 import { cn } from '@/lib/utils'; // Import cn
-import MotionBackground from '@/components/motion-background'; // Import MotionBackground normally
+import MotionBackground from '@/components/motion-background';
 
 
 // Dynamically import HeroSection with a more visually appealing loading state
@@ -51,4 +51,3 @@ export default function HomeClient() {
     </div>
   );
 }
-

@@ -1,208 +1,333 @@
+// src/components/sections/about-section.tsx
 'use client';
-import React from 'react';
+
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Mail, Phone, MapPin, User, Briefcase, Languages, GraduationCap, Zap, BrainCircuit, Fingerprint, Box, Code, Film, Bot, Sparkles, Rocket, Target, Palette, MonitorSmartphone, Lock, Search, BarChart, CheckCircle, Eye, Award, Trophy, Code2, Cpu, Smartphone, Gamepad2, Headset, Lightbulb, Leaf, Video, Laptop2, Layers3, Paintbrush, Megaphone, Shield } from 'lucide-react';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { Mail, Phone, MapPin, User, Briefcase, Languages, GraduationCap, Zap, BrainCircuit, Fingerprint, Box, Code, Film, Bot, Sparkles, Rocket, Target, Palette, MonitorSmartphone, Lock, Search, BarChart, CheckCircle, Eye, Award, Trophy, Code2, Cpu, Smartphone, Gamepad2, Headset, Lightbulb, Leaf, Video, Laptop2, Layers3, Paintbrush, Megaphone, Shield, TrendingUp, ZapIcon, Users, GitBranch, LinkIcon, Settings, Database, Server, Wifi, Bluetooth, Activity, Wand2, BookOpen, Building, Globe } from 'lucide-react';
 import SectionContainer from '../section-container';
 import { useInView } from 'react-intersection-observer';
 import { cn } from '@/lib/utils';
-import { Badge } from '@/components/ui/badge'; // Import Badge
+import { Button } from '@/components/ui/button';
+import { Separator } from '@/components/ui/separator';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion"
+
+
+// Define the structure for content sections
+interface ContentSection {
+  title: string;
+  icon: React.ElementType;
+  items: string[] | { heading: string; points: string[] }[];
+  color?: string; // Optional color for card/icon
+}
+
+
+const aboutData = {
+  personalIntro: {
+    greeting: "Hello there! I'm",
+    name: "Salman Khan S.",
+    tagline: "Creative Technologist, AI Developer, & Founder of Yumaris Agency",
+    location: "Chennai, India",
+    summary: "I specialize in building smart, accessible, and immersive digital experiences that blend cutting-edge technology with creative storytelling — whether it’s through AI-powered platforms, interactive websites, or skill-based learning systems.",
+    profileImage: "/salman.png", // Path to image in public folder
+  },
+  academicBackground: {
+    title: "Academic Background",
+    icon: GraduationCap,
+    degree: "Bachelor of Technology in Information Technology (Pursuing)",
+    focusAreas: ["Artificial Intelligence & Machine Learning", "Human-Computer Interaction", "Web & Mobile Development", "Cybersecurity", "Embedded Systems & IoT"],
+    description: "My academic journey complements my passion for solving real-world problems through automation, AI, and design.",
+  },
+  specializations: [
+    { title: "AI Solutions", icon: BrainCircuit, details: "Liveness detection, recommendation systems, automation", color: "text-sky-400" },
+    { title: "Web Design & Full-Stack Development", icon: Code2, details: "React, Firebase, Tailwind, SEO", color: "text-emerald-400" },
+    { title: "App Development", icon: Smartphone, details: "Flutter, Firebase, cross-platform solutions", color: "text-blue-400" },
+    { title: "Embedded Tech & IoT", icon: Cpu, details: "Arduino, ESP32, Smart Campus systems", color: "text-orange-400" },
+    { title: "Voice-Controlled Tools", icon: Headset, details: "Gamified learning and accessibility", color: "text-purple-400" },
+    { title: "EdTech Platforms", icon: BookOpen, details: "Skill courses with quizzes, certification, dashboards", color: "text-yellow-400" },
+    { title: "Video Editing & Multimedia", icon: Film, details: "Social content, motion graphics, branding videos", color: "text-red-400" },
+  ],
+  yumarisAgency: {
+    title: "Yumaris Agency",
+    icon: Building,
+    tagline: "My tech and creative startup, offering three core services:",
+    services: [
+      { name: "Education", icon: GraduationCap, items: ["Live tutoring for school students", "Recorded skill-learning courses with certification", "AI-based course recommendations"] },
+      { name: "Website Design & Development", icon: Laptop2, items: ["Business and personal websites", "eCommerce and service portals", "Digital branding and automation tools"] },
+      { name: "Video Editing & Multimedia Production", icon: Video, items: ["Event and social media videos", "Animated explainers, intros, and reels", "YouTube content for educators and creators"] },
+    ],
+    footer: "All services are priced affordably and designed to empower students, startups, and small businesses."
+  },
+  competitionsAndProjects: {
+      title: "Competitions & Projects Highlights",
+      icon: Trophy,
+      items: [
+        { name: "Finalist – CodeCode Hackathon", icon: Award },
+        { name: "Participant – IIT Bombay Hackathon", icon: Award },
+        { name: "Face Liveness Detection system for biometric security", icon: Fingerprint },
+        { name: "Green Campus with IoT – Smart automation for colleges", icon: Leaf },
+        { name: "Voice-Controlled Vocational Game – Accessible learning simulation", icon: Gamepad2 },
+        { name: "AI-powered Chatbot for eCommerce", icon: Bot },
+        { name: "3D animated personal portfolio (React + Tailwind + Three.js)", icon: Layers3, projectLink:"/#projects" }, // Example of linking to a project section
+      ]
+  },
+  missionVision: [
+      {
+        title: "Mission",
+        icon: Target,
+        text: "To empower students, creators, and small businesses by delivering innovative, accessible, and intelligent digital solutions — blending technology, creativity, and education.",
+        color: "text-primary"
+      },
+      {
+        title: "Vision",
+        icon: Eye,
+        text: "To be a leading force in transforming how people learn, grow, and succeed through AI-powered tools, immersive design, and inclusive technology.",
+        color: "text-accent"
+      }
+  ],
+  technicalSkills: {
+    title: "Technical Skills Snapshot",
+    icon: Settings,
+    categories: [
+      { name: "Languages", items: ["Python", "C/C++", "Dart", "JavaScript", "HTML", "CSS"], icon: Code },
+      { name: "Frameworks/Tools", items: ["TensorFlow", "Flutter", "Firebase", "ONNX", "Arduino IDE", "React", "Next.js", "Tailwind CSS"], icon: Box },
+      { name: "Platforms", items: ["Web", "Android", "ESP32"], icon: MonitorSmartphone },
+      { name: "Creative Tools", items: ["Adobe Premiere Pro", "Canva", "After Effects"], icon: Palette },
+    ]
+  },
+  contactPrompt: {
+    text: "Interested in collaborating or learning more?",
+    buttonText: "Let's Connect",
+    icon: Mail,
+    email: "salmankhan701.it@gmail.com"
+  }
+};
+
 
 export function AboutSection() {
-  const { ref, inView } = useInView({ 
+  const { ref, inView } = useInView({
     triggerOnce: true,
     threshold: 0.1,
   });
 
-  const personalInfo = {
-    fullName: 'Salman Khan S.',
-    email: 'salmankhan701.it@gmail.com',
-    phone: '+91-9750129532',
-    location: 'Chennai, Tamil Nadu, India',
-    role: 'Creative Technologist | AI Developer | Founder',
-    founder: 'Yumaris Agency',
-    languages: 'English, Tamil, Hindi',
-    education: 'B.Tech Information Technology (Pursuing)',
-  };
+  const [isMounted, setIsMounted] = useState(false);
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
-  const specializations = [
-    { icon: BrainCircuit, text: 'AI Solutions (Liveness detection, recommendation systems, automation)' },
-    { icon: Code2, text: 'Web Design & Full-Stack Development (React, Firebase, Tailwind, SEO)' },
-    { icon: Smartphone, text: 'App Development (Flutter, Firebase, cross-platform solutions)' },
-    { icon: Cpu, text: 'Embedded Tech & IoT (Arduino, ESP32, Smart Campus systems)' },
-    { icon: Headset, text: 'Voice-Controlled Tools (Gamified learning and accessibility)' },
-    { icon: Lightbulb, text: 'EdTech Platforms (Skill courses with quizzes, certification, dashboards)' },
-    { icon: Video, text: 'Video Editing (Social content, motion graphics, branding videos)' },
-  ];
 
-  const yumarisServices = [
-    { title: 'Education', icon: GraduationCap, details: ['Live tutoring for school students', 'Recorded skill-learning courses with certification', 'AI-based course recommendations'] },
-    { title: 'Website Design & Development', icon: Laptop2, details: ['Business and personal websites', 'eCommerce and service portals', 'Digital branding and automation tools'] },
-    { title: 'Video Editing & Multimedia', icon: Film, details: ['Event and social media videos', 'Animated explainers, intros, and reels', 'YouTube content for educators and creators'] },
-  ];
+  if (!isMounted) {
+    // You can return a placeholder/skeleton here if needed
+    return (
+        <SectionContainer id="about" className="py-16 md:py-24">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
+                 <div className="md:col-span-1 flex justify-center">
+                     <div className="relative w-48 h-48 md:w-64 md:h-64 rounded-full overflow-hidden border-4 border-primary neon-glow-primary flex items-center justify-center bg-secondary text-muted-foreground animate-pulse">
+                        <User className="w-24 h-24 text-primary/50" />
+                    </div>
+                 </div>
+                <div className="md:col-span-2 space-y-4">
+                    <div className="h-8 bg-muted rounded w-3/4 animate-pulse"></div>
+                    <div className="h-6 bg-muted rounded w-1/2 animate-pulse"></div>
+                    <div className="h-4 bg-muted rounded w-full animate-pulse"></div>
+                    <div className="h-4 bg-muted rounded w-5/6 animate-pulse"></div>
+                </div>
+            </div>
+        </SectionContainer>
+    );
+  }
 
-  const competitionsProjects = [
-      { icon: Trophy, text: 'Finalist – CodeCode Hackathon' },
-      { icon: Award, text: 'Participant – IIT Bombay Hackathon' },
-      { icon: Fingerprint, text: 'Face Liveness Detection system for biometric security' },
-      { icon: Leaf, text: 'Green Campus with IoT – Smart automation for colleges' },
-      { icon: Gamepad2, text: 'Voice-Controlled Vocational Game – Accessible learning simulation' },
-      { icon: Bot, text: 'AI-powered Chatbot for eCommerce (order tracking, product search)' },
-      { icon: Layers3, text: '3D animated personal portfolio (React + Tailwind + Three.js)' },
-  ];
-
-  const techSkills = [
-    { category: 'Languages', skills: ['Python', 'C/C++', 'Dart', 'JavaScript', 'HTML', 'CSS'] },
-    { category: 'Frameworks/Tools', skills: ['TensorFlow', 'Flutter', 'Firebase', 'ONNX', 'Arduino IDE', 'React', 'Next.js', 'Tailwind CSS'] },
-    { category: 'Platforms', skills: ['Web', 'Android', 'ESP32'] },
-    { category: 'Creative Tools', skills: ['Adobe Premiere Pro', 'Canva', 'After Effects'] },
-  ];
-
-  const mission = "To empower students, creators, and small businesses by delivering innovative, accessible, and intelligent digital solutions — blending technology, creativity, and education.";
-  const vision = "To be a leading force in transforming how people learn, grow, and succeed through AI-powered tools, immersive design, and inclusive technology.";
 
   return (
     <SectionContainer id="about" className="py-16 md:py-24">
-      <div ref={ref} className={cn('space-y-12 scroll-fade-in', inView && 'scroll-fade-in-visible')}>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 items-center">
-          <div className="md:col-span-1 flex justify-center">
-            <div className="w-48 h-48 md:w-64 md:h-64 rounded-full overflow-hidden border-4 border-primary neon-glow-primary flex items-center justify-center bg-secondary">
-                 <Image src="/salman.png" 
-                    alt="Salman Khan S. - Creative Technologist & AI Developer"
-                    width={256} // Explicit width, matches md:w-64
-                    height={256} // Explicit height, matches md:h-64
-                    objectFit="cover"
-                    className="transition-transform duration-500 hover:scale-110"
-                    data-ai-hint="avatar portrait Indian man"
-                    priority
-                 />
+      <div ref={ref} className={cn('transition-all duration-1000 ease-out', inView ? 'opacity-100 translate-y-0 blur-0' : 'opacity-0 translate-y-10 blur-sm')}>
+        {/* Main Intro Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 items-center mb-16">
+          <div className="lg:col-span-1 flex flex-col items-center text-center lg:items-start lg:text-left group">
+            <div className="relative w-64 h-64 md:w-72 md:h-72 rounded-full overflow-hidden border-4 border-primary neon-glow-primary shadow-2xl mb-6 transform transition-all duration-500 group-hover:scale-105">
+              <Image
+                src={aboutData.personalIntro.profileImage}
+                alt={`${aboutData.personalIntro.name} - ${aboutData.personalIntro.tagline}`}
+                width={300}
+                height={300}
+                className="rounded-full object-cover aspect-square"
+                priority
+                data-ai-hint="professional portrait"
+              />
+               <div className="absolute inset-0 rounded-full bg-gradient-to-br from-primary/10 via-transparent to-accent/10 opacity-0 group-hover:opacity-50 transition-opacity duration-500"/>
             </div>
+            <p className="text-lg text-muted-foreground">{aboutData.personalIntro.greeting}</p>
+            <h1 className="text-4xl md:text-5xl font-bold text-primary text-glow-primary mb-1">{aboutData.personalIntro.name}</h1>
+            <p className="text-xl text-accent font-medium mb-2">{aboutData.personalIntro.tagline}</p>
+            <div className="flex items-center text-muted-foreground mb-4">
+              <MapPin className="w-4 h-4 mr-2 text-primary" />
+              {aboutData.personalIntro.location}
+            </div>
+            <p className="text-foreground/80 leading-relaxed">{aboutData.personalIntro.summary}</p>
           </div>
-          <div className="md:col-span-2 space-y-4 text-center md:text-left">
-             <h2 className="text-3xl md:text-4xl font-bold text-glow-primary flex items-center justify-center md:justify-start gap-2">
-                 <Rocket className="w-8 h-8" /> Meet Salman Khan S.
-             </h2>
-             <p className="text-lg md:text-xl text-foreground/80 font-semibold">
-               Creative Technologist, AI Developer, Founder of <span className="text-accent">Yumaris Agency</span>
-             </p>
-             <p className="text-foreground/90">
-                Based in Chennai, India, I build smart, accessible, and immersive digital experiences by blending cutting-edge technology with creative storytelling. I specialize in AI-powered platforms, interactive websites, and skill-based learning systems designed to empower businesses, students, and creators.
-            </p>
-             <p className="text-muted-foreground">Connect: <a href={`mailto:${personalInfo.email}`} className="text-accent hover:underline">{personalInfo.email}</a> | Call: <a href={`tel:${personalInfo.phone}`} className="text-accent hover:underline">{personalInfo.phone}</a></p>
-             <p className="flex items-center gap-2 justify-center md:justify-start text-muted-foreground"><MapPin size={16} /> {personalInfo.location}</p>
-              <p className="flex items-center gap-2 justify-center md:justify-start text-muted-foreground"><Languages size={16} /> {personalInfo.languages}</p>
+
+          {/* Mission and Vision Cards */}
+          <div className="lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-8">
+            {aboutData.missionVision.map((item, index) => (
+              <Card key={index} className="glassmorphism hover:border-primary/70 hover:shadow-xl transition-all duration-300 group flex flex-col">
+                <CardHeader className="items-center text-center">
+                  <item.icon className={`w-12 h-12 mb-3 ${item.color} transition-transform duration-300 group-hover:scale-110`} />
+                  <CardTitle className={`text-2xl ${item.color} text-glow`}>{item.title}</CardTitle>
+                </CardHeader>
+                <CardContent className="text-center text-foreground/80 flex-grow">
+                  <p>{item.text}</p>
+                </CardContent>
+              </Card>
+            ))}
           </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-           <Card className="glassmorphism hover:border-primary transition-colors">
-             <CardHeader>
-               <CardTitle className="flex items-center gap-2 text-primary"><GraduationCap /> Academic Background</CardTitle>
-             </CardHeader>
-             <CardContent className="space-y-3 text-sm">
-               <p className="font-semibold">{personalInfo.education}</p>
-               <p className="text-foreground/90">Strong foundation in:</p>
-               <ul className="list-disc list-inside text-muted-foreground space-y-1">
-                  <li>Artificial Intelligence & Machine Learning</li>
-                  <li>Human-Computer Interaction</li>
-                  <li>Web & Mobile Development</li>
-                  <li>Cybersecurity</li>
-                  <li>Embedded Systems & IoT</li>
-               </ul>
-                <p className="text-foreground/90 mt-2">My academic journey complements my passion for solving real-world problems through automation, AI, and design.</p>
-             </CardContent>
-           </Card>
+        {/* Accordion for other sections */}
+        <Accordion type="single" collapsible className="w-full space-y-6">
+          {/* Academic Background */}
+          <AccordionItem value="academic-background" className="glassmorphism border-none rounded-lg overflow-hidden hover:border-accent/50 transition-shadow hover:shadow-lg">
+            <AccordionTrigger className="p-6 text-xl font-semibold hover:no-underline text-accent hover:bg-accent/10 transition-colors">
+              <div className="flex items-center">
+                <aboutData.academicBackground.icon className="w-6 h-6 mr-3 text-accent" />
+                {aboutData.academicBackground.title}
+              </div>
+            </AccordionTrigger>
+            <AccordionContent className="p-6 pt-0">
+              <p className="text-lg font-medium text-foreground mb-2">{aboutData.academicBackground.degree}</p>
+              <ul className="list-disc list-inside space-y-1 text-foreground/80 mb-3">
+                {aboutData.academicBackground.focusAreas.map((area, i) => <li key={i}>{area}</li>)}
+              </ul>
+              <p className="text-foreground/80">{aboutData.academicBackground.description}</p>
+            </AccordionContent>
+          </AccordionItem>
 
-           <Card className="glassmorphism hover:border-accent transition-colors">
-             <CardHeader>
-               <CardTitle className="flex items-center gap-2 text-accent"><Zap /> What I Specialize In</CardTitle>
-             </CardHeader>
-             <CardContent className="space-y-4">
-               <p className="text-muted-foreground text-sm">At the intersection of tech, design, and education, I focus on:</p>
-               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                 {specializations.map((item, index) => (
-                   <div key={index} className="flex items-start gap-3 p-3 bg-secondary/50 rounded-lg hover:bg-secondary transition-colors">
-                     <item.icon className="w-6 h-6 text-primary flex-shrink-0 mt-1" />
-                     <span className="text-xs font-medium text-foreground/90">{item.text}</span>
-                   </div>
-                 ))}
-               </div>
-             </CardContent>
-           </Card>
-         </div>
+          {/* Specializations */}
+          <AccordionItem value="specializations" className="glassmorphism border-none rounded-lg overflow-hidden hover:border-primary/50 transition-shadow hover:shadow-lg">
+            <AccordionTrigger className="p-6 text-xl font-semibold hover:no-underline text-primary hover:bg-primary/10 transition-colors">
+               <div className="flex items-center">
+                <Rocket className="w-6 h-6 mr-3 text-primary" /> {/* Generic Icon for Trigger */}
+                What I Specialize In
+              </div>
+            </AccordionTrigger>
+            <AccordionContent className="p-6 pt-0">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {aboutData.specializations.map((spec, i) => (
+                  <Card key={i} className="bg-card/50 border-border/50 group hover:shadow-md transition-shadow">
+                    <CardHeader className="flex flex-row items-center space-x-3 pb-2">
+                      <spec.icon className={`w-6 h-6 ${spec.color || 'text-primary'}`} />
+                      <CardTitle className="text-md font-medium">{spec.title}</CardTitle>
+                    </CardHeader>
+                    <CardContent className="text-sm text-muted-foreground">
+                      {spec.details}
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </AccordionContent>
+          </AccordionItem>
 
-         <Card className="glassmorphism hover:border-primary transition-colors">
-           <CardHeader>
-             <CardTitle className="flex items-center gap-2 text-accent"><Briefcase /> Yumaris Agency</CardTitle>
-              <p className="text-muted-foreground pt-1">My tech and creative startup offering core services in Education, Web Development, and Multimedia Production. All services are priced affordably and designed to empower students, startups, and small businesses.</p>
-           </CardHeader>
-           <CardContent className="grid grid-cols-1 md:grid-cols-3 gap-6">
-             {yumarisServices.map((service, index) => (
-               <div key={index} className="flex flex-col items-center text-center p-4 bg-secondary/50 rounded-lg hover:bg-secondary transition-colors">
-                 <service.icon className="w-8 h-8 mb-3 text-primary" />
-                 <h4 className="font-semibold mb-2">{service.title}</h4>
-                 <ul className="list-disc list-inside text-xs text-muted-foreground space-y-1 text-left pl-4">
-                     {service.details.map((detail, idx) => <li key={idx}>{detail}</li>)}
-                 </ul>
-               </div>
-             ))}
-           </CardContent>
-         </Card>
+          {/* Yumaris Agency */}
+          <AccordionItem value="yumaris-agency" className="glassmorphism border-none rounded-lg overflow-hidden hover:border-accent/50 transition-shadow hover:shadow-lg">
+            <AccordionTrigger className="p-6 text-xl font-semibold hover:no-underline text-accent hover:bg-accent/10 transition-colors">
+              <div className="flex items-center">
+                <aboutData.yumarisAgency.icon className="w-6 h-6 mr-3 text-accent" />
+                {aboutData.yumarisAgency.title}
+              </div>
+            </AccordionTrigger>
+            <AccordionContent className="p-6 pt-0">
+              <p className="text-lg text-muted-foreground mb-4">{aboutData.yumarisAgency.tagline}</p>
+              <div className="space-y-6">
+                {aboutData.yumarisAgency.services.map((service, i) => (
+                  <div key={i}>
+                    <h4 className="flex items-center text-md font-semibold text-foreground mb-2">
+                      <service.icon className="w-5 h-5 mr-2 text-primary" />
+                      {service.name}
+                    </h4>
+                    <ul className="list-disc list-inside space-y-1 text-foreground/80 pl-2">
+                      {service.items.map((item, j) => <li key={j}>{item}</li>)}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+              <p className="mt-6 text-sm text-muted-foreground italic">{aboutData.yumarisAgency.footer}</p>
+            </AccordionContent>
+          </AccordionItem>
 
-        <Card className="glassmorphism hover:border-accent transition-colors">
-            <CardHeader>
-                <CardTitle className="flex items-center gap-2 text-primary"><Award /> Competitions &amp; Key Projects</CardTitle>
-            </CardHeader>
-            <CardContent>
-                <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3">
-                    {competitionsProjects.map((item, index) => (
-                        <li key={index} className="flex items-center gap-3 text-foreground/90 text-sm">
-                            <item.icon className="w-4 h-4 text-accent flex-shrink-0" />
-                            <span>{item.text}</span>
+          {/* Competitions & Projects */}
+           <AccordionItem value="competitions-projects" className="glassmorphism border-none rounded-lg overflow-hidden hover:border-primary/50 transition-shadow hover:shadow-lg">
+            <AccordionTrigger className="p-6 text-xl font-semibold hover:no-underline text-primary hover:bg-primary/10 transition-colors">
+              <div className="flex items-center">
+                 <aboutData.competitionsAndProjects.icon className="w-6 h-6 mr-3 text-primary" />
+                {aboutData.competitionsAndProjects.title}
+              </div>
+            </AccordionTrigger>
+            <AccordionContent className="p-6 pt-0">
+                <ul className="space-y-3">
+                    {aboutData.competitionsAndProjects.items.map((item, i) => (
+                        <li key={i} className="flex items-center text-foreground/90 group">
+                           <item.icon className="w-5 h-5 mr-3 text-accent flex-shrink-0 group-hover:scale-110 transition-transform"/>
+                           <span>
+                               {item.name}
+                               {item.projectLink && (
+                                   <a href={item.projectLink} className="ml-2 text-primary hover:underline text-sm">(View Project)</a>
+                               )}
+                           </span>
                         </li>
                     ))}
                 </ul>
-            </CardContent>
-        </Card>
+            </AccordionContent>
+          </AccordionItem>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            <Card className="glassmorphism hover:border-primary transition-colors">
-                <CardHeader>
-                <CardTitle className="flex items-center gap-2 text-primary"><Target /> Mission</CardTitle>
-                </CardHeader>
-                <CardContent>
-                <p className="text-foreground/90">{mission}</p>
-                </CardContent>
-            </Card>
-             <Card className="glassmorphism hover:border-accent transition-colors">
-                <CardHeader>
-                <CardTitle className="flex items-center gap-2 text-accent"><Eye /> Vision</CardTitle>
-                </CardHeader>
-                <CardContent>
-                <p className="text-foreground/90">{vision}</p>
-                </CardContent>
-            </Card>
-        </div>
-
-         <Card className="glassmorphism hover:border-primary transition-colors">
-           <CardHeader>
-             <CardTitle className="flex items-center gap-2 text-accent"><Code /> Technical Skills</CardTitle>
-           </CardHeader>
-           <CardContent className="space-y-4">
-              {techSkills.map((group, index) => (
-                <div key={index}>
-                    <h4 className="font-semibold mb-2 text-primary/90">{group.category}</h4>
+          {/* Technical Skills */}
+           <AccordionItem value="technical-skills" className="glassmorphism border-none rounded-lg overflow-hidden hover:border-accent/50 transition-shadow hover:shadow-lg">
+            <AccordionTrigger className="p-6 text-xl font-semibold hover:no-underline text-accent hover:bg-accent/10 transition-colors">
+              <div className="flex items-center">
+                <aboutData.technicalSkills.icon className="w-6 h-6 mr-3 text-accent" />
+                 {aboutData.technicalSkills.title}
+              </div>
+            </AccordionTrigger>
+            <AccordionContent className="p-6 pt-0">
+              <div className="space-y-4">
+                {aboutData.technicalSkills.categories.map((category, i) => (
+                  <div key={i}>
+                    <h4 className="flex items-center text-md font-semibold text-foreground mb-2">
+                        <category.icon className="w-5 h-5 mr-2 text-primary" />
+                        {category.name}
+                    </h4>
                     <div className="flex flex-wrap gap-2">
-                        {group.skills.map((skill, skillIndex) => (
-                             <Badge key={skillIndex} variant="secondary" className="text-xs font-normal">
-                                {skill}
-                            </Badge>
-                        ))}
+                      {category.items.map((skill, j) => (
+                        <span key={j} className="px-3 py-1 text-xs font-medium bg-secondary rounded-full text-muted-foreground">{skill}</span>
+                      ))}
                     </div>
-                </div>
-              ))}
-           </CardContent>
-         </Card>
+                  </div>
+                ))}
+              </div>
+            </AccordionContent>
+          </AccordionItem>
+        </Accordion>
+
+        {/* Contact Prompt */}
+        <Card className="mt-16 glassmorphism text-center p-8 md:p-12 border-primary neon-glow-primary">
+          <CardHeader>
+            <div className="flex justify-center mb-4">
+                <aboutData.contactPrompt.icon className="w-12 h-12 text-primary text-glow-primary" />
+            </div>
+            <CardTitle className="text-2xl md:text-3xl font-bold text-primary">{aboutData.contactPrompt.text}</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <Button size="lg" asChild className="group neon-glow hover:shadow-[0_0_25px_theme(colors.primary),0_0_40px_theme(colors.primary)] transition-shadow duration-300">
+              <a href={`mailto:${aboutData.contactPrompt.email}?subject=Project Inquiry from Portfolio`}>
+                {aboutData.contactPrompt.buttonText}
+                <Sparkles className="ml-2 h-5 w-5 transition-transform group-hover:scale-125 group-hover:animate-pulse" />
+              </a>
+            </Button>
+          </CardContent>
+        </Card>
       </div>
     </SectionContainer>
   );
